@@ -1,0 +1,63 @@
+$(document).ready(function () {
+    $('.social-shared').click(function () {
+        var data = $(this).attr('data-shared');
+
+        console.log(data);
+        if(data == 'facebook'){
+            window.open('http://www.facebook.com/share.php?u=' + window.location.href, 'sharer', 'width=548,height=325');
+        } else if(data == 'twitter'){
+            window.open('http://twitter.com/intent/tweet?status=' + window.location.href, 'sharer', 'width=548,height=325');
+        } else if(data == 'google'){
+            window.open('https://plus.google.com/share?' + window.location.href, 'sharer', 'scrollbars=1,width=548,height=325');
+        }
+        return false;
+    });
+
+
+    $('#back_to_top').click(function () {
+        $('body,html').animate({scrollTop: 0}, 800);
+        return false;
+    });
+
+    /* hide-show ipad and mobile menu */
+    $('#menu_icon').on('click', function (e) {
+        $('#menu ul').slideToggle();
+        $('#search').hide();
+        return false;
+    });
+
+    $('#menu_search').on('click', function (e) {
+        $('#search').slideToggle();
+        $('#menu ul').hide();
+        return false;
+    });
+
+    $('.fa-filter').on('click', function (e) {
+        $('.filter').slideToggle();
+        return false;
+    });
+
+	$('.choose-this-server').click(function() {
+	  var tab_id = $(this).attr('data-tab');
+	  $('article.player').removeClass('current');
+	  $('.choose-this-server').removeClass('current');
+	  $(this).addClass('current');
+	  $('#' + tab_id).addClass('current');
+	  $('article.player iframe').remove();
+	  if (tab_id == 'server-f2') {
+	    $('#server-f2').append('<iframe src="' + link_server_f2 + '" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" marginheight="0" marginwidth="0" scrolling="no" frameborder="0" target="_blank"></iframe>');
+	  } else if (tab_id == 'server-f1') {
+	    $('#server-f1').html('<iframe src="' + link_server_f1 + '" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" marginheight="0" marginwidth="0" scrolling="no" frameborder="0" target="_blank"></iframe>'); 
+	  } else if (tab_id == 'mp4upload') {
+	    $('#mp4upload').html('<iframe src="' + link_server_mp4upload + '" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" marginheight="0" marginwidth="0" scrolling="no" frameborder="0" target="_blank"></iframe>');
+	  } else if (tab_id == 'openload') {
+	    $('#openload').html('<iframe src="' + link_server_openload + '" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" marginheight="0" marginwidth="0" scrolling="no" frameborder="0" target="_blank"></iframe>');
+	  } else if (tab_id == 'yourupload') {
+	    $('#yourupload').html('<iframe src="' + link_server_yourupload + '" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" marginheight="0" marginwidth="0" scrolling="no" frameborder="0" target="_blank"></iframe>');
+	  } else if (tab_id == 'estream') {
+	    $('#estream').html('<iframe src="' + link_server_estream + '" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" marginheight="0" marginwidth="0" scrolling="no" frameborder="0" target="_blank"></iframe>');
+	  } else if (tab_id == 'bestream') {
+	    $('#bestream').html('<iframe src="' + link_server_bestream + '" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" marginheight="0" marginwidth="0" scrolling="no" frameborder="0" target="_blank"></iframe>');
+	  }
+	});
+});

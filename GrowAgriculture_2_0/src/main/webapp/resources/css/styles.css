@@ -1,0 +1,49 @@
+.icon-input-size {
+height: 21px !important;
+}
+
+.verticalLine {
+  border-left: thin solid #FFFFFF !important;
+    width: 0;
+    position: absolute;
+    top: 84px;
+    bottom: -74px;
+    left: 443px;
+}
+
+.login-text {
+   float: left;
+   margin: 30px 0 30px 47px !important;
+}
+
+.buyer-login-page {
+	float: right;
+    margin: -208px 0px 0px 0px;
+}
+
+.buyer-login-input {
+   max-width: 251px !important;
+}
+
+.buyer-login-text {
+	float: right;
+	margin: 32px 57px 32px 34px !important;
+}
+
+.buyer-only-show {
+      margin: -13px -283px 1px 313px !important;
+}
+
+.buyer-only-login-text {
+	margin: 32px 626px 32px 34px !important;
+}
+
+.farmer-only-display {
+margin: 0 -248px 0 299px !important;
+
+}
+
+.login-register-button-before {
+	margin: 593px -15px 0 0 !important;
+    padding: 14px 40px !important;
+}

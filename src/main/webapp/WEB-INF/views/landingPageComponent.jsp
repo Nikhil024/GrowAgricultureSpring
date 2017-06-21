@@ -6,7 +6,7 @@
 
 <head>
   <jsp:include page="HeaderCss.jsp"></jsp:include>  
-    <title>GrowAgriculture</title>
+    <title>${project_name}</title>
 </head>
 
 <body class="index-page" style="overflow:hidden;">
@@ -20,7 +20,7 @@
                     <span class="navbar-toggler-bar bar3"></span>
                 </button>
                 <a class="navbar-brand" href="" rel="tooltip" title="Designed and Coded by Nikhil" data-placement="bottom" target="_blank">
-                    Grow Agriculture
+                    ${project_name}
                 </a>
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
@@ -62,13 +62,13 @@
     <!-- End Navbar -->
     <div class="wrapper">
         <div class="page-header clear-filter" filter-color="orange">
-            <div class="page-header-image" data-parallax="true" style="background-image: url('<spring:url value="/resources/img/header.jpg"/>');">
+            <div class="page-header-image" data-parallax="true" style="background-image: url('<spring:url value="/resources/img/${landing_page_background_image_name}"/>');">
             </div>
             <div class="container">
                 <div class="content-center brand">
-                    <img class="n-logo" src="<spring:url value="/resources/img/now-logo.png"/>" alt="">
-                    <h1 class="h1-seo">Grow Agriculture.</h1>
-                    <h3>A Dedication to the Farmers of INDIA.</h3>
+                    <img class="n-logo" src="<spring:url value="/resources/img/${landing_page_logo_image_name}"/>" alt="">
+                    <h1 class="h1-seo">${project_name}.</h1>
+                    <h3>${landing_page_description}</h3>
                 </div>
                 <%-- <h6 class="category category-absolute">Designed by
                     <a href="http://invisionapp.com/" target="_blank">

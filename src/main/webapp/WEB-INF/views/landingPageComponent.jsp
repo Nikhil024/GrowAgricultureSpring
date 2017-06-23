@@ -28,13 +28,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<spring:url value="/login"/>">
                             <i class="now-ui-icons"><img alt="login" src="<spring:url value="/resources/icons/login.png"/>"/></i>
-                            <p>Login</p>
+                            <p>${login}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<spring:url value="/aboutUs"/>">  <!-- target="_blank" -->
                             <i class="now-ui-icons"><img alt="aboutus" src="<spring:url value="/resources/icons/aboutus.png"/>"/></i>
-                            <p>About Us</p>
+                            <p>${aboutus}</p>
                         </a>
                     </li>
 <!--                     <li class="nav-item">

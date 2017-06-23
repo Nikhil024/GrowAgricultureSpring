@@ -1,7 +1,6 @@
 package com.grow.agriculture;
 
 
-import javax.security.auth.login.Configuration;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.slf4j.Logger;
@@ -29,17 +28,19 @@ public class LandingPageComponentController {
 	public static final String LANDING_PAGE_LOGO_IMAGE_NAME = "landing_page_logo_image_name";
 	public static final String LANDING_PAGE_BACKGROUND_IMAGE_NAME = "landing_page_background_image_name";
 	public static final String LANDING_PAGE_DESCRIPTION = "landing_page_description";
-	
+	public static final String LANDING_PAGE_LOGIN_TEXT = "login";
+	public static final String LANDING_PAGE_ABOUTUS = "aboutus";
 	
 	private static final Logger logger = LoggerFactory.getLogger(LandingPageComponentController.class);
 	
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String landingPageMethod(Model model) throws ConfigurationException{
-		
 		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
 		model.addAttribute(LANDING_PAGE_LOGO_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LANDING_PAGE_LOGO_IMAGE_NAME));
 		model.addAttribute(LANDING_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LANDING_PAGE_BACKGROUND_IMAGE_NAME));
 		model.addAttribute(LANDING_PAGE_DESCRIPTION,configurationService.getConfiguration().getString(GrowAgricultureConstants.LANDING_PAGE_DESCRIPTION));
+		model.addAttribute(LANDING_PAGE_LOGIN_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_TITLE_NAME));
+		model.addAttribute(LANDING_PAGE_ABOUTUS,configurationService.getConfiguration().getString(GrowAgricultureConstants.ABOUTUS_TITLE_NAME));
 		return VIEW_NAME;
 	}
 }

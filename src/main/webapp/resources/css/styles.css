@@ -6,44 +6,31 @@ height: 21px !important;
   border-left: thin solid #FFFFFF !important;
     width: 0;
     position: absolute;
-    top: 84px;
-    bottom: -74px;
-    left: 443px;
+    bottom: 0px;
+    left: 453px;
+    margin: -187px 0px 0px 0px !important;
+    padding: 98px 0px 182px 0px !important;
+}
+
+.farmer {
+margin: 502px -318px 92px 318px !important;
 }
 
 .login-text {
-   float: left;
-   margin: 30px 0 30px 47px !important;
+	margin: 24px 4px 32px 55px !important;
+ 	float: left;
 }
 
-.buyer-login-page {
-	float: right;
-    margin: -208px 0px 0px 0px;
+
+.login-button-position {
+	    margin: -55px 21px 506px 57px !important;
 }
 
-.buyer-login-input {
-   max-width: 251px !important;
+.register-text {
+	margin: 24px 4px 32px 64px !important;
+    float: left;
 }
 
-.buyer-login-text {
-	float: right;
-	margin: 32px 57px 32px 34px !important;
-}
-
-.buyer-only-show {
-      margin: -13px -283px 1px 313px !important;
-}
-
-.buyer-only-login-text {
-	margin: 32px 626px 32px 34px !important;
-}
-
-.farmer-only-display {
-margin: 0 -248px 0 299px !important;
-
-}
-
-.login-register-button-before {
-	margin: 593px -15px 0 0 !important;
-    padding: 14px 40px !important;
+.register-button-position {
+	    margin: -55px 21px 506px 57px !important;
 }

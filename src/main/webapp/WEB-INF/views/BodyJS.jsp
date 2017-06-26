@@ -26,20 +26,5 @@
                 scrollTop: $('.section-download').offset().top
             }, 1000);
         }
-    }
-    
-    $( ".farmer" ).click(function() {
-  	  $(".buyer").hide();
-  	 $(".verticalLine").hide();
-  	 $(".farmer").addClass("farmer-only-display");
-  	});
-    
-    $( ".buyer" ).click(function() {
-    	  $(".farmer").hide();
-    	  $(".buyer").removeClass("buyer-login-page").addClass("buyer-only-show");
-    	  $(".col-lg-19").removeClass("col-lg-19").addClass("col-sm-4");
-    	  $(".buyer-login-text").removeClass("buyer-login-text").addClass("buyer-only-login-text");
-    	  $(".verticalLine").hide();
-    	});
-
+    }    
 </script>

@@ -1,4 +1,4 @@
-package com.grow.agriculture;
+package com.grow.agriculture.controllers;
 
 
 
@@ -30,6 +30,7 @@ public class LandingPageComponentController {
 	public static final String LANDING_PAGE_DESCRIPTION = "landing_page_description";
 	public static final String LANDING_PAGE_LOGIN_TEXT = "login";
 	public static final String LANDING_PAGE_ABOUTUS = "aboutus";
+	public static final String REGISTER_PAGE_REGISTER_TEXT = "register";
 	
 	private static final Logger logger = LoggerFactory.getLogger(LandingPageComponentController.class);
 	
@@ -41,6 +42,7 @@ public class LandingPageComponentController {
 		model.addAttribute(LANDING_PAGE_DESCRIPTION,configurationService.getConfiguration().getString(GrowAgricultureConstants.LANDING_PAGE_DESCRIPTION));
 		model.addAttribute(LANDING_PAGE_LOGIN_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_TITLE_NAME));
 		model.addAttribute(LANDING_PAGE_ABOUTUS,configurationService.getConfiguration().getString(GrowAgricultureConstants.ABOUTUS_TITLE_NAME));
+		model.addAttribute(REGISTER_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME));
 		return VIEW_NAME;
 	}
 }

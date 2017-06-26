@@ -31,6 +31,12 @@
                             <p>${login}</p>
                         </a>
                     </li>
+                    <li class="nav-item"><a class="nav-link"
+						href="<spring:url value="/register"/>"> <i
+							class="now-ui-icons"><img alt="register"
+								src="<spring:url value="/resources/icons/register.png"/>" /></i>
+							<p>${register}</p>
+					</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="<spring:url value="/aboutUs"/>">  <!-- target="_blank" -->
                             <i class="now-ui-icons"><img alt="aboutus" src="<spring:url value="/resources/icons/aboutus.png"/>"/></i>

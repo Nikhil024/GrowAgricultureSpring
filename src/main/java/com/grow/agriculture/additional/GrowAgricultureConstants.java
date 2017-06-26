@@ -17,4 +17,6 @@ public class GrowAgricultureConstants {
 	public static final String BUYERLOGIN_TITLE_NAME = "growAgriculture.buyerLogin.title.name";
 	public static final String FARMERLOGIN_TITILE_NAME = "growAgriculture.farmerLogin.title.name";
 	public static final String LOGINANDREGISTER_INPUT_PLACEHOLDER_TEXT = "growAgriculture.loginAndRegister.input.placeholder.text";
+	public static final String INVALID_PHONENUMBER_ENTERED = "growAgriculture.invalid.phonenumber.input.message";
+	public static final String INVALID_PASSWORD_ENTERED = "growAgriculture.invalid.password.input.message";
 }

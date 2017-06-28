@@ -19,4 +19,7 @@ public class GrowAgricultureConstants {
 	public static final String LOGINANDREGISTER_INPUT_PLACEHOLDER_TEXT = "growAgriculture.loginAndRegister.input.placeholder.text";
 	public static final String INVALID_PHONENUMBER_ENTERED = "growAgriculture.invalid.phonenumber.input.message";
 	public static final String INVALID_PASSWORD_ENTERED = "growAgriculture.invalid.password.input.message";
+	public static final String OTP_PLACEHOLDER_NAME = "growAgriculture.otp.input.placeholder.text";
+	public static final String OTP_TITLE_NAME = "growAgriculture.otp.title.name";
+	public static final String OTP_BUTTON_NAME = "growAgriculture.otp.button.name";
 }

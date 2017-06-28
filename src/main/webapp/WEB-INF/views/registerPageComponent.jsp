@@ -96,11 +96,14 @@
                     <h1 class="h1-seo">Grow Agriculture.</h1>
                     <h3>A Dedication to the Farmers of INDIA.</h3> --%>
 					<spring:url value="/" var="formUrl" />
+					
 					<form:form action="${formUrl}register/${form_name}" method="POST"
 						modelAttribute="registerFormBean">
 						<h1 class="h1-seo">${register}</h1>
 						<div class="farmer">
 							<h3 class="register-text">${user_register}</h3>
+							${form_name}
+							<c:if test="${empty showOTPSection}">
 							<div class="col-sm-4">
 								<div class="input-group form-group-no-border">
 									<span class="input-group-addon"> <i class=""><img
@@ -126,6 +129,22 @@
 								<span class="badge badge-danger"><form:errors
 										path="password" /></span>
 							</div>
+							</c:if>
+							<c:if test="${showOTPSection}">
+							<div class="col-sm-4">
+								<div class="input-group form-group-no-border">
+									<span class="input-group-addon"> <i class=""><img
+											class="icon-input-size" alt=""
+											src="<spring:url value="/resources/icons/pin.png"/>"></i>
+									</span>
+									<form:input path="OTP" cssClass="form-control"
+										placeholder="${register_placeholder_text}" value="" />
+
+								</div>
+								<span class="badge badge-danger"><form:errors
+										path="OTP" /></span>
+							</div>
+							</c:if>
 						</div>
 						<input type="submit"
 							class="register-button-position btn btn-primary btn-simple"

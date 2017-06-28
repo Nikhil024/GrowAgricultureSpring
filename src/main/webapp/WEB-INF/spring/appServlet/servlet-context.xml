@@ -23,6 +23,7 @@
 	</beans:bean>
 	
 	<beans:bean id="jsonReadService" class="com.grow.agriculture.serviceImpl.JsonReaderServiceImpl"/>
+	<beans:bean id="registerFormBean" class="com.grow.agriculture.beans.RegisterFormBean"/>
 	<beans:bean id="configurationService" class="com.grow.agriculture.serviceImpl.ConfigurationServiceImpl"/>
 	
 	

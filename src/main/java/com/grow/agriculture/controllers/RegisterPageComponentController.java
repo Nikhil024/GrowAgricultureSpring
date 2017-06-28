@@ -21,6 +21,7 @@ import com.grow.agriculture.additional.GrowAgricultureConstants;
 import com.grow.agriculture.beans.RegisterFormBean;
 import com.grow.agriculture.form.validators.RegisterValidator;
 import com.grow.agriculture.service.ConfigurationService;
+import com.sun.org.glassfish.gmbal.ManagedAttribute;
 
 @Controller
 @RequestMapping("/register")
@@ -31,9 +32,10 @@ public class RegisterPageComponentController {
 	/*@Autowired
 	JsonReaderService jsonReadService;*/
 
+	
 	@Autowired
 	ConfigurationService configurationService;
-
+	
 	public static final String VIEW_NAME = "registerPageComponent";
 	private static final String PROJECT_NAME = "project_name";
 	private static final String REGISTER_PAGE_REGISTER_TEXT = "register";
@@ -48,6 +50,8 @@ public class RegisterPageComponentController {
 	private static final String FARMER_REGISTER_URL = "farmerRegister";
 	private static final String OTP = "otp";
 	private static final String BUYER_REGISTER_URL = "buyerRegister";
+	private static final String SHOW_OTP_SECTION = "showOTPSection";
+	
 	
 
 	@RequestMapping(value="/buyerRegister", method = RequestMethod.GET)
@@ -67,7 +71,7 @@ public class RegisterPageComponentController {
 	}
 	
 	@RequestMapping(value="/buyerRegister", method = RequestMethod.POST)
-	public String buyerRegisterPostMethodComponent(@ModelAttribute RegisterFormBean formBean,Errors error,Model model) throws ConfigurationException{
+	public String buyerRegisterPostMethodComponent(@Valid @ModelAttribute RegisterFormBean formBean,Errors error,Model model) throws ConfigurationException{
 		formBean.setIsFarmer(false);
 		LOG.info("this is the buyer login form bean "+formBean);
 		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
@@ -127,14 +131,30 @@ public class RegisterPageComponentController {
 		}else{
 			LOG.info("No errors");
 			model.asMap().clear();
-			return "redirect:"+FARMER_REGISTER_URL+"/"+OTP;
+			return "redirect:"+File.separator+FARMER_REGISTER_URL+OTP;
 		}
 	}
 	
-	@RequestMapping(value="/farmerRegister/otp")
-	public String farmerRegisterOTP(){
-		
-		return "";
+	@RequestMapping(value="/farmerRegister/otp",method=RequestMethod.GET)
+	public String farmerGetRegisterOTP(Model model) throws ConfigurationException{
+		model.addAttribute(SHOW_OTP_SECTION,true);
+		model.addAttribute(REGISTER_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_PLACEHOLDER_NAME));
+		model.addAttribute(REGISTER_PAGE_USER_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_TITLE_NAME));
+		model.addAttribute(REGISTER_FORM_BEAN_NAME, new RegisterFormBean());
+		model.addAttribute(REGISTER_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_BUTTON_NAME));
+		model.addAttribute(REGISTER_FORM_NAME,FARMER_REGISTER_URL+File.separator+OTP);
+		return VIEW_NAME;
+	}
+	
+	@RequestMapping(value="/farmerRegister/otp",method=RequestMethod.POST)
+	public String farmerPostRegisterOTP(@ModelAttribute RegisterFormBean formBean, Model model) throws ConfigurationException{
+		model.addAttribute(SHOW_OTP_SECTION,true);
+		LOG.info("OTP "+formBean);
+		model.addAttribute(REGISTER_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_PLACEHOLDER_NAME));
+		model.addAttribute(REGISTER_PAGE_USER_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_TITLE_NAME));
+		model.addAttribute(REGISTER_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_BUTTON_NAME));
+		model.addAttribute(REGISTER_FORM_NAME,FARMER_REGISTER_URL+File.separator+OTP);
+		return VIEW_NAME;
 	}
 	
 	

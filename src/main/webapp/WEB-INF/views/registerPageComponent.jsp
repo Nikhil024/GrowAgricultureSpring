@@ -15,6 +15,15 @@
 	background: linear-gradient(0deg, rgba(44, 44, 44, 0.2), #636c72);
 }
 </style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	if(window.location.href.indexOf('otp') > -1 ){
+	$('.register-text').attr('style','margin: 24px 4px 32px -181px !important;');
+	}
+});
+</script>
 </head>
 
 <body class="index-page" style="overflow: hidden;">
@@ -102,7 +111,6 @@
 						<h1 class="h1-seo">${register}</h1>
 						<div class="farmer">
 							<h3 class="register-text">${user_register}</h3>
-							${form_name}
 							<c:if test="${empty showOTPSection}">
 							<div class="col-sm-4">
 								<div class="input-group form-group-no-border">
@@ -148,8 +156,15 @@
 						</div>
 						<input type="submit"
 							class="register-button-position btn btn-primary btn-simple"
-							value="${register}" />
+							value="Validate" />
 					</form:form>
+					<form action="" method="">
+						<c:if test="${showResendOTP}">
+							<input type="submit"
+								class="register-button-position btn btn-warning btn-simple"
+								value="Resend OTP" />
+						</c:if>
+					</form>
 				</div>
 			</div>
 		</div>

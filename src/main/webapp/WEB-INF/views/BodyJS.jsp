@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!--   Core JS Files   -->
 <script src="<spring:url value="/resources/js/core/jquery.3.2.1.min.js"/>" type="text/javascript"></script>
 <script src="<spring:url value="/resources/js/core/tether.min.js"/>" type="text/javascript"></script>
@@ -13,18 +14,19 @@
 <script src="<spring:url value="/resources/js/plugins/bootstrap-datepicker.js"/>" type="text/javascript"></script>
 <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
 <script src="<spring:url value="/resources/js/now-ui-kit.js"/>" type="text/javascript"></script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         // the body of this function is in assets/js/now-ui-kit.js
         nowuiKit.initSliders();
-    });
+   	});
 
-    function scrollToDownload() {
+	function scrollToDownload() {
 
-        if ($('.section-download').length != 0) {
-            $("html, body").animate({
-                scrollTop: $('.section-download').offset().top
-            }, 1000);
-        }
-    }    
+		if ($('.section-download').length != 0) {
+			$("html, body").animate({
+				scrollTop : $('.section-download').offset().top
+			}, 1000);
+		}
+	}
 </script>

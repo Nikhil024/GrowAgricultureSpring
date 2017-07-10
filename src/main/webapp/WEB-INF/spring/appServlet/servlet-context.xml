@@ -25,8 +25,8 @@
 	<beans:bean id="jsonReadService" class="com.grow.agriculture.serviceImpl.JsonReaderServiceImpl"/>
 	<beans:bean id="registerFormBean" class="com.grow.agriculture.beans.RegisterFormBean"/>
 	<beans:bean id="configurationService" class="com.grow.agriculture.serviceImpl.ConfigurationServiceImpl"/>
-	
-	
+	<beans:bean id ="OTPValidator" class="com.grow.agriculture.form.validators.OTPValidator"/>
+	<beans:bean id="gaRequest" class="com.grow.agriculture.controllers.GrowAgricultureRequest"/>
 	<context:component-scan base-package="com.grow.agriculture.controllers" />
 	
 	

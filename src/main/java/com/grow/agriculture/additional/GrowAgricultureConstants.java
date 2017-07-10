@@ -21,5 +21,7 @@ public class GrowAgricultureConstants {
 	public static final String INVALID_PASSWORD_ENTERED = "growAgriculture.invalid.password.input.message";
 	public static final String OTP_PLACEHOLDER_NAME = "growAgriculture.otp.input.placeholder.text";
 	public static final String OTP_TITLE_NAME = "growAgriculture.otp.title.name";
+	public static final String OTP_WEBPAGE_NAME = "growAgriculture.otp.page.title.name";
 	public static final String OTP_BUTTON_NAME = "growAgriculture.otp.button.name";
+	public static final String OPT_BACKGROUND_IMAGE_NAME = "growAgriculture.otp.page.background.image.name";
 }

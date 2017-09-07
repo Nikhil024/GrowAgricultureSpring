@@ -26,9 +26,25 @@
 	<beans:bean id="registerFormBean" class="com.grow.agriculture.beans.RegisterFormBean"/>
 	<beans:bean id="configurationService" class="com.grow.agriculture.serviceImpl.ConfigurationServiceImpl"/>
 	<beans:bean id ="OTPValidator" class="com.grow.agriculture.form.validators.OTPValidator"/>
+	<beans:bean id ="RegisterValidator" class="com.grow.agriculture.form.validators.RegisterValidator"/>
 	<beans:bean id="gaRequest" class="com.grow.agriculture.controllers.GrowAgricultureRequest"/>
 	<context:component-scan base-package="com.grow.agriculture.controllers" />
 	
+	<!-- namedParameterJdbcTemplate uses dataSource via constructor-injection -->
+    <beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+	<beans:constructor-arg ref="dataSource" /> 
+	</beans:bean>
+ 
+    <!-- dataSource configuration -->
+    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<beans:property name="url" value="jdbc:oracle:thin:172.30.55.61:1521:XE"/>
+		<beans:property name="username" value="nikhil"/>
+		<beans:property name="password" value="admin"/>
+    </beans:bean>
 	
+	<beans:bean id="UsersDao" class="com.grow.agriculture.daoImpl.UsersDaoImpl">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
 	
 </beans:beans>

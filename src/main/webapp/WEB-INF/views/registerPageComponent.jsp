@@ -48,6 +48,7 @@ $(document).ready(function() {
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
 				<ul class="navbar-nav">
+					<c:if test="${!showOTPSection}">
 					 <li class="nav-item">
                         <a class="nav-link" href="<spring:url value="/login"/>">
                             <i class="now-ui-icons"><img alt="login" src="<spring:url value="/resources/icons/login.png"/>"/></i>
@@ -60,6 +61,7 @@ $(document).ready(function() {
 								src="<spring:url value="/resources/icons/forgotPassword.png"/>" /></i>
 							<p>${forgotpassword}</p>
 					</a></li>
+					</c:if>
 					<li class="nav-item"><a class="nav-link"
 						href="<spring:url value="/aboutUs"/>"> <!-- target="_blank" -->
 							<i class="now-ui-icons"><img alt="aboutus"

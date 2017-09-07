@@ -28,14 +28,24 @@ public class RegisterValidator implements Validator {
 		try {
 			
 				LOG.info("entered the non otp section");
-				if(formBean.getPhoneNumber() == null|| formBean.equals("")){
-					errors.rejectValue("phoneNumber", "formbean.phoneNumber", "invalidnumber");
+				if(formBean.getPhoneNumber() == null || formBean.getPhoneNumber().equals("")){
+					errors.rejectValue("phoneNumber", "formbean.phoneNumber", "Please enter a number");
 				}
-				if(formBean.getPhoneNumber() != null){
-					if(formBean.getPhoneNumber().length() < 10){
+				if(formBean.getPhoneNumber() != null && !formBean.getPhoneNumber().isEmpty()){
+					if(formBean.getPhoneNumber().length() < 10 || formBean.getPhoneNumber().length() > 10){
 						errors.rejectValue("phoneNumber", "formbean.phoneNumber", "invalidnumber");
 					}
 				}
+				if(formBean.getPassword() == null || formBean.getPassword().equals("")){
+					errors.rejectValue("password", "formbean.password", "Please enter a password");
+				}
+				
+				if(formBean.getPassword() != null && !formBean.getPassword().isEmpty()){
+					if(formBean.getPassword().length() < 6){
+					errors.rejectValue("password", "formbean.password", "Please enter min 6 characters as password");
+					}
+				}
+				
 			
 		} catch (Exception e) {
 			e.printStackTrace();

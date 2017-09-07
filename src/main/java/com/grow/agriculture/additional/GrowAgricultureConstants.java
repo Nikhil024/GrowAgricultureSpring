@@ -1,5 +1,9 @@
 package com.grow.agriculture.additional;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class GrowAgricultureConstants {
 	
 	public static final String PROJECT_NAME = "growAgriculture.project.name";
@@ -24,4 +28,5 @@ public class GrowAgricultureConstants {
 	public static final String OTP_WEBPAGE_NAME = "growAgriculture.otp.page.title.name";
 	public static final String OTP_BUTTON_NAME = "growAgriculture.otp.button.name";
 	public static final String OPT_BACKGROUND_IMAGE_NAME = "growAgriculture.otp.page.background.image.name";
+	public static final List<String> ADDENDA_VALID_PAYMENT_METHODS = Collections.unmodifiableList(Arrays.asList("farmerRegister", "buyerRegister"));
 }

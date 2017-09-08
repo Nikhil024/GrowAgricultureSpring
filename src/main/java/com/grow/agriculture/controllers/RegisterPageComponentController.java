@@ -42,15 +42,15 @@ public class RegisterPageComponentController {
 	
     /** The validator. */
     @Autowired
-    @Qualifier("OTPValidator")
+    @Qualifier("otpValidator")
     Validator otpValidator;
     
     @Autowired
-    @Qualifier("RegisterValidator")
+    @Qualifier("registerValidator")
     Validator registerFormValidator;
 	
    
-    
+   /* 
     ApplicationContext context = null;
     String strClassPath = System.getProperty("catalina.base");
     public ApplicationContext getcontext(){
@@ -66,7 +66,7 @@ public class RegisterPageComponentController {
 		return context;
 	}
 
-    UsersDaoImpl usersDao = (UsersDaoImpl)getcontext().getBean("userDAO");
+    UsersDaoImpl usersDao = (UsersDaoImpl)getcontext().getBean("userDAO");*/
     
     private static final String VIEW_NAME = "registerPageComponent";
 	private static final String PROJECT_NAME = "project_name";

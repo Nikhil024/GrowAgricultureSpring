@@ -13,7 +13,7 @@ import com.grow.agriculture.dao.UsersDao;
 import com.grow.agriculture.daoBean.UsersDaoBean;
 import com.grow.agriculture.rowmapper.UserRowMapper;
 
-@Repository("userDAO")
+@Repository
 public class UsersDaoImpl extends NamedParameterJdbcDaoSupport implements UsersDao {
 
 	private String createUserQuery = "INSERT INTO USERS VALUES(ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,CREATED_DATE,LAST_UPDATE) VALUES (USERS_ID.NEXTVAL,:username,:phonenumber,:password,:email,:userType,:createdDate,:lastupdate)";

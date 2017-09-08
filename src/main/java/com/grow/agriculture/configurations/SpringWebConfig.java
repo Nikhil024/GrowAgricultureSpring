@@ -1,8 +1,13 @@
 package com.grow.agriculture.configurations;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -18,8 +23,24 @@ import com.grow.agriculture.serviceImpl.ConfigurationServiceImpl;
 
 @EnableWebMvc //mvc:annotation-driven
 @Configuration
+@PropertySource(value = { "classpath:jdbc.properties" })
+@EnableTransactionManagement
 @ComponentScan({ "com.grow.agriculture.controllers" })
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
+	
+	/*@Autowired
+	private Environment env;
+	env.getProperty()
+	*/
+	
+	@Value("${database.url}")
+	private String databaseUrl;
+	
+	@Value("${database.username}")
+	private String databaseUsername;
+	
+	@Value("${database.password}")
+	private String databasePassword;
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -33,6 +54,22 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
+	}
+	
+	@Bean
+	public DriverManagerDataSource dataSource(){
+		DriverManagerDataSource driverManagerDatasource = new DriverManagerDataSource();
+		driverManagerDatasource.setUrl(databaseUrl); //"jdbc:oracle:thin:172.30.55.61:1521:XE"));
+		driverManagerDatasource.setUsername(databaseUsername);//"nikhil");
+		driverManagerDatasource.setPassword(databasePassword);//"admin");
+		return driverManagerDatasource;
+	}
+	
+	@Bean
+	public NamedParameterJdbcTemplate jdbcTemplate(){
+		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource());
+		return namedParameterJdbcTemplate;
+		
 	}
 	
 	 public RegisterFormBean registerFormBean() {

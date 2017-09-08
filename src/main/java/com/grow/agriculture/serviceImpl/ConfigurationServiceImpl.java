@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.grow.agriculture.service.ConfigurationService;
 
-@Component
 public class ConfigurationServiceImpl implements ConfigurationService {
 	
 	private static final Logger LOG = Logger.getLogger(ConfigurationServiceImpl.class);

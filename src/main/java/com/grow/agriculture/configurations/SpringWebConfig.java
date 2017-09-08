@@ -16,9 +16,25 @@ import com.grow.agriculture.form.validators.RegisterValidator;
 import com.grow.agriculture.service.ConfigurationService;
 import com.grow.agriculture.serviceImpl.ConfigurationServiceImpl;
 
+@EnableWebMvc //mvc:annotation-driven
 @Configuration
+@ComponentScan({ "com.grow.agriculture.controllers" })
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
 
+	@Bean
+	public InternalResourceViewResolver viewResolver() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setViewClass(JstlView.class);
+		viewResolver.setPrefix("/WEB-INF/views/");
+		viewResolver.setSuffix(".jsp");
+		return viewResolver;
+	}
+	
 	 public RegisterFormBean registerFormBean() {
 	        return new RegisterFormBean();
 	    }

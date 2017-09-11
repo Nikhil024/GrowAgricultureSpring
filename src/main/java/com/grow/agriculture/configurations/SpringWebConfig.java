@@ -1,10 +1,18 @@
 package com.grow.agriculture.configurations;
 
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -16,6 +24,8 @@ import org.springframework.web.servlet.view.JstlView;
 
 import com.grow.agriculture.beans.RegisterFormBean;
 import com.grow.agriculture.controllers.GrowAgricultureRequest;
+import com.grow.agriculture.dao.UsersDao;
+import com.grow.agriculture.daoImpl.UsersDaoImpl;
 import com.grow.agriculture.form.validators.OTPValidator;
 import com.grow.agriculture.form.validators.RegisterValidator;
 import com.grow.agriculture.service.ConfigurationService;
@@ -27,11 +37,24 @@ import com.grow.agriculture.serviceImpl.ConfigurationServiceImpl;
 @EnableTransactionManagement
 @ComponentScan({ "com.grow.agriculture.controllers" })
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
+	private static final Logger logger = Logger.getLogger(SpringWebConfig.class);
 	
-	/*@Autowired
-	private Environment env;
-	env.getProperty()
-	*/
+	@Autowired
+    ApplicationContext applicationContext;
+	
+	@Autowired
+    Environment environment;
+	
+	@PostConstruct
+    public void logBeans() {
+        logger.debug(StringUtils.repeat('*', 78));
+        for (String bean : applicationContext.getBeanDefinitionNames()) {
+            logger.info("BEAN '{}'"+ bean);
+        }
+        logger.debug(StringUtils.repeat('*', 78));
+        logger.debug("ENV: '{}'"+ environment.toString());
+        logger.debug(StringUtils.repeat('*', 78));
+    }
 	
 	@Value("${database.url}")
 	private String databaseUrl;
@@ -57,9 +80,10 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Bean
-	public DriverManagerDataSource dataSource(){
+	public DataSource dataSource(){
 		DriverManagerDataSource driverManagerDatasource = new DriverManagerDataSource();
-		driverManagerDatasource.setUrl(databaseUrl); //"jdbc:oracle:thin:172.30.55.61:1521:XE"));
+		driverManagerDatasource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		driverManagerDatasource.setUrl("jdbc:oracle:thin:@localhost:1521:xe"); //"jdbc:oracle:thin:172.30.55.61:1521:XE"));
 		driverManagerDatasource.setUsername(databaseUsername);//"nikhil");
 		driverManagerDatasource.setPassword(databasePassword);//"admin");
 		return driverManagerDatasource;
@@ -69,11 +93,16 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	public NamedParameterJdbcTemplate jdbcTemplate(){
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource());
 		return namedParameterJdbcTemplate;
-		
 	}
 	
+	@Bean
 	 public RegisterFormBean registerFormBean() {
 	        return new RegisterFormBean();
+	    }
+	
+	@Bean
+	 public UsersDao usersDao() {
+	        return new UsersDaoImpl();
 	    }
 	 
 	 @Bean

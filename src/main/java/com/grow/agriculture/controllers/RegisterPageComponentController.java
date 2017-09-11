@@ -3,12 +3,9 @@ package com.grow.agriculture.controllers;
 import java.io.File;
 
 import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +19,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.grow.agriculture.additional.GrowAgricultureConstants;
 import com.grow.agriculture.beans.OTPFormBean;
 import com.grow.agriculture.beans.RegisterFormBean;
+import com.grow.agriculture.dao.UsersDao;
+import com.grow.agriculture.daoBean.UsersDaoBean;
 import com.grow.agriculture.daoImpl.UsersDaoImpl;
 import com.grow.agriculture.service.ConfigurationService;
 
@@ -31,8 +30,6 @@ import com.grow.agriculture.service.ConfigurationService;
 public class RegisterPageComponentController {
 	private static final Logger LOG = Logger.getLogger(RegisterPageComponentController.class);
 
-	/*@Autowired
-	JsonReaderService jsonReadService;*/
 
 	@Autowired
 	GrowAgricultureRequest request;
@@ -49,24 +46,14 @@ public class RegisterPageComponentController {
     @Qualifier("registerValidator")
     Validator registerFormValidator;
 	
-   
-   /* 
-    ApplicationContext context = null;
-    String strClassPath = System.getProperty("catalina.base");
-    public ApplicationContext getcontext(){
-
-		if (SystemUtils.IS_OS_LINUX) {
-			context = new FileSystemXmlApplicationContext("/"+strClassPath+"/wtpwebapps/GrowAgriculture_2_0/WEB-INF/spring/appServlet/servlet-context.xml");
-			return context;
-		}
-		if(SystemUtils.IS_OS_WINDOWS){
-			context = new FileSystemXmlApplicationContext(strClassPath+"\\wtpwebapps\\GrowAgriculture_2_0\\WEB-INF\\spring\\appServlet\\servlet-context.xml");
-			return context;
-		}
-		return context;
-	}
-
-    UsersDaoImpl usersDao = (UsersDaoImpl)getcontext().getBean("userDAO");*/
+    
+    @Autowired
+    UsersDao usersDao;
+    /*ApplicationContext context = new AnnotationConfigApplicationContext(SpringWebConfig.class);
+    
+    UsersDaoImpl usersDaoImpl = (UsersDaoImpl) context.getBean("usersDaoImpl");*/
+    
+    
     
     private static final String VIEW_NAME = "registerPageComponent";
 	private static final String PROJECT_NAME = "project_name";
@@ -163,6 +150,15 @@ public class RegisterPageComponentController {
 			return VIEW_NAME;
 		}else{
 			LOG.info("No errors");
+			UsersDaoBean bean = new UsersDaoBean();
+			bean.setUsername("nikhil");
+			bean.setCreatedDate("11-09-17");
+			bean.setEmail("bean");
+			bean.setPassword("bean");
+			bean.setPhonenumber(123456);
+			bean.setUserType("bean");
+			bean.setLastupdateDate("11-09-17");
+			usersDao.createNewUser(bean);
 			model.asMap().clear();
 			return "redirect:"+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 		}

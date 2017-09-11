@@ -49,11 +49,6 @@ public class RegisterPageComponentController {
     
     @Autowired
     UsersDao usersDao;
-    /*ApplicationContext context = new AnnotationConfigApplicationContext(SpringWebConfig.class);
-    
-    UsersDaoImpl usersDaoImpl = (UsersDaoImpl) context.getBean("usersDaoImpl");*/
-    
-    
     
     private static final String VIEW_NAME = "registerPageComponent";
 	private static final String PROJECT_NAME = "project_name";

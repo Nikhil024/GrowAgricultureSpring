@@ -28,8 +28,11 @@ import com.grow.agriculture.dao.UsersDao;
 import com.grow.agriculture.daoImpl.UsersDaoImpl;
 import com.grow.agriculture.form.validators.OTPValidator;
 import com.grow.agriculture.form.validators.RegisterValidator;
+import com.grow.agriculture.helper.UsersHelper;
 import com.grow.agriculture.service.ConfigurationService;
+import com.grow.agriculture.service.UsersService;
 import com.grow.agriculture.serviceImpl.ConfigurationServiceImpl;
+import com.grow.agriculture.serviceImpl.UsersServiceImpl;
 
 @EnableWebMvc //mvc:annotation-driven
 @Configuration
@@ -56,6 +59,9 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
         logger.debug(StringUtils.repeat('*', 78));
     }
 	
+	@Value("${database.classname}")
+	private String databaseClassName;
+
 	@Value("${database.url}")
 	private String databaseUrl;
 	
@@ -82,8 +88,8 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public DataSource dataSource(){
 		DriverManagerDataSource driverManagerDatasource = new DriverManagerDataSource();
-		driverManagerDatasource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		driverManagerDatasource.setUrl("jdbc:oracle:thin:@localhost:1521:xe"); //"jdbc:oracle:thin:172.30.55.61:1521:XE"));
+		driverManagerDatasource.setDriverClassName(databaseClassName);
+		driverManagerDatasource.setUrl(databaseUrl); //"jdbc:oracle:thin:172.30.55.61:1521:XE"));
 		driverManagerDatasource.setUsername(databaseUsername);//"nikhil");
 		driverManagerDatasource.setPassword(databasePassword);//"admin");
 		return driverManagerDatasource;
@@ -95,21 +101,24 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		return namedParameterJdbcTemplate;
 	}
 	
-	@Bean
-	 public RegisterFormBean registerFormBean() {
-	        return new RegisterFormBean();
-	    }
 	
-	@Bean
-	 public UsersDao usersDao() {
-	        return new UsersDaoImpl();
+	 @Bean
+	 public GrowAgricultureRequest gaRequest() {
+	        return new GrowAgricultureRequest();
 	    }
 	 
 	 @Bean
 	 public ConfigurationService configurationService() {
 	        return new ConfigurationServiceImpl();
 	    }
-	 
+	
+	//FormBean
+	@Bean
+	 public RegisterFormBean registerFormBean() {
+	        return new RegisterFormBean();
+	    }
+	
+	 //Validators
 	 @Bean
 	 public OTPValidator otpValidator() {
 	        return new OTPValidator();
@@ -120,8 +129,22 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	        return new RegisterValidator();
 	    }
 	 
+	 //Dao
 	 @Bean
-	 public GrowAgricultureRequest gaRequest() {
-	        return new GrowAgricultureRequest();
+	 public UsersDao usersDao() {
+	        return new UsersDaoImpl();
 	    }
+	 
+	 //Service
+	 @Bean
+	 public UsersService usersService() {
+	        return new UsersServiceImpl();
+	    }
+	 
+	 //Helper
+	 @Bean
+	 public UsersHelper usersHelper() {
+	        return new UsersHelper();
+	    }
+	 
 }

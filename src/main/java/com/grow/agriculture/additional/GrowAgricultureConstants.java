@@ -28,5 +28,6 @@ public class GrowAgricultureConstants {
 	public static final String OTP_WEBPAGE_NAME = "growAgriculture.otp.page.title.name";
 	public static final String OTP_BUTTON_NAME = "growAgriculture.otp.button.name";
 	public static final String OPT_BACKGROUND_IMAGE_NAME = "growAgriculture.otp.page.background.image.name";
-	public static final List<String> ADDENDA_VALID_PAYMENT_METHODS = Collections.unmodifiableList(Arrays.asList("farmerRegister", "buyerRegister"));
+	public static final List<String> USER_TYPE_URL = Collections.unmodifiableList(Arrays.asList("farmerRegister", "buyerRegister"));
+	public static final List<String> USER_TYPE = Collections.unmodifiableList(Arrays.asList("farmer", "buyer"));
 }

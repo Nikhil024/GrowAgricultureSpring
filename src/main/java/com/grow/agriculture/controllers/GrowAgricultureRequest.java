@@ -1,5 +1,8 @@
 package com.grow.agriculture.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +30,13 @@ public class GrowAgricultureRequest {
 		return requests.getRemoteAddr();
 	}
 
-
+	
+	public String getCurrentSystemDate(){
+		Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentSystemDate = simpleDateFormat.format(calendar.getTime());
+        return currentSystemDate;
+	}
+	
+	
 }

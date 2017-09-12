@@ -32,8 +32,8 @@ public class UsersDaoImpl implements UsersDao {
 	private String createUserQuery = "INSERT INTO USERS (ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,CREATED_DATE,LAST_UPDATE) VALUES (USERS_ID.NEXTVAL,:username,:phonenumber,:password,:email,:userType,:createdDate,:lastUpdate)";
 	private String deleteUserQuery = "DELETE FROM USERS WHERE PHONENUMBER=:phonenumber";
 	private String selectUserQuery = "SELECT ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,CREATED_DATE,LAST_UPDATE FROM USERS WHERE PHONENUMBER=:phonenumber;";
-	private String selectAllUserQuery = "SELECT ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,CREATED_DATE,LAST_UPDATE FROM USERS";
-	private String UpdateUserQuery = "";
+	private String selectIfUserExistsQuery = "SELECT count(1) FROM USERS where PHONENUMBER=:phonenumber";
+	private String UpdateUserQuery = "UPDATE USERS SET :columnname=:valuename where PHONENUMBER=:phonenumber";
 	
 	
 	@Override
@@ -52,17 +52,13 @@ public class UsersDaoImpl implements UsersDao {
 	}
 	
 	@Override
-	public List<UsersDaoBean> getAllUser() {
-		String query = selectAllUserQuery;
-		 try {
+	public int getIfUserExists(int phonenumber) {
+		String query = selectIfUserExistsQuery;
 			 Map<String, Object> parameters = new HashMap<String, Object>();
+			 parameters.put("phonenumber", phonenumber);
 			 SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
-			 /*List<UsersDaoBean> user = namedParameterJdbcTemplate.queryForObject(query, namedParameters,new UserRowMapper());
-	            return user;*/
-	        } catch (EmptyResultDataAccessException e) {
-	            return null;
-	        }
-		return null;
+			 int count = namedParameterJdbcTemplate.update(query, namedParameters);
+	            return count;
 	}
 	
 	

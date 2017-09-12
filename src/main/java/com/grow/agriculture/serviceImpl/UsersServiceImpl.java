@@ -1,16 +1,12 @@
 package com.grow.agriculture.serviceImpl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.grow.agriculture.dao.UsersDao;
 import com.grow.agriculture.daoBean.UsersDaoBean;
 import com.grow.agriculture.helper.UsersHelper;
 import com.grow.agriculture.service.UsersService;
 
-@Transactional
 public class UsersServiceImpl implements UsersService {
 
 	@Autowired
@@ -41,9 +37,9 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public List<UsersDaoBean> getAllUser() {
-		List<UsersDaoBean> users = usersDao.getAllUser();
-		return users != null && !users.isEmpty() ? users : null;
+	public int getIfUserExists(int phonenumber) {
+		int count = usersDao.getIfUserExists(phonenumber);
+		return count;
 	}
 	
 	

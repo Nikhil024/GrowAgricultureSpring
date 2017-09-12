@@ -19,10 +19,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.grow.agriculture.additional.GrowAgricultureConstants;
 import com.grow.agriculture.beans.OTPFormBean;
 import com.grow.agriculture.beans.RegisterFormBean;
-import com.grow.agriculture.dao.UsersDao;
-import com.grow.agriculture.daoBean.UsersDaoBean;
-import com.grow.agriculture.daoImpl.UsersDaoImpl;
+import com.grow.agriculture.helper.UsersHelper;
 import com.grow.agriculture.service.ConfigurationService;
+import com.grow.agriculture.service.UsersService;
 
 @Controller
 @RequestMapping("/register")
@@ -48,7 +47,10 @@ public class RegisterPageComponentController {
 	
     
     @Autowired
-    UsersDao usersDao;
+    UsersService usersService;
+    
+    @Autowired
+    UsersHelper usersHelper;
     
     private static final String VIEW_NAME = "registerPageComponent";
 	private static final String PROJECT_NAME = "project_name";
@@ -65,6 +67,7 @@ public class RegisterPageComponentController {
 	private static final String OTP = "otp";
 	private static final String BUYER_REGISTER_URL = "buyerRegister";
 	private static final String SHOW_OTP_SECTION = "showOTPSection";
+	private static final String SHOW_USER_ALREADY_EXISTS_SECTION = "showUserAlreadyExists";
 	private static final String SHOW_RESEND_OTP = "showResendOTP";
 	private static final boolean SHOW_OTP = true;
 	
@@ -145,23 +148,21 @@ public class RegisterPageComponentController {
 			return VIEW_NAME;
 		}else{
 			LOG.info("No errors");
-			UsersDaoBean bean = new UsersDaoBean();
-			bean.setUsername("nikhil");
-			bean.setCreatedDate("11-09-17");
-			bean.setEmail("bean");
-			bean.setPassword("bean");
-			bean.setPhonenumber(123456);
-			bean.setUserType("bean");
-			bean.setLastupdateDate("11-09-17");
-			usersDao.createNewUser(bean);
-			model.asMap().clear();
-			return "redirect:"+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
+			if(usersService.getIfUserExists(Integer.parseInt(formBean.getPhoneNumber())) == 0){
+				usersService.createNewUser(usersHelper.getUsersBean(formBean));
+				model.asMap().clear();
+				return "redirect:"+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
+			}
+			else{
+				model.addAttribute(SHOW_USER_ALREADY_EXISTS_SECTION,true);
+				return VIEW_NAME;
+			}
 		}
 	}
 	
 	@RequestMapping(value="/{userType}/otp",method=RequestMethod.GET)
 	public String farmerGetRegisterOTP(Model model,@PathVariable("userType") String userType) throws ConfigurationException{
-		if(GrowAgricultureConstants.ADDENDA_VALID_PAYMENT_METHODS.contains(userType)){
+		if(GrowAgricultureConstants.USER_TYPE_URL.contains(userType)){
 		model.addAttribute(SHOW_OTP_SECTION,SHOW_OTP);
 		model.addAttribute(REGISTER_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_PLACEHOLDER_NAME));
 		model.addAttribute(REGISTER_PAGE_USER_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_TITLE_NAME));

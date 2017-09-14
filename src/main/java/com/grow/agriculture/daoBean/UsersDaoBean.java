@@ -8,12 +8,13 @@ public class UsersDaoBean implements Serializable{
 	
 	private int id;
 	private String username;
-	private int phonenumber;
+	private long phonenumber;
 	private String password;
 	private String email;
 	private String userType;
 	private String createdDate;
 	private String lastupdateDate;
+	private String OTP;
 	
 	public int getId() {
 		return id;
@@ -51,10 +52,10 @@ public class UsersDaoBean implements Serializable{
 	public void setLastupdateDate(String lastupdateDate) {
 		this.lastupdateDate = lastupdateDate;
 	}
-	public int getPhonenumber() {
+	public long getPhonenumber() {
 		return phonenumber;
 	}
-	public void setPhonenumber(int phonenumber) {
+	public void setPhonenumber(long phonenumber) {
 		this.phonenumber = phonenumber;
 	}
 	public String getEmail() {
@@ -64,10 +65,16 @@ public class UsersDaoBean implements Serializable{
 		this.email = email;
 	}
 	
+	public String getOTP() {
+		return OTP;
+	}
+	public void setOTP(String oTP) {
+		OTP = oTP;
+	}
 	@Override
 	public String toString() {
 		return "UsersDaoBean [id=" + id + ", username=" + username + ", phonenumber=" + phonenumber + ", password="
 				+ password + ", email=" + email + ", userType=" + userType + ", createdDate=" + createdDate
-				+ ", lastupdateDate=" + lastupdateDate + "]";
+				+ ", lastupdateDate=" + lastupdateDate + ", OTP=" + OTP + "]";
 	}
 }

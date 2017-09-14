@@ -14,7 +14,7 @@ public class UsersHelper {
 	public UsersDaoBean getUsersBean(RegisterFormBean registerFormbean){
 		UsersDaoBean usersBean = new UsersDaoBean();
 		
-		usersBean.setPhonenumber(Integer.parseInt(registerFormbean.getPhoneNumber()));
+		usersBean.setPhonenumber(Long.parseLong(registerFormbean.getPhoneNumber()));
 		usersBean.setPassword(registerFormbean.getPassword());
 		if (registerFormbean.getIsFarmer()) {
 			usersBean.setUserType(GrowAgricultureConstants.USER_TYPE.get(0));
@@ -23,7 +23,7 @@ public class UsersHelper {
 		}
 		usersBean.setLastupdateDate(request.getCurrentSystemDate());
 		usersBean.setEmail("");
-		usersBean.setCreatedDate("");
+		usersBean.setCreatedDate(request.getCurrentSystemDate());
 		usersBean.setUsername("");
 		return usersBean;
 	}

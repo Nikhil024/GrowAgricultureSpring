@@ -167,6 +167,24 @@ $(document).ready(function() {
 								value="Resend OTP" />
 						</c:if>
 					</form>
+					<c:if test="${not empty showUserAlreadyExists}">
+								<div class="error-banner-display alert alert-danger" role="alert">
+									<div class="container">
+										<div class="alert-icon">
+											<i class="now-ui-icons objects_support-17"></i>
+										</div>
+										<strong>Oh Looks!</strong> like you are already registered,
+										Please wait while we redirect you to <strong>Login
+											page</strong>.
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true"> <i
+												class="now-ui-icons ui-1_simple-remove"></i>
+											</span>
+										</button>
+									</div>
+								</div>
+							</c:if>
 				</div>
 			</div>
 		</div>

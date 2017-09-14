@@ -52,13 +52,12 @@ public class UsersDaoImpl implements UsersDao {
 	}
 	
 	@Override
-	public int getIfUserExists(int phonenumber) {
+	public int getIfUserExists(long phonenumber) {
 		String query = selectIfUserExistsQuery;
 			 Map<String, Object> parameters = new HashMap<String, Object>();
 			 parameters.put("phonenumber", phonenumber);
 			 SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
-			 int count = namedParameterJdbcTemplate.update(query, namedParameters);
-	            return count;
+			 return namedParameterJdbcTemplate.queryForObject(query, namedParameters, Integer.class);
 	}
 	
 	
@@ -84,16 +83,13 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public void updateUser(UsersDaoBean user) {
+	public void updateUser(String columnname, String valuename, String phonenumber) {
 		String query = UpdateUserQuery;
 		
 		 Map<String, Object> parameters = new HashMap<String, Object>();
-		 parameters.put("username", user.getUsername());
-		 parameters.put("phonenumber", user.getPhonenumber());
-		 parameters.put("password", user.getPassword());
-		 parameters.put("email", user.getEmail());
-		 parameters.put("userType", user.getUserType());
-		 parameters.put("createdDate", user.getCreatedDate());
+		 parameters.put("columnname", columnname);
+		 parameters.put("valuename", valuename);
+		 parameters.put("phonenumber", phonenumber);
 		 
 		 SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
 		 namedParameterJdbcTemplate.update(query, namedParameters);

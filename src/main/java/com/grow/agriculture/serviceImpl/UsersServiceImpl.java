@@ -27,8 +27,8 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public void updateUser(UsersDaoBean user) {
-		usersDao.updateUser(user);
+	public void updateUser(String columnname, String valuename, String phonenumber) {
+		usersDao.updateUser(columnname, valuename , phonenumber);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public int getIfUserExists(int phonenumber) {
+	public int getIfUserExists(long phonenumber) {
 		int count = usersDao.getIfUserExists(phonenumber);
 		return count;
 	}

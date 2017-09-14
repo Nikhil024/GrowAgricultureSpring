@@ -148,8 +148,9 @@ public class RegisterPageComponentController {
 			return VIEW_NAME;
 		}else{
 			LOG.info("No errors");
-			if(usersService.getIfUserExists(Integer.parseInt(formBean.getPhoneNumber())) == 0){
+			if(usersService.getIfUserExists(Long.parseLong(formBean.getPhoneNumber())) == 0){
 				usersService.createNewUser(usersHelper.getUsersBean(formBean));
+				usersService.updateUser("OTP","","");
 				model.asMap().clear();
 				return "redirect:"+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 			}

@@ -26,20 +26,18 @@ public class JsonReaderServiceImpl implements JsonReaderService {
 	private final static String SUCCESS = "Success";
 	
 	
-	
+	@Autowired
     private ConfigurationService configurationService;
 
-	/*public void demo() throws ConfigurationException{
-		LOG.info("Nikhil:::::::: "+configurationService.getConfiguration().getInt("demo"));
-	}*/
-	
-
 	@Override
-	public void jsonReader(String phoneNumber) {
+	public void sendRestUrl(String phoneNumber) throws ConfigurationException {
 		JSONParser parser = new JSONParser();
-
 		try {         
-			URL url = new URL("http://localhost:1234/eShopApp/details"); // URL to Parse
+			StringBuilder sb = new StringBuilder();
+			sb.append(configurationService.getConfiguration().getString(""));
+			
+			
+			URL url = new URL(sb.toString()); // URL to Parse
 			URLConnection urlConnection = url.openConnection();
 			BufferedReader bufferReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 
@@ -55,9 +53,6 @@ public class JsonReaderServiceImpl implements JsonReaderService {
 					if(status.equals(SUCCESS)){
 						String details = (String) jsonObject.get("device");
 					}
-
-					
-
 				}
 			}
 			bufferReader.close();
@@ -70,11 +65,4 @@ public class JsonReaderServiceImpl implements JsonReaderService {
 		}   
 
 	}
-
-	@Override
-	public void demo() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

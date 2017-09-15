@@ -174,8 +174,7 @@ $(document).ready(function() {
 											<i class="now-ui-icons objects_support-17"></i>
 										</div>
 										<strong>Oh Looks!</strong> like you are already registered,
-										Please wait while we redirect you to <strong>Login
-											page</strong>.
+										If you have forgotten your password click <a style="color:white;" href="<spring:url value="/forgotPassword"/>"><strong>here</strong></a>.
 										<button type="button" class="close" data-dismiss="alert"
 											aria-label="Close">
 											<span aria-hidden="true"> <i

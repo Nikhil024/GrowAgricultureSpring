@@ -30,8 +30,10 @@ import com.grow.agriculture.form.validators.OTPValidator;
 import com.grow.agriculture.form.validators.RegisterValidator;
 import com.grow.agriculture.helper.UsersHelper;
 import com.grow.agriculture.service.ConfigurationService;
+import com.grow.agriculture.service.JsonReaderService;
 import com.grow.agriculture.service.UsersService;
 import com.grow.agriculture.serviceImpl.ConfigurationServiceImpl;
+import com.grow.agriculture.serviceImpl.JsonReaderServiceImpl;
 import com.grow.agriculture.serviceImpl.UsersServiceImpl;
 
 @EnableWebMvc //mvc:annotation-driven
@@ -101,6 +103,10 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		return namedParameterJdbcTemplate;
 	}
 	
+	@Bean
+	public JsonReaderService jsonReaderService(){
+		return new JsonReaderServiceImpl();
+	}
 	
 	 @Bean
 	 public GrowAgricultureRequest gaRequest() {

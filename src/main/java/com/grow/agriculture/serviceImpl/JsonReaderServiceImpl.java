@@ -24,45 +24,43 @@ public class JsonReaderServiceImpl implements JsonReaderService {
 	
 	private final static String STATUS = "Status";
 	private final static String SUCCESS = "Success";
+	private final static String DETAILS = "Details";
 	
 	
-	@Autowired
-    private ConfigurationService configurationService;
-
 	@Override
-	public void sendRestUrl(String phoneNumber) throws ConfigurationException {
+	public String sendRestUrl(String URL) throws ConfigurationException {
 		JSONParser parser = new JSONParser();
 		try {         
-			StringBuilder sb = new StringBuilder();
-			sb.append(configurationService.getConfiguration().getString(""));
-			
-			
-			URL url = new URL(sb.toString()); // URL to Parse
+			URL url = new URL(URL); // URL to Parse
 			URLConnection urlConnection = url.openConnection();
 			BufferedReader bufferReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 
 			String inputLine;
 			while ((inputLine = bufferReader.readLine()) != null) {               
-				JSONArray jsonArray = (JSONArray) parser.parse(inputLine);
+				//JSONArray jsonArray = (JSONArray) parser.parse(inputLine);
 
 				// Loop through each item
-				for (Object object : jsonArray) {
-					JSONObject jsonObject = (JSONObject) object;
+				//for (Object object : jsonArray) {
+					Object object = inputLine;
+					JSONObject jsonObject =  new JSONObject(object);
 
 					String status = (String) jsonObject.get(STATUS);
 					if(status.equals(SUCCESS)){
-						String details = (String) jsonObject.get("device");
+						String details = (String) jsonObject.get(DETAILS);
+						return details;
+					}else{
+						return status;
 					}
 				}
-			}
+			//}
 			bufferReader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}   
-
+		}
+		return null;
 	}
 }

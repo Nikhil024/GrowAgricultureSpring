@@ -21,6 +21,7 @@ import com.grow.agriculture.beans.OTPFormBean;
 import com.grow.agriculture.beans.RegisterFormBean;
 import com.grow.agriculture.helper.UsersHelper;
 import com.grow.agriculture.service.ConfigurationService;
+import com.grow.agriculture.service.JsonReaderService;
 import com.grow.agriculture.service.UsersService;
 
 @Controller
@@ -44,13 +45,15 @@ public class RegisterPageComponentController {
     @Autowired
     @Qualifier("registerValidator")
     Validator registerFormValidator;
-	
     
     @Autowired
     UsersService usersService;
     
     @Autowired
     UsersHelper usersHelper;
+    
+    @Autowired
+    JsonReaderService jsonReaderService;
     
     private static final String VIEW_NAME = "registerPageComponent";
 	private static final String PROJECT_NAME = "project_name";
@@ -150,7 +153,15 @@ public class RegisterPageComponentController {
 			LOG.info("No errors");
 			if(usersService.getIfUserExists(Long.parseLong(formBean.getPhoneNumber())) == 0){
 				usersService.createNewUser(usersHelper.getUsersBean(formBean));
-				usersService.updateUser("OTP","","");
+				String URL = configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_MAIN_URL);
+				URL = URL.replaceAll("api_key",configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_API_KEY));
+				URL = URL.replace("{phone_number}", formBean.getPhoneNumber());
+				LOG.info("total url::: "+URL);
+				String demo = jsonReaderService.sendRestUrl(URL);
+				if(demo != null){
+					LOG.info("status:: "+demo);
+				}
+				//usersService.updateUser("OTP","",formBean.getPhoneNumber());
 				model.asMap().clear();
 				return "redirect:"+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 			}

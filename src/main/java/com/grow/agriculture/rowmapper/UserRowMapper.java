@@ -13,6 +13,8 @@ public class UserRowMapper implements RowMapper<UsersDaoBean>{
 		 	UsersDaoBean user = new UsersDaoBean();
 		 	user.setId(resultSet.getInt("ID"));
 		 	user.setUsername(resultSet.getString("NAME"));
+		 	user.setPhonenumber(resultSet.getLong(""));
+		 	user.setOtpVerified(otpVerified);
 		 	user.setPassword(resultSet.getString("PASSWORD"));
 		 	user.setUserType(resultSet.getString("USER_TYPE"));
 		 	user.setCreatedDate(resultSet.getString("CREATED_DATE"));

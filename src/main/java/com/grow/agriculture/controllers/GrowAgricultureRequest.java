@@ -6,6 +6,7 @@ import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 
 public class GrowAgricultureRequest {
 
@@ -30,6 +31,13 @@ public class GrowAgricultureRequest {
 		return requests.getRemoteAddr();
 	}
 
+	public void setRequestobject(String name, String variable) {
+		requests.setAttribute(name, variable);
+	}
+	
+	public String getRequestObject(String variableName) {
+		return requests.getParameter(variableName);
+	}
 	
 	public String getCurrentSystemDate(){
 		Calendar calendar = Calendar.getInstance();

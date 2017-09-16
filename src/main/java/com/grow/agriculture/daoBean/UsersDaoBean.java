@@ -12,9 +12,9 @@ public class UsersDaoBean implements Serializable{
 	private String password;
 	private String email;
 	private String userType;
+	private int otpVerified;
 	private String createdDate;
 	private String lastupdateDate;
-	private String OTP;
 	
 	public int getId() {
 		return id;
@@ -64,17 +64,16 @@ public class UsersDaoBean implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getOTP() {
-		return OTP;
+	public int getOtpVerified() {
+		return otpVerified;
 	}
-	public void setOTP(String oTP) {
-		OTP = oTP;
+	public void setOtpVerified(int otpVerified) {
+		this.otpVerified = otpVerified;
 	}
 	@Override
 	public String toString() {
 		return "UsersDaoBean [id=" + id + ", username=" + username + ", phonenumber=" + phonenumber + ", password="
-				+ password + ", email=" + email + ", userType=" + userType + ", createdDate=" + createdDate
-				+ ", lastupdateDate=" + lastupdateDate + ", OTP=" + OTP + "]";
+				+ password + ", email=" + email + ", userType=" + userType + ", otpVerified=" + otpVerified
+				+ ", createdDate=" + createdDate + ", lastupdateDate=" + lastupdateDate + "]";
 	}
 }

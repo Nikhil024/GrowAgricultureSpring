@@ -9,13 +9,8 @@ import java.net.URLConnection;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.grow.agriculture.service.ConfigurationService;
+import org.json.simple.JSONValue;
 import com.grow.agriculture.service.JsonReaderService;
 
 public class JsonReaderServiceImpl implements JsonReaderService {
@@ -29,7 +24,7 @@ public class JsonReaderServiceImpl implements JsonReaderService {
 	
 	@Override
 	public String sendRestUrl(String URL) throws ConfigurationException {
-		JSONParser parser = new JSONParser();
+		//JSONParser parser = new JSONParser();
 		try {         
 			URL url = new URL(URL); // URL to Parse
 			URLConnection urlConnection = url.openConnection();
@@ -37,12 +32,8 @@ public class JsonReaderServiceImpl implements JsonReaderService {
 
 			String inputLine;
 			while ((inputLine = bufferReader.readLine()) != null) {               
-				//JSONArray jsonArray = (JSONArray) parser.parse(inputLine);
-
-				// Loop through each item
-				//for (Object object : jsonArray) {
-					Object object = inputLine;
-					JSONObject jsonObject =  new JSONObject(object);
+					Object object = JSONValue.parse(inputLine);  
+					JSONObject jsonObject = (JSONObject) object;
 
 					String status = (String) jsonObject.get(STATUS);
 					if(status.equals(SUCCESS)){
@@ -52,7 +43,6 @@ public class JsonReaderServiceImpl implements JsonReaderService {
 						return status;
 					}
 				}
-			//}
 			bufferReader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

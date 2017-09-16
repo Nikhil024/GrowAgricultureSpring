@@ -29,7 +29,7 @@ public class UsersDaoImpl implements UsersDao {
     DataSource dataSource;
 	
 	
-	private String createUserQuery = "INSERT INTO USERS (ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,CREATED_DATE,LAST_UPDATE) VALUES (USERS_ID.NEXTVAL,:username,:phonenumber,:password,:email,:userType,:createdDate,:lastUpdate)";
+	private String createUserQuery = "INSERT INTO USERS (ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,OTP_VERIFIED,CREATED_DATE,LAST_UPDATE) VALUES (USERS_ID.NEXTVAL,:username,:phonenumber,:password,:email,:userType,:otp_verified,:createdDate,:lastUpdate)";
 	private String deleteUserQuery = "DELETE FROM USERS WHERE PHONENUMBER=:phonenumber";
 	private String selectUserQuery = "SELECT ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,CREATED_DATE,LAST_UPDATE FROM USERS WHERE PHONENUMBER=:phonenumber;";
 	private String selectIfUserExistsQuery = "SELECT count(1) FROM USERS where PHONENUMBER=:phonenumber";
@@ -72,6 +72,7 @@ public class UsersDaoImpl implements UsersDao {
 		 parameters.put("password", user.getPassword());
 		 parameters.put("email", user.getEmail());
 		 parameters.put("userType", user.getUserType());
+		 parameters.put("otp_verified",user.getOtpVerified());
 		 parameters.put("createdDate", user.getCreatedDate());
 		 parameters.put("lastUpdate", user.getLastupdateDate());
 		 

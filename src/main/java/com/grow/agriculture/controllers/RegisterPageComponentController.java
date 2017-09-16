@@ -159,10 +159,11 @@ public class RegisterPageComponentController {
 				LOG.info("total url::: "+URL);
 				String demo = jsonReaderService.sendRestUrl(URL);
 				if(demo != null){
-					LOG.info("status:: "+demo);
+					
 				}
 				//usersService.updateUser("OTP","",formBean.getPhoneNumber());
 				model.asMap().clear();
+				request.setRequestobject("phoneNumber", formBean.getPhoneNumber());
 				return "redirect:"+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 			}
 			else{
@@ -174,6 +175,7 @@ public class RegisterPageComponentController {
 	
 	@RequestMapping(value="/{userType}/otp",method=RequestMethod.GET)
 	public String farmerGetRegisterOTP(Model model,@PathVariable("userType") String userType) throws ConfigurationException{
+		LOG.info("in otp ::: "+request.getRequestObject("phoneNumber"));
 		if(GrowAgricultureConstants.USER_TYPE_URL.contains(userType)){
 		model.addAttribute(SHOW_OTP_SECTION,SHOW_OTP);
 		model.addAttribute(REGISTER_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_PLACEHOLDER_NAME));
@@ -193,7 +195,7 @@ public class RegisterPageComponentController {
 	public String farmerPostRegisterOTP(@ModelAttribute(REGISTER_FORM_BEAN_NAME) OTPFormBean formBean,BindingResult result,@PathVariable("userType") String userType,Model model) throws ConfigurationException{
 		otpValidator.validate(formBean, result);
 		model.addAttribute(SHOW_OTP_SECTION,true);
-		LOG.info("OTP "+formBean);
+		LOG.info("OTP "+formBean.getOTP());
 		model.addAttribute(REGISTER_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_PLACEHOLDER_NAME));
 		model.addAttribute(REGISTER_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.OPT_BACKGROUND_IMAGE_NAME));
 		model.addAttribute(REGISTER_PAGE_USER_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_TITLE_NAME));

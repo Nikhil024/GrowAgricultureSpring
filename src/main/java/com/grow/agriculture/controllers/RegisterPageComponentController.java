@@ -163,9 +163,9 @@ public class RegisterPageComponentController {
 					
 				}*/
 				//usersService.updateUser("OTP","",formBean.getPhoneNumber());
-				redirectAttributes.addFlashAttribute("registerFormBean", "helloooooooo");
+				redirectAttributes.addFlashAttribute("registerFormBean", formBean);
 				//request.setRequestobject("phoneNumber", formBean.getPhoneNumber());
-				return "redirect:"+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
+				return "redirect:/register/farmerRegister/otp"; //+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 			}
 			else{
 				model.addAttribute(SHOW_USER_ALREADY_EXISTS_SECTION,true);
@@ -175,8 +175,8 @@ public class RegisterPageComponentController {
 	}
 	
 	@RequestMapping(value="/{userType}/otp",method=RequestMethod.GET)
-	public String farmerGetRegisterOTP(Model model,@PathVariable("userType") String userType,@ModelAttribute String registerFormBean) throws ConfigurationException{
-		LOG.info("in otp ::: "+registerFormBean);
+	public String farmerGetRegisterOTP(Model model,@PathVariable("userType") String userType,@ModelAttribute RegisterFormBean registerFormBean) throws ConfigurationException{
+		LOG.info("in otp ::: "+registerFormBean.getPhoneNumber());
 		if(GrowAgricultureConstants.USER_TYPE_URL.contains(userType)){
 		model.addAttribute(SHOW_OTP_SECTION,SHOW_OTP);
 		model.addAttribute(REGISTER_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_PLACEHOLDER_NAME));

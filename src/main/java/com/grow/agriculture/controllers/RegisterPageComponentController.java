@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.grow.agriculture.additional.GrowAgricultureConstants;
 import com.grow.agriculture.beans.OTPFormBean;
@@ -133,7 +134,7 @@ public class RegisterPageComponentController {
 	
 	
 	@RequestMapping(value="/farmerRegister", method = RequestMethod.POST)
-	public String farmerRegisterPostMethodComponent(@ModelAttribute(REGISTER_FORM_BEAN_NAME) RegisterFormBean formBean,BindingResult result,Model model) throws ConfigurationException{
+	public String farmerRegisterPostMethodComponent(@ModelAttribute(REGISTER_FORM_BEAN_NAME) RegisterFormBean formBean,BindingResult result,Model model,final RedirectAttributes redirectAttributes) throws ConfigurationException{
 		formBean.setIsFarmer(true);
 		registerFormValidator.validate(formBean, result);
 		LOG.info("this is the farmer login form bean "+formBean);
@@ -153,17 +154,17 @@ public class RegisterPageComponentController {
 			LOG.info("No errors");
 			if(usersService.getIfUserExists(Long.parseLong(formBean.getPhoneNumber())) == 0){
 				usersService.createNewUser(usersHelper.getUsersBean(formBean));
-				String URL = configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_MAIN_URL);
+				/*String URL = configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_MAIN_URL);
 				URL = URL.replaceAll("api_key",configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_API_KEY));
 				URL = URL.replace("{phone_number}", formBean.getPhoneNumber());
 				LOG.info("total url::: "+URL);
 				String demo = jsonReaderService.sendRestUrl(URL);
 				if(demo != null){
 					
-				}
+				}*/
 				//usersService.updateUser("OTP","",formBean.getPhoneNumber());
-				model.asMap().clear();
-				request.setRequestobject("phoneNumber", formBean.getPhoneNumber());
+				redirectAttributes.addFlashAttribute("registerFormBean", "helloooooooo");
+				//request.setRequestobject("phoneNumber", formBean.getPhoneNumber());
 				return "redirect:"+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 			}
 			else{
@@ -174,8 +175,8 @@ public class RegisterPageComponentController {
 	}
 	
 	@RequestMapping(value="/{userType}/otp",method=RequestMethod.GET)
-	public String farmerGetRegisterOTP(Model model,@PathVariable("userType") String userType) throws ConfigurationException{
-		LOG.info("in otp ::: "+request.getRequestObject("phoneNumber"));
+	public String farmerGetRegisterOTP(Model model,@PathVariable("userType") String userType,@ModelAttribute String registerFormBean) throws ConfigurationException{
+		LOG.info("in otp ::: "+registerFormBean);
 		if(GrowAgricultureConstants.USER_TYPE_URL.contains(userType)){
 		model.addAttribute(SHOW_OTP_SECTION,SHOW_OTP);
 		model.addAttribute(REGISTER_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_PLACEHOLDER_NAME));

@@ -153,6 +153,8 @@ $(document).ready(function() {
 								</div>
 								<span class="badge badge-danger"><form:errors
 										path="OTP" /></span>
+								<form:input path="phoneNumber" type="hidden" value="${phoneNumber}" />
+								<form:input path="sessionId" type="hidden" value="${sessionId}" />
 							</div>
 							</c:if>
 						</div>

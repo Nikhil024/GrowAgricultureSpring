@@ -29,9 +29,6 @@ public class OTPValidator implements Validator {
 			if(formBean.getOTP().length() < 4){
 				errors.rejectValue("OTP", "formBean.OTP", "invalid OTP. Please retry again.");
 			}
-			if(formBean.getOTP().length() > 4){
-				errors.rejectValue("OTP", "formBean.OTP", "invalid OTP. Please retry again.");
-			}
 		}
 	}
 

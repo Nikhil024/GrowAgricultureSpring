@@ -16,28 +16,28 @@ public class UsersServiceImpl implements UsersService {
 	UsersHelper usersHelper;
 	
 	@Override
-	public UsersDaoBean getUser(int phonenumber) {
+	public UsersDaoBean retrive(long phonenumber) {
 		UsersDaoBean usersDaoBean = usersDao.getUser(phonenumber);
 		return usersDaoBean != null && !usersDaoBean.toString().isEmpty() ? usersDaoBean : null ;
 	}
 
 	@Override
-	public void createNewUser(UsersDaoBean user) {
+	public void save(UsersDaoBean user) {
 		usersDao.createNewUser(user);
 	}
 
 	@Override
-	public void updateUser(String columnname, String valuename, String phonenumber) {
+	public void update(String columnname, String valuename, String phonenumber) {
 		usersDao.updateUser(columnname, valuename , phonenumber);
 	}
 
 	@Override
-	public void deleteUser(int phonenumber) {
+	public void delete(int phonenumber) {
 		usersDao.deleteUser(phonenumber);
 	}
 
 	@Override
-	public int getIfUserExists(long phonenumber) {
+	public int check(long phonenumber) {
 		int count = usersDao.getIfUserExists(phonenumber);
 		return count;
 	}

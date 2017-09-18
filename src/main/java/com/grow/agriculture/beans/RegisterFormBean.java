@@ -6,6 +6,7 @@ public class RegisterFormBean {
 	private boolean isFarmer;
 	private String OTP;
 	private boolean showOTP;
+	private String sessionId;
 	
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -39,9 +40,15 @@ public class RegisterFormBean {
 		this.showOTP = showOTP;
 	}
 	
+	public String getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
 	@Override
 	public String toString() {
 		return "RegisterFormBean [phoneNumber=" + phoneNumber + ", password=" + password + ", isFarmer=" + isFarmer
-				+ ", OTP=" + OTP + ", showOTP=" + showOTP + "]";
+				+ ", OTP=" + OTP + ", showOTP=" + showOTP + ", sessionId=" + sessionId + "]";
 	}
 }

@@ -5,7 +5,7 @@ import com.grow.agriculture.daoBean.UsersDaoBean;
 
 public interface UsersDao {
 	
-	public UsersDaoBean getUser(int phonenumber);
+	public UsersDaoBean getUser(long phonenumber);
 	public int getIfUserExists(long phonenumber);
 	public void createNewUser(UsersDaoBean user);
 	public void updateUser(String columnname, String valuename, String phonenumber);

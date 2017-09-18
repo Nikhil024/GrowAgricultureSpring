@@ -31,13 +31,13 @@ public class UsersDaoImpl implements UsersDao {
 	
 	private String createUserQuery = "INSERT INTO USERS (ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,OTP_VERIFIED,CREATED_DATE,LAST_UPDATE) VALUES (USERS_ID.NEXTVAL,:username,:phonenumber,:password,:email,:userType,:otp_verified,:createdDate,:lastUpdate)";
 	private String deleteUserQuery = "DELETE FROM USERS WHERE PHONENUMBER=:phonenumber";
-	private String selectUserQuery = "SELECT ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,CREATED_DATE,LAST_UPDATE FROM USERS WHERE PHONENUMBER=:phonenumber;";
+	private String selectUserQuery = "SELECT ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,OTP_VERIFIED,CREATED_DATE,LAST_UPDATE FROM USERS WHERE PHONENUMBER=:phonenumber";
 	private String selectIfUserExistsQuery = "SELECT count(1) FROM USERS where PHONENUMBER=:phonenumber";
 	private String UpdateUserQuery = "UPDATE USERS SET :columnname=:valuename where PHONENUMBER=:phonenumber";
 	
 	
 	@Override
-	public UsersDaoBean getUser(int phonenumber) {
+	public UsersDaoBean getUser(long phonenumber) {
 		String query = selectUserQuery;
 		 try {
 	            Map<String, Object> parameters = new HashMap<String, Object>();

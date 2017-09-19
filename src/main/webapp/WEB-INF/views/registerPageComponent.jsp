@@ -94,7 +94,6 @@ $(document).ready(function() {
 
 	<!-- End Navbar -->
 	<div class="wrapper">
-
 		<div class="page-header clear-filter" filter-color="orange">
 			<div class="page-header-image" data-parallax="true"
 				style="background-image: url('<spring:url value="/resources/img/${background_name}"/>');">
@@ -175,8 +174,7 @@ $(document).ready(function() {
 										<div class="alert-icon">
 											<i class="now-ui-icons objects_support-17"></i>
 										</div>
-										<strong>Oh Looks!</strong> like you are already registered,
-										If you have forgotten your password click <a style="color:white;" href="<spring:url value="/forgotPassword"/>"><strong>here</strong></a>.
+										<spring:message code="phone.already.exists"/>
 										<button type="button" class="close" data-dismiss="alert"
 											aria-label="Close">
 											<span aria-hidden="true"> <i
@@ -186,6 +184,22 @@ $(document).ready(function() {
 									</div>
 								</div>
 							</c:if>
+					<c:if test="${not empty showRegsiterSuccess}">
+						<div class="error-banner-display alert alert-success" role="alert">
+							<div class="container">
+								<div class="alert-icon">
+									<i class="icons-style now-ui-icons ui-2_like"></i>
+								</div>
+								<spring:message code="register.success"/>
+								<button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true"> <i
+										class="now-ui-icons ui-1_simple-remove"></i>
+									</span>
+								</button>
+							</div>
+						</div>
+					</c:if>
 				</div>
 			</div>
 		</div>

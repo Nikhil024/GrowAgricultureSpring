@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,9 +21,11 @@ import com.grow.agriculture.additional.GrowAgricultureConstants;
 import com.grow.agriculture.beans.OTPFormBean;
 import com.grow.agriculture.beans.RegisterFormBean;
 import com.grow.agriculture.daoBean.UsersDaoBean;
+import com.grow.agriculture.helper.OTPHelper;
 import com.grow.agriculture.helper.UsersHelper;
 import com.grow.agriculture.service.ConfigurationService;
 import com.grow.agriculture.service.JsonReaderService;
+import com.grow.agriculture.service.OTPService;
 import com.grow.agriculture.service.UsersService;
 
 @Controller
@@ -53,7 +54,13 @@ public class RegisterPageComponentController {
 	UsersService usersService;
 
 	@Autowired
+	OTPService otpService;
+
+	@Autowired
 	UsersHelper usersHelper;
+
+	@Autowired
+	OTPHelper otpHelper;
 
 	@Autowired
 	JsonReaderService jsonReaderService;
@@ -77,6 +84,8 @@ public class RegisterPageComponentController {
 	private static final String SHOW_RESEND_OTP = "showResendOTP";
 	private static final boolean SHOW_OTP = true;
 	private static final String PHONE_NUMBER = "phoneNumber";
+	private static final String OTP_MATCHED = "OTP Matched";
+	private static final String OTP_VERIFIED = "OTP_VERIFIED";
 
 
 
@@ -185,36 +194,60 @@ public class RegisterPageComponentController {
 	@RequestMapping(value="/{userType}/otp",method=RequestMethod.GET)
 	public String farmerGetRegisterOTP(Model model,@PathVariable("userType") String userType,@ModelAttribute(value = REGISTER_FORM_BEAN_NAME) RegisterFormBean registerFormBean) throws ConfigurationException{
 		LOG.info("in otp ::: "+registerFormBean.getPhoneNumber());
-		if(GrowAgricultureConstants.USER_TYPE_URL.contains(userType)){
-			model.addAttribute(SHOW_OTP_SECTION,SHOW_OTP);
-			model.addAttribute(REGISTER_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_PLACEHOLDER_NAME));
-			model.addAttribute(REGISTER_PAGE_USER_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_TITLE_NAME));
-			model.addAttribute(REGISTER_PAGE_ABOUTUS_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.ABOUTUS_TITLE_NAME));
-			model.addAttribute(REGISTER_FORM_BEAN_NAME, new OTPFormBean());
-			model.addAttribute(PHONE_NUMBER, registerFormBean.getPhoneNumber());
-			model.addAttribute("sessionId", registerFormBean.getSessionId());
-			model.addAttribute(REGISTER_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME));
-			model.addAttribute(REGISTER_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.OPT_BACKGROUND_IMAGE_NAME));
-			model.addAttribute(REGISTER_FORM_NAME,FARMER_REGISTER_URL+File.separator+OTP);
-			return VIEW_NAME;
+		if(registerFormBean.getPhoneNumber() != null ){
+			if(GrowAgricultureConstants.USER_TYPE_URL.contains(userType)){
+				model.addAttribute(SHOW_OTP_SECTION,SHOW_OTP);
+				model.addAttribute(REGISTER_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_PLACEHOLDER_NAME));
+				model.addAttribute(REGISTER_PAGE_USER_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_TITLE_NAME));
+				model.addAttribute(REGISTER_PAGE_ABOUTUS_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.ABOUTUS_TITLE_NAME));
+				model.addAttribute(REGISTER_FORM_BEAN_NAME, new OTPFormBean());
+				model.addAttribute(PHONE_NUMBER, registerFormBean.getPhoneNumber());
+				model.addAttribute("sessionId", registerFormBean.getSessionId());
+				model.addAttribute(REGISTER_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME));
+				model.addAttribute(REGISTER_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.OPT_BACKGROUND_IMAGE_NAME));
+				model.addAttribute(REGISTER_FORM_NAME,FARMER_REGISTER_URL+File.separator+OTP);
+				return VIEW_NAME;
+			}else{
+				return "errorPage";
+			}
 		}else{
-			return VIEW_NAME;
+			return "errorPage";
 		}
 	}
 
 	@RequestMapping(value = "/{userType}/otp",method = RequestMethod.POST)
 	public String farmerPostRegisterOTP(@ModelAttribute(REGISTER_FORM_BEAN_NAME) OTPFormBean formBean,BindingResult result,@PathVariable("userType") String userType,Model model) throws ConfigurationException{
 		otpValidator.validate(formBean, result);
-		LOG.info("in otp post ::: "+formBean.getSessionId());
-		model.addAttribute(SHOW_OTP_SECTION,true);
-		UsersDaoBean usersDaoBean = usersService.retrive(Long.parseLong(formBean.getPhoneNumber()));
-		formBean.setUserId(String.valueOf(usersDaoBean.getId()));
-		
 		model.addAttribute(REGISTER_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_PLACEHOLDER_NAME));
 		model.addAttribute(REGISTER_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.OPT_BACKGROUND_IMAGE_NAME));
 		model.addAttribute(REGISTER_PAGE_USER_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_TITLE_NAME));
 		model.addAttribute(REGISTER_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME));
 		model.addAttribute(REGISTER_FORM_NAME,FARMER_REGISTER_URL+File.separator+OTP);
+
+		LOG.info("in otp post ::: "+formBean.getSessionId());
+		model.addAttribute(SHOW_OTP_SECTION,true);
+		UsersDaoBean usersDaoBean = usersService.retrive(Long.parseLong(formBean.getPhoneNumber()));
+		formBean.setUserId(String.valueOf(usersDaoBean.getId()));
+
+
+		String URL = configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_OTP_CHECK_URL);
+		URL = URL.replaceAll("api_key",configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_API_KEY));
+		URL = URL.replace("{session_id}", formBean.getSessionId());
+		URL = URL.replace("{otp_entered_by_user}", formBean.getOTP());
+		String checkOTP = jsonReaderService.sendRestUrl(URL);
+
+		if(checkOTP != null){
+			if(!checkOTP.equals("Error")){
+				if(checkOTP.equals(OTP_MATCHED)){
+					otpService.save(otpHelper.getOtpBean(formBean));
+					usersService.update(OTP_VERIFIED, 1, formBean.getPhoneNumber());
+					model.addAttribute("showRegsiterSuccess",true);
+					return VIEW_NAME;
+				}
+			}
+		}
+
+
 		if(result.hasErrors()){
 			LOG.info("has errors");
 			model.addAttribute(SHOW_RESEND_OTP,SHOW_OTP);

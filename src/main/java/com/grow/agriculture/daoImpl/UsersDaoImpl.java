@@ -33,7 +33,7 @@ public class UsersDaoImpl implements UsersDao {
 	private String deleteUserQuery = "DELETE FROM USERS WHERE PHONENUMBER=:phonenumber";
 	private String selectUserQuery = "SELECT ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,OTP_VERIFIED,CREATED_DATE,LAST_UPDATE FROM USERS WHERE PHONENUMBER=:phonenumber";
 	private String selectIfUserExistsQuery = "SELECT count(1) FROM USERS where PHONENUMBER=:phonenumber";
-	private String UpdateUserQuery = "UPDATE USERS SET :columnname=:valuename where PHONENUMBER=:phonenumber";
+	private String UpdateUserQuery = "UPDATE USERS SET OTP_VERIFIED=:valuename where PHONENUMBER=:phonenumber";
 	
 	
 	@Override
@@ -85,6 +85,21 @@ public class UsersDaoImpl implements UsersDao {
 
 	@Override
 	public void updateUser(String columnname, String valuename, String phonenumber) {
+		String query = UpdateUserQuery;
+		
+		 Map<String, Object> parameters = new HashMap<String, Object>();
+		 parameters.put("valuename", valuename);
+		 parameters.put("phonenumber", phonenumber);
+		 
+		 LOG.info("in Dao Users::: "+parameters.toString());
+		 
+		 SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
+		 LOG.info("in Dao Users::: "+namedParameters);
+		 namedParameterJdbcTemplate.update(query, namedParameters);
+	}
+	
+	@Override
+	public void updateUser(String columnname, int valuename, String phonenumber) {
 		String query = UpdateUserQuery;
 		
 		 Map<String, Object> parameters = new HashMap<String, Object>();

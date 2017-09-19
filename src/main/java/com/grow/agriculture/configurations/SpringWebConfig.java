@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -24,16 +25,21 @@ import org.springframework.web.servlet.view.JstlView;
 
 import com.grow.agriculture.beans.RegisterFormBean;
 import com.grow.agriculture.controllers.GrowAgricultureRequest;
+import com.grow.agriculture.dao.OTPDao;
 import com.grow.agriculture.dao.UsersDao;
+import com.grow.agriculture.daoImpl.OTPDaoImpl;
 import com.grow.agriculture.daoImpl.UsersDaoImpl;
 import com.grow.agriculture.form.validators.OTPValidator;
 import com.grow.agriculture.form.validators.RegisterValidator;
+import com.grow.agriculture.helper.OTPHelper;
 import com.grow.agriculture.helper.UsersHelper;
 import com.grow.agriculture.service.ConfigurationService;
 import com.grow.agriculture.service.JsonReaderService;
+import com.grow.agriculture.service.OTPService;
 import com.grow.agriculture.service.UsersService;
 import com.grow.agriculture.serviceImpl.ConfigurationServiceImpl;
 import com.grow.agriculture.serviceImpl.JsonReaderServiceImpl;
+import com.grow.agriculture.serviceImpl.OTPServiceImpl;
 import com.grow.agriculture.serviceImpl.UsersServiceImpl;
 
 @EnableWebMvc //mvc:annotation-driven
@@ -61,7 +67,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
         logger.debug(StringUtils.repeat('*', 78));
     }
 	
-	@Value("${database.classname}")
+	/*@Value("${database.classname}")
 	private String databaseClassName;
 
 	@Value("${database.url}")
@@ -72,7 +78,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	
 	@Value("${database.password}")
 	private String databasePassword;
-	
+	*/
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
@@ -87,13 +93,23 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 	
+	
+	@Bean
+    public ResourceBundleMessageSource messageSource() {
+        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+        source.setBasename("messages");
+        source.setUseCodeAsDefaultMessage(true);
+        return source;
+    }
+	
+	
 	@Bean
 	public DataSource dataSource(){
 		DriverManagerDataSource driverManagerDatasource = new DriverManagerDataSource();
-		driverManagerDatasource.setDriverClassName(databaseClassName);
-		driverManagerDatasource.setUrl(databaseUrl); //"jdbc:oracle:thin:172.30.55.61:1521:XE"));
-		driverManagerDatasource.setUsername(databaseUsername);//"nikhil");
-		driverManagerDatasource.setPassword(databasePassword);//"admin");
+		driverManagerDatasource.setDriverClassName(environment.getProperty("database.classname"));//databaseClassName);
+		driverManagerDatasource.setUrl(environment.getProperty("database.url"));//databaseUrl); //"jdbc:oracle:thin:172.30.55.61:1521:XE"));
+		driverManagerDatasource.setUsername(environment.getProperty("database.username"));//databaseUsername);//"nikhil");
+		driverManagerDatasource.setPassword(environment.getProperty("database.password"));//databasePassword);//"admin");
 		return driverManagerDatasource;
 	}
 	
@@ -141,11 +157,21 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	        return new UsersDaoImpl();
 	    }
 	 
+	 @Bean
+	 public OTPDao otpDao(){
+		 return new OTPDaoImpl();
+	 }
+	 
 	 //Service
 	 @Bean
 	 public UsersService usersService() {
 	        return new UsersServiceImpl();
 	    }
+	 
+	 @Bean
+	 public OTPService otpService(){
+		 return new OTPServiceImpl();
+	 }
 	 
 	 //Helper
 	 @Bean
@@ -153,4 +179,8 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	        return new UsersHelper();
 	    }
 	 
+	 @Bean
+	 public OTPHelper otpHelper(){
+		 return new OTPHelper();
+	 }
 }

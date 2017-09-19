@@ -30,6 +30,11 @@ public class UsersServiceImpl implements UsersService {
 	public void update(String columnname, String valuename, String phonenumber) {
 		usersDao.updateUser(columnname, valuename , phonenumber);
 	}
+	
+	@Override
+	public void update(String columnname, int valuename, String phonenumber) {
+		usersDao.updateUser(columnname, valuename , phonenumber);
+	}
 
 	@Override
 	public void delete(int phonenumber) {
@@ -41,7 +46,4 @@ public class UsersServiceImpl implements UsersService {
 		int count = usersDao.getIfUserExists(phonenumber);
 		return count;
 	}
-	
-	
-
 }

@@ -9,5 +9,6 @@ public interface UsersService {
 	public int check(long phonenumber);
 	public void save(UsersDaoBean user); //createNewUser
 	public void update(String columnname, String valuename, String phonenumber);
+	public void update(String columnname, int valuename, String phonenumber);
 	public void delete(int phonenumber);
 }

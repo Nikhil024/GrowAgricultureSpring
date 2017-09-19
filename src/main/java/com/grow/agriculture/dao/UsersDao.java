@@ -9,6 +9,7 @@ public interface UsersDao {
 	public int getIfUserExists(long phonenumber);
 	public void createNewUser(UsersDaoBean user);
 	public void updateUser(String columnname, String valuename, String phonenumber);
+	public void updateUser(String columnname, int valuename, String phonenumber);
 	public void deleteUser(int phonenumber);
 
 }

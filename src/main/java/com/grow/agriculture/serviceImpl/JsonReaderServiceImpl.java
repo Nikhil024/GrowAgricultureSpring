@@ -38,8 +38,10 @@ public class JsonReaderServiceImpl implements JsonReaderService {
 					String status = (String) jsonObject.get(STATUS);
 					if(status.equals(SUCCESS)){
 						String details = (String) jsonObject.get(DETAILS);
+						LOG.info("in sendresturl details : "+details);
 						return details;
 					}else{
+						LOG.info("in sendresturl error: "+status);
 						return status;
 					}
 				}

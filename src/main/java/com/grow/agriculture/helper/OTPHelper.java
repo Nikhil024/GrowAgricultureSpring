@@ -10,7 +10,7 @@ public class OTPHelper {
 		OTPBean.setPhoneNumber(formBean.getPhoneNumber());
 		OTPBean.setSessionId(formBean.getSessionId());
 		OTPBean.setUserId(formBean.getUserId());
-		OTPBean.setOTP(formBean.getOTP());
+		OTPBean.setOTP(Long.parseLong(formBean.getOTP()));
 		return OTPBean;
 		
 	}

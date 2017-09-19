@@ -105,7 +105,7 @@ public class RegisterPageComponentController {
 	}
 
 	@RequestMapping(value="/buyerRegister", method = RequestMethod.POST)
-	public String buyerRegisterPostMethodComponent(@ModelAttribute(REGISTER_FORM_BEAN_NAME) RegisterFormBean formBean,BindingResult result,Model model) throws ConfigurationException{
+	public String buyerRegisterPostMethodComponent(@ModelAttribute(REGISTER_FORM_BEAN_NAME) RegisterFormBean formBean,BindingResult result,Model model,final RedirectAttributes redirectAttributes) throws ConfigurationException{
 		formBean.setIsFarmer(false);
 		LOG.info("this is the buyer login form bean "+formBean);
 		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
@@ -122,7 +122,30 @@ public class RegisterPageComponentController {
 			return VIEW_NAME;
 		}else{
 			LOG.info("No errors");
-			return "home";
+			if(usersService.check(Long.parseLong(formBean.getPhoneNumber())) == 0){
+				usersService.save(usersHelper.getUsersBean(formBean));
+				String URL = configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_MAIN_URL);
+				URL = URL.replaceAll("api_key",configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_API_KEY));
+				URL = URL.replace("{phone_number}", formBean.getPhoneNumber());
+				LOG.info("total url::: "+URL);
+				String checkOTP = jsonReaderService.sendRestUrl(URL);
+				if(checkOTP != null){
+					if(!checkOTP.equals("Error")){
+						formBean.setSessionId(checkOTP);
+						redirectAttributes.addFlashAttribute(REGISTER_FORM_BEAN_NAME, formBean);
+						return "redirect:/register/buyerRegister/otp"; //+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
+
+					}else{
+						return "errorpage";
+					}
+				}else{
+					return "errorpage";
+				}
+			}
+			else{
+				model.addAttribute(SHOW_USER_ALREADY_EXISTS_SECTION,true);
+				return VIEW_NAME;
+			}
 		}
 	}
 
@@ -170,10 +193,10 @@ public class RegisterPageComponentController {
 				URL = URL.replaceAll("api_key",configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_API_KEY));
 				URL = URL.replace("{phone_number}", formBean.getPhoneNumber());
 				LOG.info("total url::: "+URL);
-				String demo = jsonReaderService.sendRestUrl(URL);
-				if(demo != null){
-					if(!demo.equals("Error")){
-						formBean.setSessionId(demo);
+				String checkOTP = jsonReaderService.sendRestUrl(URL);
+				if(checkOTP != null){
+					if(!checkOTP.equals("Error")){
+						formBean.setSessionId(checkOTP);
 						redirectAttributes.addFlashAttribute(REGISTER_FORM_BEAN_NAME, formBean);
 						return "redirect:/register/farmerRegister/otp"; //+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 
@@ -193,7 +216,6 @@ public class RegisterPageComponentController {
 
 	@RequestMapping(value="/{userType}/otp",method=RequestMethod.GET)
 	public String farmerGetRegisterOTP(Model model,@PathVariable("userType") String userType,@ModelAttribute(value = REGISTER_FORM_BEAN_NAME) RegisterFormBean registerFormBean) throws ConfigurationException{
-		LOG.info("in otp ::: "+registerFormBean.getPhoneNumber());
 		if(registerFormBean.getPhoneNumber() != null ){
 			if(GrowAgricultureConstants.USER_TYPE_URL.contains(userType)){
 				model.addAttribute(SHOW_OTP_SECTION,SHOW_OTP);
@@ -224,7 +246,6 @@ public class RegisterPageComponentController {
 		model.addAttribute(REGISTER_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME));
 		model.addAttribute(REGISTER_FORM_NAME,FARMER_REGISTER_URL+File.separator+OTP);
 
-		LOG.info("in otp post ::: "+formBean.getSessionId());
 		model.addAttribute(SHOW_OTP_SECTION,true);
 		UsersDaoBean usersDaoBean = usersService.retrive(Long.parseLong(formBean.getPhoneNumber()));
 		formBean.setUserId(String.valueOf(usersDaoBean.getId()));

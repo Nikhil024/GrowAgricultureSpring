@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -101,7 +102,7 @@ public class LoginPageComponentController {
 	
 	
 	@RequestMapping(value="/farmerLogin", method = RequestMethod.POST)
-	public String FarmerLoginPostMethodComponent(@Valid @ModelAttribute LoginFormBean formBean,Errors error,Model model) throws ConfigurationException{
+	public String FarmerLoginPostMethodComponent(@ModelAttribute(LOGIN_FORM_BEAN_NAME) LoginFormBean formBean,BindingResult result,Model model) throws ConfigurationException{
 		formBean.setIsFarmer(true);
 		LOG.info("this is the farmer login form bean "+formBean);
 		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
@@ -113,7 +114,7 @@ public class LoginPageComponentController {
 		model.addAttribute(LOGIN_PAGE_USER_LOGIN_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.FARMERLOGIN_TITILE_NAME));
 		model.addAttribute(LOGIN_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGINANDREGISTER_INPUT_PLACEHOLDER_TEXT));
 		model.addAttribute(LOGIN_FORM_NAME,FARMER_LOGIN_URL);
-		if(error.hasErrors()){
+		if(result.hasErrors()){
 			LOG.info("has errors");
 			return VIEW_NAME;
 		}else{

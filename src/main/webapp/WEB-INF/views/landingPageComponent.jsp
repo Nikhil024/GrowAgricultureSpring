@@ -7,6 +7,10 @@
 <head>
   <jsp:include page="HeaderCss.jsp"></jsp:include>  
     <title>${project_name}</title>
+    <style>
+    .bg-one {background-image: url(<spring:url value="/resources/img/BuyerPopupPic.jpg"/>);}
+	.bg-two {background-image: url(<spring:url value="/resources/img/FarmerPopupPic.jpg"/>);}
+    </style>
 </head>
 
 <body class="index-page" style="overflow:hidden;">
@@ -26,8 +30,8 @@
             <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="<spring:url value="/login"/>">
-                            <i class="now-ui-icons"><img alt="login" src="<spring:url value="/resources/icons/login.png"/>"/></i>
+                        <a class="nav-link" href="<spring:url value="/login"/>" data-toggle="modal" data-target="#myModal">
+                            <i class="now-ui-icons" ><img alt="login" src="<spring:url value="/resources/icons/login.png"/>"/></i>
                             <p>${login}</p>
                         </a>
                     </li>
@@ -65,6 +69,37 @@
             </div>
         </div>
     </nav>
+	<!-- Modal Core -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Select a Login Type</h4>
+      </div>
+      <div class="modal-body">
+      	
+      	<jsp:include page="demo.jsp"></jsp:include>
+    
+      
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info btn-simple">Save</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<!-- <div class="wrapper">
+    <div class="parent" onclick="">
+        <div class="child bg-one">
+            <a href="#">Los Angeles</a>
+        </div>
+    </div> -->
+
+
+
     <!-- End Navbar -->
     <div class="wrapper">
         <div class="page-header clear-filter" filter-color="orange">
@@ -73,7 +108,7 @@
             <div class="container">
                 <div class="content-center brand">
                     <img class="n-logo" src="<spring:url value="/resources/img/${landing_page_logo_image_name}"/>" alt="">
-                    <h1 class="h1-seo">${project_name}.</h1>
+                    <h1 class="animated pulse infinite h1-seo">${project_name}</h1>
                     <h3>${landing_page_description}</h3>
                 </div>
                 <%-- <h6 class="category category-absolute">Designed by

@@ -17,6 +17,7 @@ public class OTPRowMapper implements RowMapper<OTPDaoBean>{
 		otpBean.setPhoneNumber(resultSet.getString("PHONENUMBER"));
 		otpBean.setSessionId(resultSet.getString("SESSION_ID"));
 		otpBean.setUserId(resultSet.getString("USER_ID"));
+		otpBean.setCreatedDate(String.valueOf(resultSet.getDate("CREATED_DATE")));
 		return otpBean;
 	}
 

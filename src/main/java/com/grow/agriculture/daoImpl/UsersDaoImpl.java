@@ -34,7 +34,8 @@ public class UsersDaoImpl implements UsersDao {
 	private String selectUserQuery = "SELECT ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,OTP_VERIFIED,CREATED_DATE,LAST_UPDATE FROM USERS WHERE PHONENUMBER=:phonenumber";
 	private String selectIfUserExistsQuery = "SELECT count(1) FROM USERS where PHONENUMBER=:phonenumber";
 	private String UpdateUserQuery = "UPDATE USERS SET OTP_VERIFIED=:valuename where PHONENUMBER=:phonenumber";
-	
+	private String selectIfFarmer = "SELECT count(1) FROM USERS where PHONENUMBER=:phonenumber AND USER_TYPE=";
+	private String selectIfBuyer = "SELECT count(1) FROM USERS where PHONENUMBER=:phonenumber";
 	
 	@Override
 	public UsersDaoBean getUser(long phonenumber) {

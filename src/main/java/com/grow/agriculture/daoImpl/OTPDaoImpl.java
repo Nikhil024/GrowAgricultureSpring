@@ -25,7 +25,7 @@ public class OTPDaoImpl implements OTPDao{
     @Autowired
     DataSource dataSource;
 	
-	private String createOTPQuery = "INSERT INTO OTP (ID,VALUE,PHONENUMBER,SESSION_ID,USER_ID) VALUES (OTP_ID.NEXTVAL,:value,:phonenumber,:sessionid,:userid)";
+	private String createOTPQuery = "INSERT INTO OTP (ID,VALUE,PHONENUMBER,SESSION_ID,USER_ID,CREATED_DATE) VALUES (OTP_ID.NEXTVAL,:value,:phonenumber,:sessionid,:userid,:createddate)";
 	private String deleteOTPQuery = "DELETE FROM OTP WHERE PHONENUMBER=:phonenumber";
 	private String updateOTPQuery = "UPDATE OTP SET :columnname=:value where PHONENUMBER=:phonenumber";
 	private String selectOTPQuery = "SELECT ID,VALUE,PHONENUMBER,SESSION_ID,USER_ID FROM OTP WHERE PHONENUMBER=:phonenumber"; 
@@ -38,7 +38,7 @@ public class OTPDaoImpl implements OTPDao{
 		parameters.put("phonenumber",otpBean.getPhoneNumber());
 		parameters.put("sessionid",otpBean.getSessionId());
 		parameters.put("userid",otpBean.getUserId());
-		
+		parameters.put("createddate", otpBean.getCreatedDate());
 		SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
 		 int count = namedParameterJdbcTemplate.update(query, namedParameters);
 		 if(count > 1){

@@ -225,6 +225,7 @@ public class RegisterPageComponentController {
 				model.addAttribute(REGISTER_FORM_BEAN_NAME, new OTPFormBean());
 				model.addAttribute(PHONE_NUMBER, registerFormBean.getPhoneNumber());
 				model.addAttribute("sessionId", registerFormBean.getSessionId());
+				model.addAttribute("userType",userType);
 				model.addAttribute(REGISTER_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME));
 				model.addAttribute(REGISTER_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.OPT_BACKGROUND_IMAGE_NAME));
 				model.addAttribute(REGISTER_FORM_NAME,FARMER_REGISTER_URL+File.separator+OTP);
@@ -249,7 +250,6 @@ public class RegisterPageComponentController {
 		model.addAttribute(SHOW_OTP_SECTION,true);
 		UsersDaoBean usersDaoBean = usersService.retrive(Long.parseLong(formBean.getPhoneNumber()));
 		formBean.setUserId(String.valueOf(usersDaoBean.getId()));
-
 
 		String URL = configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_OTP_CHECK_URL);
 		URL = URL.replaceAll("api_key",configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_API_KEY));

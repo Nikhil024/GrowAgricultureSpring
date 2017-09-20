@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<spring:url value="/resources/css/font-awesome.min.css"/>" />
     <!-- CSS Files -->
     <link href="<spring:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" />
+    <link href="<spring:url value="/resources/css/animate.css"/>" rel="stylesheet" />
     <link href="<spring:url value="/resources/css/now-ui-kit.css"/>" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="<spring:url value="/resources/css/demo.css"/>" rel="stylesheet" />

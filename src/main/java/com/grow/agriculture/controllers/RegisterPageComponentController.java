@@ -128,10 +128,17 @@ public class RegisterPageComponentController {
 				URL = URL.replaceAll("api_key",configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_API_KEY));
 				URL = URL.replace("{phone_number}", formBean.getPhoneNumber());
 				LOG.info("total url::: "+URL);
+<<<<<<< HEAD
 				String checkOTP = jsonReaderService.sendRestUrl(URL);
 				if(checkOTP != null){
 					if(!checkOTP.equals("Error")){
 						formBean.setSessionId(checkOTP);
+=======
+				String demo = jsonReaderService.sendRestUrl(URL);
+				if(demo != null){
+					if(!demo.equals("Error")){
+						formBean.setSessionId(demo);
+>>>>>>> 825c9d5be959f7ab1b8fc9433f68949e152a7146
 						redirectAttributes.addFlashAttribute(REGISTER_FORM_BEAN_NAME, formBean);
 						return "redirect:/register/buyerRegister/otp"; //+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 

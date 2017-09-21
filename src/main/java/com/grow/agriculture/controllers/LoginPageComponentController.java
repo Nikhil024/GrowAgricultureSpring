@@ -50,7 +50,7 @@ public class LoginPageComponentController {
 	@RequestMapping(value="/buyerLogin", method = RequestMethod.GET)
 	public String BuyerLoginGetMethodComponent(Model model) throws ConfigurationException{
 		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
-		model.addAttribute(LOGIN_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_PAGE_BACKGROUND_IMAGE_NAME));
+		model.addAttribute(LOGIN_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_PAGE_BUYER_BACKGROUND_IMAGE_NAME));
 		model.addAttribute(LOGIN_PAGE_LOGIN_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_TITLE_NAME));
 		model.addAttribute(LOGIN_PAGE_ABOUTUS_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.ABOUTUS_TITLE_NAME));
 		model.addAttribute(LOGIN_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME));
@@ -67,7 +67,7 @@ public class LoginPageComponentController {
 		formBean.setIsFarmer(false);
 		LOG.info("this is the buyer login form bean "+formBean);
 		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
-		model.addAttribute(LOGIN_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_PAGE_BACKGROUND_IMAGE_NAME));
+		model.addAttribute(LOGIN_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_PAGE_BUYER_BACKGROUND_IMAGE_NAME));
 		model.addAttribute(LOGIN_PAGE_LOGIN_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_TITLE_NAME));
 		model.addAttribute(LOGIN_PAGE_ABOUTUS_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.ABOUTUS_TITLE_NAME));
 		model.addAttribute(LOGIN_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME));
@@ -88,7 +88,7 @@ public class LoginPageComponentController {
 	@RequestMapping(value="/farmerLogin", method = RequestMethod.GET)
 	public String FarmerLoginGetMethodComponent(Model model) throws ConfigurationException{
 		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
-		model.addAttribute(LOGIN_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_PAGE_BACKGROUND_IMAGE_NAME));
+		model.addAttribute(LOGIN_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_PAGE_FARMER_BACKGROUND_IMAGE_NAME));
 		model.addAttribute(LOGIN_PAGE_LOGIN_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_TITLE_NAME));
 		model.addAttribute(LOGIN_PAGE_ABOUTUS_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.ABOUTUS_TITLE_NAME));
 		model.addAttribute(LOGIN_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME));
@@ -106,7 +106,7 @@ public class LoginPageComponentController {
 		formBean.setIsFarmer(true);
 		LOG.info("this is the farmer login form bean "+formBean);
 		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
-		model.addAttribute(LOGIN_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_PAGE_BACKGROUND_IMAGE_NAME));
+		model.addAttribute(LOGIN_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_PAGE_FARMER_BACKGROUND_IMAGE_NAME));
 		model.addAttribute(LOGIN_PAGE_LOGIN_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGIN_TITLE_NAME));
 		model.addAttribute(LOGIN_PAGE_ABOUTUS_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.ABOUTUS_TITLE_NAME));
 		model.addAttribute(LOGIN_PAGE_REGISTER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME));

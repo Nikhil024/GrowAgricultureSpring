@@ -43,7 +43,7 @@ $(document).ready(function() {
 				</button>
 				<a class="navbar-brand" href="<spring:url value="/"/>" rel="tooltip"
 					title="Designed and Coded by Nikhil" data-placement="bottom">
-					${project_name} </a>
+					<spring:message code="growAgriculture.project.name"/> </a>
 			</div>
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">

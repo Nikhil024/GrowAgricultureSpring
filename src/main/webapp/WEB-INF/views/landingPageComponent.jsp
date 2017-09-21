@@ -6,7 +6,7 @@
 
 <head>
 <jsp:include page="HeaderCss.jsp"></jsp:include>
-<title>${project_name}</title>
+<title><spring:message code="project.name"/></title>
 <style>
 .bg-one {
 	background-image: url(<spring:url value="/resources/img/BuyerPopupPic.jpg"/>);
@@ -15,6 +15,28 @@
 .bg-two {
 	background-image: url(<spring:url value="/resources/img/FarmerPopupPic.jpg"/>);
 }
+
+
+.bg-three {
+	background-image: url(<spring:url value="/resources/img/farmerRegister.gif"/>);
+}
+
+.bg-four {
+	background-image: url(<spring:url value="/resources/img/buyerRegister.gif"/>);
+}
+
+.modal-header{
+	padding-top: 0 !important;
+}
+
+.modal-title{
+	margin-left: 97px !important;
+}
+
+.modal-content .modal-body {
+    padding-top: 0;
+}
+
 </style>
 </head>
 
@@ -35,20 +57,21 @@
 				</button>
 				<a class="navbar-brand" href="" rel="tooltip"
 					title="Designed and Coded by Nikhil" data-placement="bottom"
-					target="_blank"> ${project_name} </a>
+					target="_blank"> <spring:message code="project.name"/> </a>
 			</div>
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navigation" data-nav-image="./assets/img/blurred-image-1.jpg">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link"
 						href="<spring:url value="/login"/>" data-toggle="modal"
-						data-target="#myModal"> <i class="now-ui-icons"><img
+						data-target="#loginModal"> <i class="now-ui-icons"><img
 								alt="login"
 								src="<spring:url value="/resources/icons/login.png"/>" /></i>
 							<p>${login}</p>
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="<spring:url value="/register"/>"> <i
+						href="<spring:url value="/register"/>" data-toggle="modal"
+						data-target="#registerModal"> <i
 							class="now-ui-icons"><img alt="register"
 								src="<spring:url value="/resources/icons/register.png"/>" /></i>
 							<p>${register}</p>
@@ -83,29 +106,34 @@
 		</div>
 	</nav>
 	<!-- Modal Core -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Select a Login Type</h4>
+					<h4 class="modal-title" id="myModalLabel"><spring:message code="login.popup.title"/></h4>
 				</div>
 				<div class="modal-body">
 
 					<div class="wrapper">
-						<div class="parent" onclick="">
-							<div class="child bg-one">
-								<a id="loginpopup" href="#">Buyer Login</a>
+						<a href="/agriculture/login/buyerLogin">
+							<div class="parent" onclick="">
+								<div class="child bg-one">
+									<span id="loginpopup"><spring:message code="buyerLogin.title.name"/></span>
+								</div>
 							</div>
-						</div>
-
-						<div class="parent" onclick="">
-							<div class="child bg-two">
-								<a id="loginpopup" href="#">Farmer Login</a>
+						</a>
+						
+						<a href="/agriculture/login/farmerLogin">
+							<div class="parent" onclick="">
+								<div class="child bg-two">
+									<span id="loginpopup"><spring:message code="farmerLogin.title.name"/></span>
+								</div>
 							</div>
-						</div>
+						</a>
+						
 					</div>
 
 
@@ -118,13 +146,45 @@
 		</div>
 	</div>
 
-	<!-- <div class="wrapper">
-    <div class="parent" onclick="">
-        <div class="child bg-one">
-            <a href="#">Los Angeles</a>
-        </div>
-    </div> -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel"><spring:message code="register.popup.title"/></h4>
+				</div>
+				<div class="modal-body">
 
+					<div class="wrapper">
+						<a href="/agriculture/register/buyerRegister">
+							<div class="registerparent" onclick="">
+								<div class="child bg-four">
+									<span id="registerpopup"><b><spring:message code="buyerRegister.title.name"/></b></span>
+								</div>
+							</div>
+						</a>
+						
+						<a href="/agriculture/register/farmerRegister">
+							<div class="registerparent" onclick="">
+								<div class="child bg-three">
+									<span id="registerpopup"><b><spring:message code="farmerRegister.title.name"/></b></span>
+								</div>
+							</div>
+						</a>
+						
+					</div>
+
+
+				</div>
+				<!-- <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info btn-simple">Save</button>
+      </div> -->
+			</div>
+		</div>
+	</div>
 
 
 	<!-- End Navbar -->

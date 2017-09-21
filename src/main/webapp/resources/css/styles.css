@@ -103,6 +103,10 @@ margin: 502px -318px 92px 318px !important;
     display: block;
 }
 
+.registerparent:hover #registerpopup, .registerparent:focus #registerpopup {
+    display: block;
+}
+
 .child:before {
     content: "";
     display: none;
@@ -114,3 +118,33 @@ margin: 502px -318px 92px 318px !important;
     background-color: rgba(52,73,94,0.75);
 }
 
+#registerpopup {
+    display: none;
+    font-size: 20px;
+    color:black;
+    color: #ffffff !important;
+    font-family: sans-serif;
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.registerparent {
+	width: 97%;
+    margin: 20px 0 0 8px;
+    height: 204px;
+    border: 0px solid blue;
+    overflow: hidden;
+    position: relative;
+    float: left;
+    shadow: inherit;
+    display: inline-block;
+    cursor: pointer;
+}

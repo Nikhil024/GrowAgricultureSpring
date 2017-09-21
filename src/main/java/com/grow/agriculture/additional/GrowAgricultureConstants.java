@@ -10,7 +10,8 @@ public class GrowAgricultureConstants {
 	public static final String LANDING_PAGE_LOGO_IMAGE_NAME = "growAgriculture.landingMainPage.logo.image.name";
 	public static final String LANDING_PAGE_DESCRIPTION = "growAgriculture.landingMainPage.description";
 	public static final String LANDING_PAGE_BACKGROUND_IMAGE_NAME = "growAgriculture.landingMainPage.background.image.name";
-	public static final String LOGIN_PAGE_BACKGROUND_IMAGE_NAME = "growAgriculture.Login.background.image.name";
+	public static final String LOGIN_PAGE_FARMER_BACKGROUND_IMAGE_NAME = "growAgriculture.Login.farmer.background.image.name";
+	public static final String LOGIN_PAGE_BUYER_BACKGROUND_IMAGE_NAME = "growAgriculture.Login.buyer.background.image.name";
 	public static final String REGISTER_PAGE_BACKGROUND_IMAGE_NAME= "growAgriculture.Register.background.image.name";
 	public static final String FORGOTPASSWORD_PAGE_BACKGROUND_IMAGE_NAME = "growAgriculture.ForgotPassword.background.image.name";
 	public static final String ABOUTUS_PAGE_BACKGROUND_IMAGE_NAME = "growAgriculture.aboutUs.background.image.name";

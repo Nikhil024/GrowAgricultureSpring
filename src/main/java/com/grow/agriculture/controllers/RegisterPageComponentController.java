@@ -143,10 +143,10 @@ public class RegisterPageComponentController {
 								return "redirect:/register/buyerRegister/otp"; //+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 
 							}else{
-								return "errorpage";
+								return "404Error";
 							}
 						}else{
-							return "errorpage";
+							return "404Error";
 						}
 					}
 					else{
@@ -211,10 +211,10 @@ public class RegisterPageComponentController {
 						return "redirect:/register/farmerRegister/otp"; //+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 
 					}else{
-						return "errorpage";
+						return "404Error";
 					}
 				}else{
-					return "errorpage";
+					return "404Error";
 				}
 			}
 			else{
@@ -241,10 +241,10 @@ public class RegisterPageComponentController {
 				model.addAttribute(REGISTER_FORM_NAME,FARMER_REGISTER_URL+File.separator+OTP);
 				return VIEW_NAME;
 			}else{
-				return "errorPage";
+				return "404Error";
 			}
 		}else{
-			return "errorPage";
+			return "404Error";
 		}
 	}
 

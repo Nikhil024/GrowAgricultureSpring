@@ -1,24 +1,20 @@
 package com.grow.agriculture.controllers;
 
-import javax.validation.Valid;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.grow.agriculture.additional.GrowAgricultureConstants;
 import com.grow.agriculture.beans.LoginFormBean;
-import com.grow.agriculture.form.validators.LoginValidator;
 import com.grow.agriculture.service.ConfigurationService;
+import com.grow.agriculture.service.UsersService;
 
 @Controller
 @RequestMapping("/login")
@@ -26,12 +22,12 @@ public class LoginPageComponentController {
 
 	private static final Logger LOG = Logger.getLogger(LoginPageComponentController.class);
 
-	/*@Autowired
-	JsonReaderService jsonReadService;*/
-
 	@Autowired
 	ConfigurationService configurationService;
 
+	@Autowired
+	UsersService usersService;
+	
 	private static final String VIEW_NAME = "loginPageComponent";
 	private static final String PROJECT_NAME = "project_name";
 	private static final String LOGIN_PAGE_REGISTER_TEXT = "register";
@@ -42,6 +38,7 @@ public class LoginPageComponentController {
 	private static final String LOGIN_PAGE_USER_LOGIN_TEXT = "user_login";
 	private static final String LOGIN_PLACEHOLDER_TEXT = "login_placeholder_text";
 	private static final String LOGIN_FORM_BEAN_NAME = "loginFormBean";
+	private static final String USERSDAO_FORM_BEAN_NAME = "usersDaoBean";
 	private static final String LOGIN_FORM_NAME = "form_name";
 	private static final String FARMER_LOGIN_URL = "farmerLogin";
 	private static final String BUYER_LOGIN_URL = "buyerLogin";
@@ -63,7 +60,7 @@ public class LoginPageComponentController {
 	}
 	
 	@RequestMapping(value="/buyerLogin", method = RequestMethod.POST)
-	public String BuyerLoginPostMethodComponent(@ModelAttribute LoginFormBean formBean,Errors error,Model model) throws ConfigurationException{
+	public String BuyerLoginPostMethodComponent(@ModelAttribute(LOGIN_FORM_BEAN_NAME) LoginFormBean formBean,Errors error,Model model,final RedirectAttributes redirectAttributes) throws ConfigurationException{
 		formBean.setIsFarmer(false);
 		LOG.info("this is the buyer login form bean "+formBean);
 		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
@@ -79,9 +76,12 @@ public class LoginPageComponentController {
 			LOG.info("has errors");
 			return VIEW_NAME;
 		}else{
-			LOG.info("No errors");
-			return "home";
+			if(usersService.check(Long.parseLong(formBean.getPhoneNumber())) == 0){
+				redirectAttributes.addFlashAttribute("phonenumber", formBean.getPhoneNumber());
+				return "redirect:/dashboard";
+			}
 		}
+		return "404Error";
 	}
 	
 	
@@ -102,7 +102,7 @@ public class LoginPageComponentController {
 	
 	
 	@RequestMapping(value="/farmerLogin", method = RequestMethod.POST)
-	public String FarmerLoginPostMethodComponent(@ModelAttribute(LOGIN_FORM_BEAN_NAME) LoginFormBean formBean,BindingResult result,Model model) throws ConfigurationException{
+	public String FarmerLoginPostMethodComponent(@ModelAttribute(LOGIN_FORM_BEAN_NAME) LoginFormBean formBean,Errors error,Model model) throws ConfigurationException{
 		formBean.setIsFarmer(true);
 		LOG.info("this is the farmer login form bean "+formBean);
 		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
@@ -114,7 +114,7 @@ public class LoginPageComponentController {
 		model.addAttribute(LOGIN_PAGE_USER_LOGIN_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.FARMERLOGIN_TITILE_NAME));
 		model.addAttribute(LOGIN_PLACEHOLDER_TEXT,configurationService.getConfiguration().getString(GrowAgricultureConstants.LOGINANDREGISTER_INPUT_PLACEHOLDER_TEXT));
 		model.addAttribute(LOGIN_FORM_NAME,FARMER_LOGIN_URL);
-		if(result.hasErrors()){
+		if(error.hasErrors()){
 			LOG.info("has errors");
 			return VIEW_NAME;
 		}else{
@@ -123,8 +123,8 @@ public class LoginPageComponentController {
 		}
 	}
 	
-	@InitBinder
+	/*@InitBinder
 	public void initBinder(WebDataBinder binder){
 		binder.addValidators(new LoginValidator());
-	}
+	}*/
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@
 	<link rel="icon" type="image/png" sizes="96x96" href="../../assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Paper Dashboard PRO by Creative Tim</title>
+	<title><spring:message code="dashboard.title.name"/></title>
 
 
 <jsp:include page="dashboardHeader.jsp"></jsp:include>
@@ -17,18 +17,14 @@
 
 <body>
 	<div class="wrapper">
-	    <div class="sidebar" data-background-color="brown" data-active-color="danger">
+	    <div class="sidebar" data-background-color="brown" data-active-color="warning">
 	    <!--
 			Tip 1: you can change the color of the sidebar's background using: data-background-color="white | brown"
 			Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
 		-->
 			<div class="logo">
-				<a href="http://www.creative-tim.com" class="simple-text logo-mini">
-					CT
-				</a>
-
-				<a href="http://www.creative-tim.com" class="simple-text logo-normal">
-					Creative Tim
+				<a href="<spring:url value="/"/>" class="dashboardTitleName simple-text logo-normal">
+					<spring:message code="project.name"/>
 				</a>
 			</div>
 	    	<div class="sidebar-wrapper">
@@ -40,7 +36,7 @@
 
 	                    <a data-toggle="collapse" href="#collapseExample" class="collapsed">
 	                        <span>
-								Chet Faker
+								${name}
 		                        <b class="caret"></b>
 							</span>
 	                    </a>
@@ -651,49 +647,6 @@
             </footer>
 	    </div>
 	</div>
-
-    <div class="fixed-plugin">
-        <div class="dropdown show-dropdown">
-            <a href="#" data-toggle="dropdown">
-            <i class="fa fa-cog fa-2x"> </i>
-            </a>
-            <ul class="dropdown-menu">
-                <li class="header-title">Sidebar Background</li>
-                <li class="adjustments-line text-center">
-                    <a href="javascript:void(0)" class="switch-trigger background-color">
-                        <span class="badge filter badge-brown active" data-color="brown"></span>
-                        <span class="badge filter badge-white" data-color="white"></span>
-                    </a>
-                </li>
-
-    			<li class="header-title">Sidebar Active Color</li>
-                <li class="adjustments-line text-center">
-                    <a href="javascript:void(0)" class="switch-trigger active-color">
-                            <span class="badge filter badge-primary" data-color="primary"></span>
-                            <span class="badge filter badge-info" data-color="info"></span>
-                            <span class="badge filter badge-success" data-color="success"></span>
-                            <span class="badge filter badge-warning" data-color="warning"></span>
-                            <span class="badge filter badge-danger active" data-color="danger"></span>
-                    </a>
-                </li>
-
-                <li class="button-container">
-                    <div class="">
-                        <a href="http://www.creative-tim.com/product/paper-dashboard?ref=pdp-free-demo" target="_blank" class="btn btn-info btn-block">Get Free Demo</a>
-						<a href="http://www.creative-tim.com/product/paper-dashboard-pro" target="_blank" class="btn btn-danger btn-block btn-fill">Buy for $39</a>
-                    </div>
-                </li>
-
-                <li class="header-title">Thank you for sharing!</li>
-
-                <li class="button-container">
-                    <button id="twitter" class="btn btn-social btn-twitter btn-round"><i class="fa fa-twitter"></i> </button>
-                    <button id="facebook" class="btn btn-social btn-facebook btn-round"><i class="fa fa-facebook-square"></i></button>
-                </li>
-
-            </ul>
-        </div>
-    </div>
 
 </body>
 

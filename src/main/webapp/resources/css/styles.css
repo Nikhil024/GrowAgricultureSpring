@@ -148,3 +148,7 @@ margin: 502px -318px 92px 318px !important;
     display: inline-block;
     cursor: pointer;
 }
+
+.dashboardTitleName{
+margin-left: 30px;
+}

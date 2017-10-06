@@ -133,6 +133,34 @@
 					</form:form>
 				</div>
 			</div>
+			<c:if test="${not empty passwordError || not empty nouserError || not empty otpnotVerifiedError || not empty wrongUserType}">
+			<div class="alert alert-danger" role="alert"
+				style="margin: -369px 372px 61px 361px; <c:if test="${not empty otpnotVerifiedError}"> margin: -369px 318px 61px 348px; </c:if> ">
+				<div class="container">
+					<div class="alert-icon">
+						<i class="now-ui-icons objects_support-17"></i>
+					</div>
+					<c:if test="${not empty passwordError}">
+						<spring:message code="login.passwordError" />
+					</c:if>
+					<c:if test="${not empty nouserError}">
+						<spring:message code="login.noUserError" />
+					</c:if>
+					<c:if test="${not empty otpnotVerifiedError}">
+						<spring:message code="login.otpNotVerifiedError" />
+					</c:if>
+					<c:if test="${not empty wrongUserType}">
+						<spring:message code="login.wrongUserType" arguments="${user_type}" htmlEscape="false"/>
+					</c:if>
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true"> <i
+							class="now-ui-icons ui-1_simple-remove"></i>
+						</span>
+					</button>
+				</div>
+			</div>
+			</c:if>
 		</div>
 	</div>
 </body>

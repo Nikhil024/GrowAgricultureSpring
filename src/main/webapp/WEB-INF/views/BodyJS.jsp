@@ -15,10 +15,13 @@
 <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
 <script src="<spring:url value="/resources/js/now-ui-kit.js"/>" type="text/javascript"></script>
 
+
+
 <script type="text/javascript">
     $(document).ready(function() {
         // the body of this function is in assets/js/now-ui-kit.js
-        nowuiKit.initSliders();
+       /*  nowuiKit.initSliders(); */
+        console.log($( window ).height());
    	});
 
 	function scrollToDownload() {

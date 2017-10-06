@@ -30,7 +30,7 @@ public class GrowAgricultureConstants {
 	public static final String OTP_BUTTON_NAME = "growAgriculture.otp.button.name";
 	public static final String OPT_BACKGROUND_IMAGE_NAME = "growAgriculture.otp.page.background.image.name";
 	public static final List<String> USER_TYPE_URL = Collections.unmodifiableList(Arrays.asList("farmerRegister", "buyerRegister"));
-	public static final List<String> USER_TYPE = Collections.unmodifiableList(Arrays.asList("farmer", "buyer"));
+	public static final List<String> USER_TYPE = Collections.unmodifiableList(Arrays.asList("farmer", "buyer", "both"));
 	public static final String OTP_2FACTOR_API_KEY = "growAgriculture.2factor.otp.api.key";
 	public static final String OTP_2FACTOR_MAIN_URL = "growAgriculture.2factor.otp.main.url";
 	public static final String OTP_2FACTOR_OTP_CHECK_URL = "growAgriculture.2factor.otp.check.url";

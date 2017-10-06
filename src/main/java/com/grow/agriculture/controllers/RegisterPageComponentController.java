@@ -128,35 +128,25 @@ public class RegisterPageComponentController {
 				URL = URL.replaceAll("api_key",configurationService.getConfiguration().getString(GrowAgricultureConstants.OTP_2FACTOR_API_KEY));
 				URL = URL.replace("{phone_number}", formBean.getPhoneNumber());
 				LOG.info("total url::: "+URL);
-
 				String checkOTP = jsonReaderService.sendRestUrl(URL);
 				if(checkOTP != null){
 					if(!checkOTP.equals("Error")){
 						formBean.setSessionId(checkOTP);
+						redirectAttributes.addFlashAttribute(REGISTER_FORM_BEAN_NAME, formBean);
+						return "redirect:/register/buyerRegister/otp"; //+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
 
-						String demo = jsonReaderService.sendRestUrl(URL);
-						if(demo != null){
-							if(!demo.equals("Error")){
-								formBean.setSessionId(demo);
-
-								redirectAttributes.addFlashAttribute(REGISTER_FORM_BEAN_NAME, formBean);
-								return "redirect:/register/buyerRegister/otp"; //+request.getSiteURL() + request.getContextPath() + File.separator +configurationService.getConfiguration().getString(GrowAgricultureConstants.REGISTER_TITLE_NAME).toLowerCase()+File.separator+FARMER_REGISTER_URL+File.separator+OTP;
-
-							}else{
-								return "404Error";
-							}
-						}else{
-							return "404Error";
-						}
+					}else{
+						return "404Error";
 					}
-					else{
-						model.addAttribute(SHOW_USER_ALREADY_EXISTS_SECTION,true);
-						return VIEW_NAME;
-					}
+				}else{
+					return "404Error";
 				}
 			}
+			else{
+				model.addAttribute(SHOW_USER_ALREADY_EXISTS_SECTION,true);
+				return VIEW_NAME;
+			}
 		}
-		return null;
 	}
 
 
@@ -226,6 +216,7 @@ public class RegisterPageComponentController {
 
 	@RequestMapping(value="/{userType}/otp",method=RequestMethod.GET)
 	public String farmerGetRegisterOTP(Model model,@PathVariable("userType") String userType,@ModelAttribute(value = REGISTER_FORM_BEAN_NAME) RegisterFormBean registerFormBean) throws ConfigurationException{
+			LOG.info("entered inside this otp block");
 		if(registerFormBean.getPhoneNumber() != null ){
 			if(GrowAgricultureConstants.USER_TYPE_URL.contains(userType)){
 				model.addAttribute(SHOW_OTP_SECTION,SHOW_OTP);

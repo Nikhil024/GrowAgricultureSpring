@@ -34,15 +34,14 @@
 		                    <img src="../../assets/img/faces/face-2.jpg" />
 		                </div>
 
-	                    <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+	                    <a href="#collapseExample">
 	                        <span>
 								${name}
-		                        <b class="caret"></b>
-							</span>
+							</span> 
 	                    </a>
 						<div class="clearfix"></div>
 
-	                    <div class="collapse" id="collapseExample">
+	                    <!-- <div class="collapse" id="collapseExample">
 	                        <ul class="nav">
 	                            <li>
 									<a href="#profile">
@@ -52,260 +51,21 @@
 								</li>
 	                            <li>
 									<a href="#edit">
-										<span class="sidebar-mini">Ep</span>
+										<span class="sidebar-mini">Edit</span>
 										<span class="sidebar-normal">Edit Profile</span>
 									</a>
 								</li>
-	                            <li>
+	                             <li>
 									<a href="#settings">
 										<span class="sidebar-mini">S</span>
 										<span class="sidebar-normal">Settings</span>
 									</a>
 								</li>
 	                        </ul>
-	                    </div>
+	                    </div> -->
 	                </div>
 	            </div>
-	            <ul class="nav">
-	                <li class="active">
-	                    <a data-toggle="collapse" href="#dashboardOverview" aria-expanded="true">
-	                        <i class="ti-panel"></i>
-	                        <p>Dashboard
-                                <b class="caret"></b>
-                            </p>
-	                    </a>
-						<div class="collapse in" id="dashboardOverview">
-							<ul class="nav">
-								<li class="active">
-									<a href="../dashboard/overview.html">
-										<span class="sidebar-mini">O</span>
-										<span class="sidebar-normal">Overview</span>
-									</a>
-								</li>
-								<li>
-									<a href="../dashboard/stats.html">
-										<span class="sidebar-mini">S</span>
-										<span class="sidebar-normal">Stats</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-	                </li>
-					<li>
-						<a data-toggle="collapse" href="#componentsExamples">
-							<i class="ti-package"></i>
-							<p>Components
-							   <b class="caret"></b>
-							</p>
-						</a>
-						<div class="collapse" id="componentsExamples">
-							<ul class="nav">
-	                            <li>
-									<a href="../components/buttons.html">
-										<span class="sidebar-mini">B</span>
-										<span class="sidebar-normal">Buttons</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../components/grid.html">
-										<span class="sidebar-mini">GS</span>
-										<span class="sidebar-normal">Grid System</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../components/panels.html">
-										<span class="sidebar-mini">P</span>
-										<span class="sidebar-normal">Panels</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../components/sweet-alert.html">
-										<span class="sidebar-mini">SA</span>
-										<span class="sidebar-normal">Sweet Alert</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../components/notifications.html">
-										<span class="sidebar-mini">N</span>
-										<span class="sidebar-normal">Notifications</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../components/icons.html">
-										<span class="sidebar-mini">I</span>
-										<span class="sidebar-normal">Icons</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../components/typography.html">
-										<span class="sidebar-mini"><i class="ti-panel"></i></span>
-										<span class="sidebar-normal">Typography</span>
-									</a>
-								</li>
-	                        </ul>
-						</div>
-					</li>
-					<li>
-						<a data-toggle="collapse" href="#formsExamples">
-	                        <i class="ti-clipboard"></i>
-	                        <p>
-								Forms
-	                           <b class="caret"></b>
-	                        </p>
-	                    </a>
-	                    <div class="collapse" id="formsExamples">
-							<ul class="nav">
-								<li>
-									<a href="../forms/regular.html">
-										<span class="sidebar-mini">Rf</span>
-										<span class="sidebar-normal">Regular Forms</span>
-									</a>
-								</li>
-								<li>
-									<a href="../forms/extended.html">
-										<span class="sidebar-mini">Ef</span>
-										<span class="sidebar-normal">Extended Forms</span>
-									</a>
-								</li>
-								<li>
-									<a href="../forms/validation.html">
-										<span class="sidebar-mini">Vf</span>
-										<span class="sidebar-normal">Validation Forms</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="../forms/wizard.html">
-										<span class="sidebar-mini">W</span>
-										<span class="sidebar-normal">Wizard</span>
-									</a>
-								</li>
-	                        </ul>
-	                    </div>
-	                </li>
-	                <li>
-						<a data-toggle="collapse" href="#tablesExamples">
-	                        <i class="ti-view-list-alt"></i>
-	                        <p>
-								Table list
-	                           <b class="caret"></b>
-	                        </p>
-	                    </a>
-	                    <div class="collapse" id="tablesExamples">
-							<ul class="nav">
-								<li>
-									<a href="../tables/regular.html">
-										<span class="sidebar-mini">RT</span>
-										<span class="sidebar-normal">Regular Tables</span>
-									</a>
-								</li>
-								<li>
-									<a href="../tables/extended.html">
-										<span class="sidebar-mini">ET</span>
-										<span class="sidebar-normal">Extended Tables</span>
-									</a>
-								</li>
-								<li>
-									<a href="../tables/bootstrap-table.html">
-										<span class="sidebar-mini">BT</span>
-										<span class="sidebar-normal">Bootstrap Table</span>
-									</a>
-								</li>
-								<li>
-									<a href="../tables/datatables.net.html">
-										<span class="sidebar-mini">DT</span>
-										<span class="sidebar-normal">DataTables.net</span>
-									</a>
-								</li>
-	                        </ul>
-	                    </div>
-	                </li>
-					<li>
-						<a data-toggle="collapse" href="#mapsExamples">
-	                        <i class="ti-map"></i>
-	                        <p>
-								Maps
-	                           <b class="caret"></b>
-	                        </p>
-	                    </a>
-	                    <div class="collapse" id="mapsExamples">
-							<ul class="nav">
-								<li>
-									<a href="../maps/google.html">
-										<span class="sidebar-mini">GM</span>
-										<span class="sidebar-normal">Google Maps</span>
-									</a>
-								</li>
-								<li>
-									<a href="../maps/vector.html">
-										<span class="sidebar-mini">VM</span>
-										<span class="sidebar-normal">Vector maps</span>
-									</a>
-								</li>
-								<li>
-									<a href="../maps/fullscreen.html">
-										<span class="sidebar-mini">FSM</span>
-										<span class="sidebar-normal">Full Screen Map</span>
-									</a>
-								</li>
-	                        </ul>
-	                    </div>
-	                </li>
-					<li>
-	                    <a href="../charts.html">
-	                        <i class="ti-bar-chart-alt"></i>
-	                        <p>Charts</p>
-	                    </a>
-	                </li>
-					<li>
-	                    <a href="../calendar.html">
-	                        <i class="ti-calendar"></i>
-	                        <p>Calendar</p>
-	                    </a>
-	                </li>
-					<li>
-						<a data-toggle="collapse" href="#pagesExamples">
-	                        <i class="ti-gift"></i>
-	                        <p>
-								Pages
-	                           <b class="caret"></b>
-	                        </p>
-	                    </a>
-	                    <div class="collapse" id="pagesExamples">
-							<ul class="nav">
-								<li>
-									<a href="../pages/timeline.html">
-										<span class="sidebar-mini">TP</span>
-										<span class="sidebar-normal">Timeline Page</span>
-									</a>
-								</li>
-								<li>
-									<a href="../pages/user.html">
-										<span class="sidebar-mini">UP</span>
-										<span class="sidebar-normal">User Page</span>
-									</a>
-								</li>
-								<li>
-									<a href="../pages/login.html">
-										<span class="sidebar-mini">LP</span>
-										<span class="sidebar-normal">Login Page</span>
-									</a>
-								</li>
-								<li>
-									<a href="../pages/register.html">
-										<span class="sidebar-mini">RP</span>
-										<span class="sidebar-normal">Register Page</span>
-									</a>
-								</li>
-								<li>
-									<a href="../pages/lock.html">
-										<span class="sidebar-mini">LSP</span>
-										<span class="sidebar-normal">Lock Screen Page</span>
-									</a>
-								</li>
-	                        </ul>
-	                    </div>
-	                </li>
-	            </ul>
+	            <jsp:include page="dashboardSidebar.jsp"></jsp:include>
 	    	</div>
 	    </div>
 
@@ -323,19 +83,18 @@
 	                        <span class="icon-bar bar3"></span>
 	                    </button>
 	                    <a class="navbar-brand" href="#Dashboard">
-							Overview
-						</a>
+							<spring:message code="dashboard.title.name"/></a>
 	                </div>
 	                <div class="collapse navbar-collapse">
 
-						<form class="navbar-form navbar-left navbar-search-form" role="search">
+						<!-- <form class="navbar-form navbar-left navbar-search-form" role="search">
 	    					<div class="input-group">
 	    						<span class="input-group-addon"><i class="fa fa-search"></i></span>
 	    						<input type="text" value="" class="form-control" placeholder="Search...">
 	    					</div>
-	    				</form>
+	    				</form> -->
 
-	                    <ul class="nav navbar-nav navbar-right">
+	                   <!--  <ul class="nav navbar-nav navbar-right">
 	                        <li>
 	                            <a href="#stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
 	                                <i class="ti-panel"></i>
@@ -367,14 +126,14 @@
 									</p>
 	                            </a>
 	                        </li>
-	                    </ul>
+	                    </ul> -->
 	                </div>
 	            </div>
 	        </nav>
 
 	        <div class="content">
 	            <div class="container-fluid">
-	                <div class="row">
+	              <!--   <div class="row">
 	                    <div class="col-lg-3 col-sm-6">
 	                        <div class="card">
 	                            <div class="card-content">
@@ -475,8 +234,8 @@
 								</div>
 	                        </div>
 	                    </div>
-	                </div>
-					<div class="row">
+	                </div> -->
+					<!-- <div class="row">
 						<div class="col-lg-4 col-sm-6">
 							<div class="card">
 								<div class="card-content">
@@ -570,81 +329,22 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="row">
 						<div class="col-lg-3 col-sm-6">
 							<div class="card card-circle-chart" data-background-color="blue">
 								<div class="card-header text-center">
-	                                <h5 class="card-title">Dashboard</h5>
-	                                <p class="description">Monthly sales target</p>
+	                                <h5 class="card-title"><spring:message code="profile.title.name"/></h5>
+	                                <p class="description"><spring:message code="profile.description"/></p>
 	                            </div>
 								<div class="card-content">
-									<div id="chartDashboard" class="chart-circle" data-percent="70">70%</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-sm-6">
-							<div class="card card-circle-chart" data-background-color="green">
-								<div class="card-header text-center">
-	                                <h5 class="card-title">Orders</h5>
-	                                <p class="description">Completed</p>
-	                            </div>
-								<div class="card-content">
-									<div id="chartOrders" class="chart-circle" data-percent="34">34%</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-sm-6">
-							<div class="card card-circle-chart" data-background-color="orange">
-								<div class="card-header text-center">
-	                                <h5 class="card-title">New Visitors</h5>
-	                                <p class="description">Out of total number</p>
-	                            </div>
-								<div class="card-content">
-									<div id="chartNewVisitors" class="chart-circle" data-percent="62">62%</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-sm-6">
-							<div class="card card-circle-chart" data-background-color="brown">
-								<div class="card-header text-center">
-	                                <h5 class="card-title">Subscriptions</h5>
-	                                <p class="description">Monthly newsletter</p>
-	                            </div>
-								<div class="card-content">
-									<div id="chartSubscriptions" class="chart-circle" data-percent="10">10%</div>
+									<div id="chartDashboard" class="chart-circle" data-percent="${profile_completion}">${profile_completion}%</div>
 								</div>
 							</div>
 						</div>
 					</div>
                 </div>
 	        </div>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav class="pull-left">
-                        <ul>
-                            <li>
-                                <a href="http://www.creative-tim.com">
-                                    Creative Tim
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://blog.creative-tim.com">
-                                   Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://www.creative-tim.com/license">
-                                    Licenses
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="copyright pull-right">
-                        &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>
-                    </div>
-                </div>
-            </footer>
 	    </div>
 	</div>
 

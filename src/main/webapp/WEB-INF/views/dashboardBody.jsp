@@ -57,7 +57,7 @@
 	<!--  Full Calendar Plugin    -->
 	<script src="<spring:url value="/resources/dashboard/js/fullcalendar.min.js"/>"></script>
 
-	<!-- Paper Dashboard PRO Core javascript and methods for Demo purpos>
+	<!-- Paper Dashboard PRO Core javascript and methods for Demo purpos> -->
 	<script src="<spring:url value="/resources/dashboard/js/paper-dashboard.js?v=1.2.1"/>"></script>
 
     <!--   Sharrre Library    -->

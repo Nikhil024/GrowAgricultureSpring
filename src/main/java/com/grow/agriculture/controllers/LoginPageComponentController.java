@@ -28,6 +28,9 @@ public class LoginPageComponentController {
 
 	@Autowired
 	UsersService usersService;
+	
+	@Autowired
+	GrowAgricultureRequest request;
 
 	private static final String VIEW_NAME = "loginPageComponent";
 	private static final String PROJECT_NAME = "project_name";
@@ -154,6 +157,7 @@ public class LoginPageComponentController {
 					if(user.getPassword().equals(formBean.getPassword())){
 						if(user.getOtpVerified() == 1){
 							redirectAttributes.addFlashAttribute(USERSDAO_FORM_BEAN_NAME, user);
+							request.setSessionAttr("phonenumber", user.getPhonenumber());
 							return "redirect:/dashboard";
 						}else{
 							LOG.info("otp not verified for : "+formBean.getPhoneNumber());

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import com.grow.agriculture.beans.RegisterFormBean;
+import com.grow.agriculture.beans.UserDetailsFormBean;
 import com.grow.agriculture.controllers.GrowAgricultureRequest;
 import com.grow.agriculture.dao.OTPDao;
 import com.grow.agriculture.dao.UsersDao;
@@ -31,6 +32,7 @@ import com.grow.agriculture.daoImpl.OTPDaoImpl;
 import com.grow.agriculture.daoImpl.UsersDaoImpl;
 import com.grow.agriculture.form.validators.OTPValidator;
 import com.grow.agriculture.form.validators.RegisterValidator;
+import com.grow.agriculture.form.validators.UserDetailsValidator;
 import com.grow.agriculture.helper.OTPHelper;
 import com.grow.agriculture.helper.UsersHelper;
 import com.grow.agriculture.service.ConfigurationService;
@@ -140,6 +142,12 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	        return new RegisterFormBean();
 	    }
 	
+	@Bean
+	public UserDetailsFormBean userDetailsFormBean(){
+		return new UserDetailsFormBean();
+	}
+	
+	
 	 //Validators
 	 @Bean
 	 public OTPValidator otpValidator() {
@@ -149,6 +157,11 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public RegisterValidator registerValidator() {
 	        return new RegisterValidator();
+	    }
+	 
+	 @Bean
+	 public UserDetailsValidator userDetailsValidator() {
+	        return new UserDetailsValidator();
 	    }
 	 
 	 //Dao

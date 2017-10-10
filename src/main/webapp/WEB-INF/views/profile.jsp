@@ -132,24 +132,24 @@
 	                                <h4 class="card-title">Edit Profile</h4>
 	                            </div>
 	                            <div class="card-content">
-	                                <form:form path="/<spring:message code=""/>" modelAttribute="profileFormBean">
+	                                <form:form action="/agriculture/profile" method="POST" modelAttribute="userDetailsFormBean">
 	                                    <div class="row">
 	                                        <div class="col-md-5">
 	                                            <div class="form-group">
 	                                                <label>Company</label>
-	                                                <input type="text" class="form-control border-input" disabled placeholder="Company" value="Creative Code Inc.">
+	                                                <input type="text" class="form-control border-input" disabled="true" value="GrowAgriculture"/>
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-md-3">
 	                                            <div class="form-group">
-	                                                <label>Username</label>
-	                                                <input type="text" class="form-control border-input" placeholder="Username" value="michael23">
+	                                                <label>PhoneNumber</label>
+	                                                <form:input path="phonenumber" type="text" disabled="true" class="form-control border-input" value="${phonenumber}"/>
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-md-4">
 	                                            <div class="form-group">
-	                                                <label for="exampleInputEmail1">Email address</label>
-	                                                <input type="email" class="form-control border-input" placeholder="Email">
+	                                                <label for="exampleInputEmail1">Date of Birth</label>
+	                                                <form:input path="dob" type="text" class="form-control border-input" placeholder="Date Of Birth" value="${dob}"/>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -157,13 +157,13 @@
 	                                        <div class="col-md-6">
 	                                            <div class="form-group">
 	                                                <label>First Name</label>
-	                                                <input type="text" class="form-control border-input" placeholder="Company" value="Chet">
+	                                                <form:input path="fname" type="text" class="form-control border-input" placeholder="Company" value="${fname}"/>
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-md-6">
 	                                            <div class="form-group">
 	                                                <label>Last Name</label>
-	                                                <input type="text" class="form-control border-input" placeholder="Last Name" value="Faker">
+	                                                <form:input path="lname" type="text" class="form-control border-input" placeholder="Last Name" value="${lname}"/>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -171,7 +171,7 @@
 	                                        <div class="col-md-12">
 	                                            <div class="form-group">
 	                                                <label>Address</label>
-	                                                <input type="text" class="form-control border-input" placeholder="Home Address" value="Melbourne, Australia">
+	                                                <form:input path="address" type="text" class="form-control border-input" placeholder="Home Address" value="${address}"/>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -179,19 +179,19 @@
 	                                        <div class="col-md-4">
 	                                            <div class="form-group">
 	                                                <label>City</label>
-	                                                <input type="text" class="form-control border-input" placeholder="City" value="Melbourne">
+	                                                <form:input path="city" type="text" class="form-control border-input" placeholder="City" value="${city}"/>
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-md-4">
 	                                            <div class="form-group">
 	                                                <label>Country</label>
-	                                                <input type="text" class="form-control border-input" placeholder="Country" value="Australia">
+	                                                <form:input path="country" disabled="true" type="text" class="form-control border-input" placeholder="India" value="India"/>
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-md-4">
 	                                            <div class="form-group">
 	                                                <label>Postal Code</label>
-	                                                <input type="number" class="form-control border-input" placeholder="ZIP Code">
+	                                                <form:input path="postalCode" type="text" class="form-control border-input" placeholder="${code}"/>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -199,12 +199,7 @@
 	                                        <div class="col-md-12">
 	                                            <div class="form-group">
 	                                                <label>About Me</label>
-	                                                <textarea rows="5" class="form-control border-input" placeholder="Here can be your description" value="Mike">
-Oh so, your weak rhyme
-You doubt I'll bother, reading into it
-I'll probably won't, left to my own devices
-But that's the difference in our opinions.
-													</textarea>
+	                                                <form:input type="textarea" path="aboutMe" rows="5" class="form-control border-input" placeholder="Here can be your description" value="${aboutme}"/>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -213,7 +208,6 @@ But that's the difference in our opinions.
 	                                    </div>
 	         				</form:form>
 	                                    <div class="clearfix"></div>
-	                                </form>
 	                            </div>
 	                        </div>
 	                    </div>

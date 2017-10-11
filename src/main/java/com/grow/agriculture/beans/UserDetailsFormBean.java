@@ -13,6 +13,7 @@ public class UserDetailsFormBean {
 	private final String country = "India";
 	private long postalCode;
 	private String aboutMe;
+	private int userid;
 	
 	
 	public int getId() {
@@ -75,11 +76,17 @@ public class UserDetailsFormBean {
 	public String getCountry() {
 		return country;
 	}
-	
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 	@Override
 	public String toString() {
 		return "UserDetailsFormBean [id=" + id + ", company=" + company + ", phonenumber=" + phonenumber + ", dob="
 				+ dob + ", Fname=" + Fname + ", Lname=" + Lname + ", address=" + address + ", city=" + city
-				+ ", country=" + country + ", postalCode=" + postalCode + ", aboutMe=" + aboutMe + "]";
+				+ ", country=" + country + ", postalCode=" + postalCode + ", aboutMe=" + aboutMe + ", userid=" + userid
+				+ "]";
 	}
 }

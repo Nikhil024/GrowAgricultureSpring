@@ -100,8 +100,8 @@
 	                            <div class="card-content">
 	                                <div class="author">
 	                                  <img class="avatar border-white" src="../../assets/img/faces/face-2.jpg" alt="..."/>
-	                                  <h4 class="card-title">Chet Faker<br />
-	                                     <a href="#"><small>@chetfaker</small></a>
+	                                  <h4 class="card-title">${name}<br />
+	                                     <a href="#"><small>@growagriculture</small></a>
 	                                  </h4>
 	                                </div>
 	                                <p class="description text-center">
@@ -191,7 +191,7 @@
 	                                        <div class="col-md-4">
 	                                            <div class="form-group">
 	                                                <label>Postal Code</label>
-	                                                <form:input path="postalCode" type="text" class="form-control border-input" placeholder="${code}"/>
+	                                                <form:input path="postalCode" type="text" class="form-control border-input" placeholder="Postal Code" value="${code}"/>
 	                                            </div>
 	                                        </div>
 	                                    </div>

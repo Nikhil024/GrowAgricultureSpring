@@ -34,12 +34,28 @@ public class ProfilePageComponentController {
 	private static final boolean SHOW = true;
 	private static final String USER_DETAILS_FORM_BEAN_NAME = "userDetailsFormBean";
 	private static final String PHONENUMBER = "phonenumber";
+	private static final String FNAME = "fname";
+	private static final String ADDRESS = "address";
+	private static final String CITY = "city";
+	private static final String POSTALCODE = "code";
+	private static final String ABOUTME = "aboutme";	
 	
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public String getProfilePageComponent(Model model){
+		
+		
+		model.addAttribute(FNAME);
+		model.addAttribute(ADDRESS);
+		model.addAttribute(CITY);
+		model.addAttribute(POSTALCODE);
+		model.addAttribute(ABOUTME);
+		
+		
+		
 		model.addAttribute(PROFILE_ACTIVE,SHOW);
 		model.addAttribute(USER_DETAILS_FORM_BEAN_NAME, new UserDetailsFormBean());
 		model.addAttribute(PHONENUMBER ,request.getSessionAttr("phonenumber"));
+		
 		return VIEW_NAME;
 	}
 	

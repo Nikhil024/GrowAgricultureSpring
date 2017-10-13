@@ -1,8 +1,8 @@
-package com.grow.agriculture.dao;
+package com.grow.agriculture.service;
 
 import com.grow.agriculture.daoBean.UserDetailsDaoBean;
 
-public interface UserDetailsDao {
+public interface UserDetailsService {
 	
 	public UserDetailsDaoBean retrive(int userid);
 	public UserDetailsDaoBean retrive(long phonenumber);

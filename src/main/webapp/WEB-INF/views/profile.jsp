@@ -157,7 +157,7 @@
 	                                        <div class="col-md-6">
 	                                            <div class="form-group">
 	                                                <label>First Name</label>
-	                                                <form:input path="fname" type="text" class="form-control border-input" placeholder="Company" value="${fname}"/>
+	                                                <form:input path="fname" type="text" class="form-control border-input" placeholder="First Name" value="${fname}"/>
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-md-6">
@@ -171,7 +171,7 @@
 	                                        <div class="col-md-12">
 	                                            <div class="form-group">
 	                                                <label>Address</label>
-	                                                <form:input path="address" type="text" class="form-control border-input" placeholder="Home Address" value="${address}"/>
+	                                                <form:input path="address" type="text" class="form-control border-input" placeholder="Address" value="${address}"/>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -203,6 +203,7 @@
 	                                            </div>
 	                                        </div>
 	                                    </div>
+	                                    <form:input path="userid" type="hidden" value="${user_id}"/>
 	                                    <div class="text-center">
 	                                        <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile</button>
 	                                    </div>

@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.grow.agriculture.beans.UserDetailsFormBean;
+import com.grow.agriculture.daoBean.UserDetailsDaoBean;
+import com.grow.agriculture.daoBean.UsersDaoBean;
+import com.grow.agriculture.helper.UserDetailsHelper;
+import com.grow.agriculture.service.UserDetailsService;
+import com.grow.agriculture.service.UsersService;
 
 @Controller
 public class ProfilePageComponentController {
@@ -26,8 +31,14 @@ public class ProfilePageComponentController {
 	@Autowired
 	GrowAgricultureRequest request;
 	
+	@Autowired
+	UserDetailsService userDetailsService;
 	
+	@Autowired
+	UsersService userService;
 	
+	@Autowired
+	UserDetailsHelper helper;
 	
 	private static final String VIEW_NAME = "profile";
 	private static final String PROFILE_ACTIVE = "profileActive";
@@ -39,20 +50,24 @@ public class ProfilePageComponentController {
 	private static final String CITY = "city";
 	private static final String POSTALCODE = "code";
 	private static final String ABOUTME = "aboutme";	
+	private static final String USER_ID = "user_id";
 	
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public String getProfilePageComponent(Model model){
-		
-		
-		model.addAttribute(FNAME);
-		model.addAttribute(ADDRESS);
-		model.addAttribute(CITY);
-		model.addAttribute(POSTALCODE);
-		model.addAttribute(ABOUTME);
-		
-		
+		UsersDaoBean user =  userService.retrive(Long.valueOf(request.getSessionAttr("phonenumber").toString()));
+		UserDetailsDaoBean userdetails = userDetailsService.retrive(user.getId());
+		LOG.info("in profile get1 :: "+userdetails);
+		if(userdetails != null){
+			LOG.info("in profile get :: "+userdetails.toString());
+			model.addAttribute(FNAME,userdetails.getFname());
+			model.addAttribute(ADDRESS,userdetails.getAddress());
+			model.addAttribute(CITY,userdetails.getCity());
+			model.addAttribute(POSTALCODE,userdetails.getPostalcode());
+			model.addAttribute(ABOUTME,userdetails.getAboutme());	
+		}
 		
 		model.addAttribute(PROFILE_ACTIVE,SHOW);
+		model.addAttribute(USER_ID,user.getId());
 		model.addAttribute(USER_DETAILS_FORM_BEAN_NAME, new UserDetailsFormBean());
 		model.addAttribute(PHONENUMBER ,request.getSessionAttr("phonenumber"));
 		
@@ -63,6 +78,7 @@ public class ProfilePageComponentController {
 	public String postProfilePageComponent(@ModelAttribute(USER_DETAILS_FORM_BEAN_NAME) UserDetailsFormBean formBean,BindingResult result){
 		userDetailsValidator.validate(formBean, result);
 		LOG.info("profile:: attr:: "+formBean.toString());
+		userDetailsService.save(helper.getUserDetails(formBean));
 		return VIEW_NAME;
 	}
 	

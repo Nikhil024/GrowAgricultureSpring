@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.grow.agriculture.daoBean.UsersDaoBean;
+import com.grow.agriculture.service.UserDetailsService;
 
 @Controller
 public class DashboardPageComponentController {
@@ -15,6 +16,9 @@ public class DashboardPageComponentController {
 
 	@Autowired
 	GrowAgricultureRequest request;
+	
+	@Autowired
+	UserDetailsService userDetailsService;
 	
 	private static final String DASHBOARD_VIEW_NAME = "dashboard";	
 	private static final String USERSDAO_FORM_BEAN_NAME = "usersDaoBean";
@@ -28,14 +32,21 @@ public class DashboardPageComponentController {
 	
 	@RequestMapping("/dashboard")
 	public String getDashboardComponent(@ModelAttribute(USERSDAO_FORM_BEAN_NAME) UsersDaoBean users,Model model){
-		
+			
+		LOG.info("demo:: "+userDetailsService.check(Long.valueOf(request.getSessionAttr("phonenumber").toString())));
+			
+		if(userDetailsService.check(Long.valueOf(request.getSessionAttr("phonenumber").toString())) >= 1){
+			model.addAttribute(PROFILE_COMPLETION,50);
+		}else{
+			model.addAttribute(PROFILE_COMPLETION,20);
+		}
 		
 		LOG.info("Phone number in session::  "+request.getSessionAttr("phonenumber"));
 		LOG.info("dashboard variables::::: "+users.toString());
 		model.addAttribute(PHONENUMBER,request.getSessionAttr("phonenumber"));
 		model.addAttribute(NAME,users.getUsername());
 		model.addAttribute(PROFILE_PICTURE,"");
-		model.addAttribute(PROFILE_COMPLETION,20);
+		
 		model.addAttribute(DASHBOARD_ACTIVE,SHOW);
 		model.addAttribute("","");
 		

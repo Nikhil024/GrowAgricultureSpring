@@ -143,7 +143,7 @@
 	                                        <div class="col-md-3">
 	                                            <div class="form-group">
 	                                                <label>PhoneNumber</label>
-	                                                <form:input path="phonenumber" type="text" disabled="true" class="form-control border-input" value="${phonenumber}"/>
+	                                                <form:input type="text" path="phonenumber" disabled="true" class="form-control border-input" value="${phonenumber}"/>
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-md-4">

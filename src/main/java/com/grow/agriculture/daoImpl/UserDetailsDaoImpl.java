@@ -29,9 +29,12 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 	
 	private String retriveQuery = "SELECT ID,PHONENUMBER,USERS_ID,FNAME,LNAME,ADDRESS,CITY,POSTALCODE,ABOUTME FROM USER_DETAILS WHERE USERS_ID=:userid";
 	private String retriveUsingPhoneQuery = "SELECT ID,PHONENUMBER,USERS_ID,FNAME,LNAME,ADDRESS,CITY,POSTALCODE,ABOUTME FROM USER_DETAILS WHERE PHONENUMBER=:phonenumber";
-	private String updateQuery = "UPDATE USER_DSTAILS SET PHONENUMBER=:phonenumber,FNAME=:fname,LNAME=:lname,ADDRESS=:address,CITY=:city,POSTALCODE=:postalcode,ABOUTME=:aboutme where USERS_ID=:userid";
+	private String updateQuery = "UPDATE USER_DETAILS SET FNAME=:fname ,LNAME=:lname ,ADDRESS=:address ,CITY=:city ,POSTALCODE=:postalcode ,ABOUTME=:aboutme WHERE USERS_ID=:userid";
 	private String deleteQuery = "DELETE FROM USER_DETAILS WHERE USERS_ID=:userid";
 	private String saveQuery = "INSERT INTO USER_DETAILS (ID,PHONENUMBER,USERS_ID,FNAME,LNAME,ADDRESS,CITY,POSTALCODE,ABOUTME) VALUES (UserDetails_ID.NEXTVAL,:phonenumber,:userid,:fname,:lname,:address,:city,:postalcode,:aboutme)";
+	private String checkQuery = "SELECT COUNT(*) FROM USER_DETAILS WHERE USERS_ID=:user_id";
+	private String checkUsingPhoneQuery = "SELECT COUNT(*) FROM USER_DETAILS WHERE PHONENUMBER=:phonenumber";
+	
 	
 	@Override
 	public UserDetailsDaoBean retrive(int userid) {
@@ -67,17 +70,17 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 	public int update(UserDetailsDaoBean userdetails) {
 		String query = updateQuery;
 		 Map<String, Object> parameters = new HashMap<String, Object>();
-		 parameters.put("phonenumber", userdetails.getPhonenumber());
+
 		 parameters.put("fname", userdetails.getFname());
 		 parameters.put("lname", userdetails.getLname());
 		 parameters.put("address", userdetails.getAddress());
 		 parameters.put("city", userdetails.getCity());
 		 parameters.put("postalcode", userdetails.getPostalcode());
 		 parameters.put("aboutme", userdetails.getAboutme());
-		 
 		 parameters.put("userid", userdetails.getUserid());
+		 
 		 SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
-		 return namedParameterJdbcTemplate.queryForObject(query, namedParameters, Integer.class);
+		 return namedParameterJdbcTemplate.update(query, namedParameters);
 	}
 
 	@Override
@@ -110,6 +113,24 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 			 LOG.info("Successfully Created user details :: "+userdetails.getPhonenumber());
 		 }
 		
+	}
+
+	@Override
+	public int check(int userid) {
+		String query = checkQuery;
+		 Map<String, Object> parameters = new HashMap<String, Object>();
+		 parameters.put("user_id", userid);
+		 SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
+		 return namedParameterJdbcTemplate.queryForObject(query, namedParameters, Integer.class);
+	}
+
+	@Override
+	public long check(long phonenumber) {
+		String query = checkUsingPhoneQuery;
+		 Map<String, Object> parameters = new HashMap<String, Object>();
+		 parameters.put("phonenumber", phonenumber);
+		 SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
+		 return namedParameterJdbcTemplate.queryForObject(query, namedParameters, Integer.class);
 	}
 
 }

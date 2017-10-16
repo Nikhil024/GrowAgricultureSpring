@@ -9,5 +9,7 @@ public interface UserDetailsDao {
 	public int update(UserDetailsDaoBean userdetails);
 	public void delete(int userid);
 	public void save(UserDetailsDaoBean userdetails);
+	public int check(int userid);
+	public long check(long phonenumber);
 
 }

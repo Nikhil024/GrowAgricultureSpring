@@ -100,12 +100,12 @@
 	                            <div class="card-content">
 	                                <div class="author">
 	                                  <img class="avatar border-white" src="../../assets/img/faces/face-2.jpg" alt="..."/>
-	                                  <h4 class="card-title">${name}<br />
+	                                  <h4 class="card-title">${fname} ${lname}<br />
 	                                     <a href="#"><small>@growagriculture</small></a>
 	                                  </h4>
 	                                </div>
 	                                <p class="description text-center">
-	                                    "I like the way you work it <br>
+	                                    ${aboutme} <br>
 	                                    No diggity <br>
 	                                    I wanna bag it up"
 	                                </p>
@@ -143,7 +143,7 @@
 	                                        <div class="col-md-3">
 	                                            <div class="form-group">
 	                                                <label>PhoneNumber</label>
-	                                                <form:input path="phonenumber" type="text" disabled="true" class="form-control border-input" value="${phonenumber}"/>
+	                                                <form:input type="text" path="phonenumber" disabled="true" class="form-control border-input" value="${phonenumber}"/>
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-md-4">

@@ -39,4 +39,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		 userDetailsDao.save(userdetails);
 	}
 
+	@Override
+	public int check(int userid) {
+		return userDetailsDao.check(userid);
+	}
+
+	@Override
+	public long check(long phonenumber) {
+		return userDetailsDao.check(phonenumber);
+	}
+
 }

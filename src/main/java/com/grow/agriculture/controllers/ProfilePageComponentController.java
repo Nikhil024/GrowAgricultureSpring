@@ -46,24 +46,30 @@ public class ProfilePageComponentController {
 	private static final String USER_DETAILS_FORM_BEAN_NAME = "userDetailsFormBean";
 	private static final String PHONENUMBER = "phonenumber";
 	private static final String FNAME = "fname";
+	private static final String LNAME = "lname";
+	private static final String DOB = "dob";
 	private static final String ADDRESS = "address";
 	private static final String CITY = "city";
 	private static final String POSTALCODE = "code";
 	private static final String ABOUTME = "aboutme";	
 	private static final String USER_ID = "user_id";
+	private static final String ERRORPAGE = "404Error";
 	
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public String getProfilePageComponent(Model model){
+		if(request.getSessionAttr("phonenumber") != null){
 		UsersDaoBean user =  userService.retrive(Long.valueOf(request.getSessionAttr("phonenumber").toString()));
 		UserDetailsDaoBean userdetails = userDetailsService.retrive(user.getId());
 		LOG.info("in profile get1 :: "+userdetails);
 		if(userdetails != null){
 			LOG.info("in profile get :: "+userdetails.toString());
 			model.addAttribute(FNAME,userdetails.getFname());
+			model.addAttribute(LNAME,userdetails.getLname());
 			model.addAttribute(ADDRESS,userdetails.getAddress());
 			model.addAttribute(CITY,userdetails.getCity());
 			model.addAttribute(POSTALCODE,userdetails.getPostalcode());
-			model.addAttribute(ABOUTME,userdetails.getAboutme());	
+			model.addAttribute(ABOUTME,userdetails.getAboutme());
+			model.addAttribute(DOB,"22-03-93");
 		}
 		
 		model.addAttribute(PROFILE_ACTIVE,SHOW);
@@ -72,13 +78,23 @@ public class ProfilePageComponentController {
 		model.addAttribute(PHONENUMBER ,request.getSessionAttr("phonenumber"));
 		
 		return VIEW_NAME;
+		}
+		else{
+			return ERRORPAGE;
+		}
 	}
 	
 	@RequestMapping(value="/profile", method=RequestMethod.POST)
 	public String postProfilePageComponent(@ModelAttribute(USER_DETAILS_FORM_BEAN_NAME) UserDetailsFormBean formBean,BindingResult result){
 		userDetailsValidator.validate(formBean, result);
+		formBean.setPhonenumber(Long.valueOf(request.getSessionAttr("phonenumber").toString()));
 		LOG.info("profile:: attr:: "+formBean.toString());
+		if(userDetailsService.check(formBean.getUserid()) >= 1){
+			userDetailsService.update(helper.getUserDetails(formBean));
+		}else{
 		userDetailsService.save(helper.getUserDetails(formBean));
+		}
+		
 		return VIEW_NAME;
 	}
 	

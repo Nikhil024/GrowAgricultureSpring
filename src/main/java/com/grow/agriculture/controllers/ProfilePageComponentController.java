@@ -94,7 +94,10 @@ public class ProfilePageComponentController {
 		}else{
 		userDetailsService.save(helper.getUserDetails(formBean));
 		}
+<<<<<<< HEAD
 		
+=======
+>>>>>>> b2001f6559a54a7042b127c8eb3104d6f8887be7
 		return VIEW_NAME;
 	}
 	

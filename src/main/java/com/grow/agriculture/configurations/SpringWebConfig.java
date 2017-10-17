@@ -35,6 +35,7 @@ import com.grow.agriculture.daoImpl.UsersDaoImpl;
 import com.grow.agriculture.form.validators.OTPValidator;
 import com.grow.agriculture.form.validators.RegisterValidator;
 import com.grow.agriculture.form.validators.UserDetailsValidator;
+import com.grow.agriculture.helper.MD5PasswordEncryptionHelper;
 import com.grow.agriculture.helper.OTPHelper;
 import com.grow.agriculture.helper.UserDetailsHelper;
 import com.grow.agriculture.helper.UsersHelper;
@@ -215,4 +216,10 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	 public UserDetailsHelper userDetailsHelper(){
 		 return new UserDetailsHelper();
 	 }
+	 
+	 @Bean
+	 public MD5PasswordEncryptionHelper mD5PasswordEncryptionHelper(){
+		 return new MD5PasswordEncryptionHelper();
+	 }
+	 
 }

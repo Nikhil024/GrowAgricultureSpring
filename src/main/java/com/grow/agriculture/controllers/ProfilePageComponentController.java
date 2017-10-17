@@ -60,9 +60,8 @@ public class ProfilePageComponentController {
 		if(request.getSessionAttr("phonenumber") != null){
 		UsersDaoBean user =  userService.retrive(Long.valueOf(request.getSessionAttr("phonenumber").toString()));
 		UserDetailsDaoBean userdetails = userDetailsService.retrive(user.getId());
-		LOG.info("in profile get1 :: "+userdetails);
+		
 		if(userdetails != null){
-			LOG.info("in profile get :: "+userdetails.toString());
 			model.addAttribute(FNAME,userdetails.getFname());
 			model.addAttribute(LNAME,userdetails.getLname());
 			model.addAttribute(ADDRESS,userdetails.getAddress());
@@ -88,16 +87,11 @@ public class ProfilePageComponentController {
 	public String postProfilePageComponent(@ModelAttribute(USER_DETAILS_FORM_BEAN_NAME) UserDetailsFormBean formBean,BindingResult result){
 		userDetailsValidator.validate(formBean, result);
 		formBean.setPhonenumber(Long.valueOf(request.getSessionAttr("phonenumber").toString()));
-		LOG.info("profile:: attr:: "+formBean.toString());
 		if(userDetailsService.check(formBean.getUserid()) >= 1){
 			userDetailsService.update(helper.getUserDetails(formBean));
 		}else{
 		userDetailsService.save(helper.getUserDetails(formBean));
 		}
-<<<<<<< HEAD
-		
-=======
->>>>>>> b2001f6559a54a7042b127c8eb3104d6f8887be7
 		return VIEW_NAME;
 	}
 	

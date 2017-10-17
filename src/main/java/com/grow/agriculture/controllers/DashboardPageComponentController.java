@@ -12,7 +12,7 @@ import com.grow.agriculture.service.UserDetailsService;
 
 @Controller
 public class DashboardPageComponentController {
-	private static final Logger LOG = Logger.getLogger(LoginPageComponentController.class);
+	private static final Logger LOG = Logger.getLogger(DashboardPageComponentController.class);
 
 	@Autowired
 	GrowAgricultureRequest request;
@@ -33,20 +33,15 @@ public class DashboardPageComponentController {
 	@RequestMapping("/dashboard")
 	public String getDashboardComponent(@ModelAttribute(USERSDAO_FORM_BEAN_NAME) UsersDaoBean users,Model model){
 			
-		LOG.info("demo:: "+userDetailsService.check(Long.valueOf(request.getSessionAttr("phonenumber").toString())));
-			
 		if(userDetailsService.check(Long.valueOf(request.getSessionAttr("phonenumber").toString())) >= 1){
 			model.addAttribute(PROFILE_COMPLETION,50);
 		}else{
 			model.addAttribute(PROFILE_COMPLETION,20);
 		}
 		
-		LOG.info("Phone number in session::  "+request.getSessionAttr("phonenumber"));
-		LOG.info("dashboard variables::::: "+users.toString());
 		model.addAttribute(PHONENUMBER,request.getSessionAttr("phonenumber"));
 		model.addAttribute(NAME,users.getUsername());
 		model.addAttribute(PROFILE_PICTURE,"");
-		
 		model.addAttribute(DASHBOARD_ACTIVE,SHOW);
 		model.addAttribute("","");
 		

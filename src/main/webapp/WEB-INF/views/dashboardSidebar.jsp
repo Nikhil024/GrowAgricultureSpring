@@ -30,4 +30,10 @@
 	                        <p><spring:message code="aboutus.title.name"/></p>
 	                    </a>
 	                </li>
+	                <li class="<c:if test="${not empty farmersList}">active</c:if>">
+	                    <a href="<spring:url value="/farmersList"/>">
+	                        <i class="ti-bar-chart-alt"></i>
+	                        <p><spring:message code="farmersList.title.name"/></p>
+	                    </a>
+	                </li>
 	            </ul>

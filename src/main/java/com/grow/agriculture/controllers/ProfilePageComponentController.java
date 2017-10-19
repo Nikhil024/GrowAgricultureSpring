@@ -54,6 +54,7 @@ public class ProfilePageComponentController {
 	private static final String ABOUTME = "aboutme";	
 	private static final String USER_ID = "user_id";
 	private static final String ERRORPAGE = "404Error";
+	private static final String CURRENT_PAGE = "currentpage";
 	
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public String getProfilePageComponent(Model model){
@@ -75,6 +76,7 @@ public class ProfilePageComponentController {
 		model.addAttribute(USER_ID,user.getId());
 		model.addAttribute(USER_DETAILS_FORM_BEAN_NAME, new UserDetailsFormBean());
 		model.addAttribute(PHONENUMBER ,request.getSessionAttr("phonenumber"));
+		request.setSessionAttr(CURRENT_PAGE, VIEW_NAME);
 		
 		return VIEW_NAME;
 		}

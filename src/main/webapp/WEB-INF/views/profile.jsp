@@ -37,7 +37,7 @@
 	                <div class="info">
 						<a data-toggle="collapse" href="#collapseExample" class="collapsed">
 	                        <span>
-								Chet Faker
+								${fname} ${lname}
 		                        <b class="caret"></b>
 							</span>
 	                    </a>
@@ -106,8 +106,6 @@
 	                                </div>
 	                                <p class="description text-center">
 	                                    ${aboutme} <br>
-	                                    No diggity <br>
-	                                    I wanna bag it up"
 	                                </p>
 	                            </div>
 	                            <hr>
@@ -149,7 +147,7 @@
 	                                        <div class="col-md-4">
 	                                            <div class="form-group">
 	                                                <label for="exampleInputEmail1">Date of Birth</label>
-	                                                <form:input path="dob" type="text" class="form-control border-input" placeholder="Date Of Birth" value="${dob}"/>
+	                                               <form:input path="dob" type="text" class="form-control datepicker" placeholder="Date Of Birth" value="${dob}"/>
 	                                            </div>
 	                                        </div>
 	                                    </div>

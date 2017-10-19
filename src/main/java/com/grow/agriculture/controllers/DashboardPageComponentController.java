@@ -27,6 +27,7 @@ public class DashboardPageComponentController {
 	private static final String PROFILE_PICTURE = "profile_picture";
 	private static final String PROFILE_COMPLETION = "profile_completion";
 	private static final String DASHBOARD_ACTIVE = "dashboardActive";
+	private static final String CURRENT_PAGE = "currentpage";
 	private static final boolean SHOW = true;
 	private static final boolean HIDE = false;
 	
@@ -45,6 +46,7 @@ public class DashboardPageComponentController {
 		model.addAttribute(PROFILE_PICTURE,"");
 		model.addAttribute(DASHBOARD_ACTIVE,SHOW);
 		model.addAttribute("","");
+		request.setSessionAttr(CURRENT_PAGE, DASHBOARD_VIEW_NAME);
 		
 		return DASHBOARD_VIEW_NAME;
 	}

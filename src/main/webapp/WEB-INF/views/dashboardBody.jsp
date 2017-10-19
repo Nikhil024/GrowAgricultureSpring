@@ -11,6 +11,8 @@
 
 	<!--  Forms Validations Plugin -->
 	<script src="<spring:url value="/resources/dashboard/js/jquery.validate.min.js"/>"></script>
+	
+	<script src="<spring:url value="/resources/dashboard/js/nouislider.min.js"/>"></script>
 
 	<!-- Promise Library for SweetAlert2 working on IE -->
 	<script src="<spring:url value="/resources/dashboard/js/es6-promise-auto.min.js"/>"></script>
@@ -43,7 +45,7 @@
 	<script src="<spring:url value="/resources/dashboard/js/jquery-jvectormap.js"/>"></script>
 
 	<!--  Google Maps Plugin    -->
-	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFPQibxeDaLIUHsC6_KqDdFaUdhrbhZ3M"></script> -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFPQibxeDaLIUHsC6_KqDdFaUdhrbhZ3M"></script>
 
 	<!-- Wizard Plugin    -->
 	<script src="<spring:url value="/resources/dashboard/js/jquery.bootstrap.wizard.min.js"/>"></script>
@@ -57,7 +59,7 @@
 	<!--  Full Calendar Plugin    -->
 	<script src="<spring:url value="/resources/dashboard/js/fullcalendar.min.js"/>"></script>
 
-	<!-- Paper Dashboard PRO Core javascript and methods for Demo purpos> -->
+	<!-- Paper Dashboard PRO Core javascript and methods for Demo purpose> -->
 	<script src="<spring:url value="/resources/dashboard/js/paper-dashboard.js?v=1.2.1"/>"></script>
 
     <!--   Sharrre Library    -->

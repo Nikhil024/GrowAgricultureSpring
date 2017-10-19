@@ -17,58 +17,7 @@
 
 <body>
 	<div class="wrapper">
-	    <div class="sidebar" data-background-color="brown" data-active-color="warning">
-	    <!--
-			Tip 1: you can change the color of the sidebar's background using: data-background-color="white | brown"
-			Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
-		-->
-			<div class="logo">
-				<a href="<spring:url value="/"/>" class="dashboardTitleName simple-text logo-normal">
-					<spring:message code="project.name"/>
-				</a>
-			</div>
-	    	<div class="sidebar-wrapper">
-				<div class="user">
-	                <div class="info">
-						<div class="photo">
-		                    <img src="../../assets/img/faces/face-2.jpg" />
-		                </div>
-
-	                    <a href="#collapseExample">
-	                        <span>
-								${name}
-							</span> 
-	                    </a>
-						<div class="clearfix"></div>
-
-	                    <!-- <div class="collapse" id="collapseExample">
-	                        <ul class="nav">
-	                            <li>
-									<a href="#profile">
-										<span class="sidebar-mini">Mp</span>
-										<span class="sidebar-normal">My Profile</span>
-									</a>
-								</li>
-	                            <li>
-									<a href="#edit">
-										<span class="sidebar-mini">Edit</span>
-										<span class="sidebar-normal">Edit Profile</span>
-									</a>
-								</li>
-	                             <li>
-									<a href="#settings">
-										<span class="sidebar-mini">S</span>
-										<span class="sidebar-normal">Settings</span>
-									</a>
-								</li>
-	                        </ul>
-	                    </div> -->
-	                </div>
-	            </div>
-	            <jsp:include page="dashboardSidebar.jsp"></jsp:include>
-	    	</div>
-	    </div>
-
+	    <jsp:include page="dashboardSidebar.jsp"></jsp:include>
 	    <div class="main-panel" style="overflow: auto;">
 			<nav class="navbar navbar-default">
 	            <div class="container-fluid">

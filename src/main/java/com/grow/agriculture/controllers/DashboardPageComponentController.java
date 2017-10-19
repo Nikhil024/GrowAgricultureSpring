@@ -40,7 +40,6 @@ public class DashboardPageComponentController {
 			model.addAttribute(PROFILE_COMPLETION,20);
 		}
 		
-		
 		model.addAttribute(PHONENUMBER,request.getSessionAttr("phonenumber"));
 		model.addAttribute(NAME,users.getUsername());
 		model.addAttribute(PROFILE_PICTURE,"");

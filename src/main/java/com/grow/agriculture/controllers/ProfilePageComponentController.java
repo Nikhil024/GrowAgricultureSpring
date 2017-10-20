@@ -58,7 +58,7 @@ public class ProfilePageComponentController {
 	
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
 	public String getProfilePageComponent(Model model){
-		if(request.getSessionAttr("phonenumber") != null){
+		if(request.getSessionAttr(PHONENUMBER) != null){
 		UsersDaoBean user =  userService.retrive(Long.valueOf(request.getSessionAttr("phonenumber").toString()));
 		UserDetailsDaoBean userdetails = userDetailsService.retrive(user.getId());
 		
@@ -69,13 +69,13 @@ public class ProfilePageComponentController {
 			model.addAttribute(CITY,userdetails.getCity());
 			model.addAttribute(POSTALCODE,userdetails.getPostalcode());
 			model.addAttribute(ABOUTME,userdetails.getAboutme());
-			model.addAttribute(DOB,"22-03-93");
+			model.addAttribute(DOB,userdetails.getDob());
 		}
 		
 		model.addAttribute(PROFILE_ACTIVE,SHOW);
 		model.addAttribute(USER_ID,user.getId());
 		model.addAttribute(USER_DETAILS_FORM_BEAN_NAME, new UserDetailsFormBean());
-		model.addAttribute(PHONENUMBER ,request.getSessionAttr("phonenumber"));
+		model.addAttribute(PHONENUMBER ,request.getSessionAttr(PHONENUMBER));
 		request.setSessionAttr(CURRENT_PAGE, VIEW_NAME);
 		
 		return VIEW_NAME;
@@ -88,7 +88,7 @@ public class ProfilePageComponentController {
 	@RequestMapping(value="/profile", method=RequestMethod.POST)
 	public String postProfilePageComponent(@ModelAttribute(USER_DETAILS_FORM_BEAN_NAME) UserDetailsFormBean formBean,BindingResult result){
 		userDetailsValidator.validate(formBean, result);
-		formBean.setPhonenumber(Long.valueOf(request.getSessionAttr("phonenumber").toString()));
+		formBean.setPhonenumber(Long.valueOf(request.getSessionAttr(PHONENUMBER).toString()));
 		if(userDetailsService.check(formBean.getUserid()) >= 1){
 			userDetailsService.update(helper.getUserDetails(formBean));
 		}else{

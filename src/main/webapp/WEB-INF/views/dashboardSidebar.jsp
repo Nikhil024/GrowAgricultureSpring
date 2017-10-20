@@ -65,7 +65,8 @@
 	                    </a>
 	                </li>
 					<li class="<c:if test="${not empty uploadActive}">active</c:if>">
-						<a href="<spring:url value="/upload"/>">
+						<%-- <a href="<spring:url value="/upload"/>"> --%>
+						<a onclick="demo.showSwal('file-upload')">
 							<i class="ti-export"></i>
 							<p><spring:message code="upload.title.name"/></p>
 						</a>

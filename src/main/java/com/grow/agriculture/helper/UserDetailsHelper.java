@@ -15,6 +15,7 @@ public class UserDetailsHelper {
 		userdetails.setPhonenumber(formBean.getPhonenumber());
 		userdetails.setPostalcode(formBean.getPostalCode());
 		userdetails.setUserid(formBean.getUserid());
+		userdetails.setDob(formBean.getDob());
 		return userdetails;
 	}
 

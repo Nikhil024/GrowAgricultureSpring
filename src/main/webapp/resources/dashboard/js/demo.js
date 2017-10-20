@@ -687,7 +687,27 @@ demo = {
             	   timer: 2000,
             	   showConfirmButton: false
                 });
-    	} else if(type == 'input-field'){
+    	} else if(type == 'file-upload'){
+            swal({
+                title: 'Input something',
+                html: '<form id="uploads" action="/agriculture/upload" method="post" enctype="multipart/form-data">' + '<div class="form-group">' +
+                          '<input id="upload" name="file" type="file" class="form-control" />' +
+                      '</div> </form>',
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-success btn-fill',
+                cancelButtonClass: 'btn btn-danger btn-fill',
+                buttonsStyling: false,
+                customClass: 'animated tada'
+            }).then(function(result) {
+                swal({
+                    html: $('#uploads').submit(),
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    buttonsStyling: false
+
+                })
+            }).catch(swal.noop)
+        } 
+    	else if(type == 'input-field'){
             swal({
                     title: 'Input something',
                     html: '<div class="form-group">' +
@@ -696,7 +716,8 @@ demo = {
                     showCancelButton: true,
                     confirmButtonClass: 'btn btn-success btn-fill',
                     cancelButtonClass: 'btn btn-danger btn-fill',
-                    buttonsStyling: false
+                    buttonsStyling: false,
+                    customClass: 'animated tada'
                 }).then(function(result) {
                     swal({
                         type: 'success',

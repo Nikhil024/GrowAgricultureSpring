@@ -27,11 +27,11 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
     @Autowired
     DataSource dataSource;
 	
-	private String retriveQuery = "SELECT ID,PHONENUMBER,USERS_ID,FNAME,LNAME,ADDRESS,CITY,POSTALCODE,ABOUTME FROM USER_DETAILS WHERE USERS_ID=:userid";
-	private String retriveUsingPhoneQuery = "SELECT ID,PHONENUMBER,USERS_ID,FNAME,LNAME,ADDRESS,CITY,POSTALCODE,ABOUTME FROM USER_DETAILS WHERE PHONENUMBER=:phonenumber";
-	private String updateQuery = "UPDATE USER_DETAILS SET FNAME=:fname ,LNAME=:lname ,ADDRESS=:address ,CITY=:city ,POSTALCODE=:postalcode ,ABOUTME=:aboutme WHERE USERS_ID=:userid";
+	private String retriveQuery = "SELECT ID,PHONENUMBER,USERS_ID,FNAME,LNAME,DOB,ADDRESS,CITY,POSTALCODE,ABOUTME FROM USER_DETAILS WHERE USERS_ID=:userid";
+	private String retriveUsingPhoneQuery = "SELECT ID,PHONENUMBER,USERS_ID,FNAME,LNAME,DOB,ADDRESS,CITY,POSTALCODE,ABOUTME FROM USER_DETAILS WHERE PHONENUMBER=:phonenumber";
+	private String updateQuery = "UPDATE USER_DETAILS SET FNAME=:fname ,LNAME=:lname ,DOB=:dob ,ADDRESS=:address ,CITY=:city ,POSTALCODE=:postalcode ,ABOUTME=:aboutme WHERE USERS_ID=:userid";
 	private String deleteQuery = "DELETE FROM USER_DETAILS WHERE USERS_ID=:userid";
-	private String saveQuery = "INSERT INTO USER_DETAILS (ID,PHONENUMBER,USERS_ID,FNAME,LNAME,ADDRESS,CITY,POSTALCODE,ABOUTME) VALUES (UserDetails_ID.NEXTVAL,:phonenumber,:userid,:fname,:lname,:address,:city,:postalcode,:aboutme)";
+	private String saveQuery = "INSERT INTO USER_DETAILS (ID,PHONENUMBER,USERS_ID,FNAME,LNAME,DOB,ADDRESS,CITY,POSTALCODE,ABOUTME) VALUES (UserDetails_ID.NEXTVAL,:phonenumber,:userid,:fname,:lname,:dob,:address,:city,:postalcode,:aboutme)";
 	private String checkQuery = "SELECT COUNT(*) FROM USER_DETAILS WHERE USERS_ID=:user_id";
 	private String checkUsingPhoneQuery = "SELECT COUNT(*) FROM USER_DETAILS WHERE PHONENUMBER=:phonenumber";
 	
@@ -78,6 +78,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 		 parameters.put("postalcode", userdetails.getPostalcode());
 		 parameters.put("aboutme", userdetails.getAboutme());
 		 parameters.put("userid", userdetails.getUserid());
+		 parameters.put("dob",userdetails.getDob());
 		 
 		 SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
 		 return namedParameterJdbcTemplate.update(query, namedParameters);
@@ -104,6 +105,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 		 parameters.put("postalcode", userdetails.getPostalcode());
 		 parameters.put("aboutme", userdetails.getAboutme());
 		 parameters.put("userid", userdetails.getUserid());
+		 parameters.put("dob",userdetails.getDob());
 		 
 		 SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
 		 

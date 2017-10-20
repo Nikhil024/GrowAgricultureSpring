@@ -57,6 +57,76 @@ public class FileUploadPageComponentController {
 		
 		return "forward:/"+PAGE_NAME;
 	}
+	
+	
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public String postFileUploadComponent(Model model,@RequestParam("file") MultipartFile file) throws IOException{
+		
+		String filename = file.getOriginalFilename();
+		
+		
+		LOG.info("catalinahomelocation: "+CATALINA_HOME_LOCATION);
+		
+		imagestorelocation = new File(catalinahomelocation+windowsimagestorelocation);
+		
+		if (SystemUtils.IS_OS_LINUX) {
+			  imagestorelocation = new File(catalinahomelocation+uniximagesStoreLoacation);
+			  log.info("OS is Linux based, image Storage Location is set to : "+imagestorelocation);
+		    }
+		
+		if (!imagestorelocation.exists()) {
+			imagestorelocation.mkdirs();
+        }
+		
+		LOG.info("Location of catilana "+imagestorelocation+File.separator+filename);
+		if(filename.contains(".jpg")||filename.contains(".png")||filename.contains(".jpeg")){
+			
+	if (!file.isEmpty()) {
+		
+		ImagesBean img = new ImagesBean();
+		img.setId(users.getId());
+		img.setFruitsvegetablesname(filename);
+		img.setFruitvegetablespiclocation(imagestorelocation+File.separator+filename);
+		img.setUploaddate(CurrentDate.getCurrentDate());
+		ImagesDao.insertImagesData(img);
+		try{
+	 BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
+	 
+	 File destination = new File(imagestorelocation+File.separator+filename); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
+	 ImageIO.write(src, "png", destination);
+	 //Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
+	 }
+		catch(FileNotFoundException fe){
+			LOG.info("FileNotFoundException : "+fe);
+			LOG.info("FileNotFoundException : in location : "+imagestorelocation);
+			model.addAttribute("warningmessage","Sorry our servers are facing problems. Please tray again later! ");
+			return "warning";
+		}
+		model.addAttribute("successmessage","Successfully Uploaded the picture.Please refresh this page to see your Uploads.");
+		return "uploadsuccess"; 
+		}
+}
+		model.addAttribute("warningmessage","Please Upload a Picture with .jpg,.gif or .png formats. ");
+		return "warning";
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		LOG.info("inside the post with finle name value:::: "+filename);
+		PAGE_NAME = request.getSessionAttr(CURRENT_PAGE).toString();
+		return "forward:/"+PAGE_NAME;
+		
+	}
+	
+	
 	/* private static final String CATALINA_HOME_LOCATION = System.getProperty("catalina.home");
 	
 	// @RequestMapping */

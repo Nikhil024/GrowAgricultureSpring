@@ -17,6 +17,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -125,6 +126,14 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	public NamedParameterJdbcTemplate jdbcTemplate(){
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource());
 		return namedParameterJdbcTemplate;
+	}
+	
+	//FileUpload
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+		commonsMultipartResolver.setMaxUploadSize(15000000);
+		return commonsMultipartResolver;
 	}
 	
 	@Bean

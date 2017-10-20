@@ -11,6 +11,7 @@ public class UserDetailsDaoBean {
 	private String aboutme;
 	private long phonenumber;
 	private int userid;
+	private String dob;
 	
 	public int getId() {
 		return id;
@@ -66,11 +67,17 @@ public class UserDetailsDaoBean {
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
+	public String getDob() {
+		return dob;
+	}
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
 	
 	@Override
 	public String toString() {
 		return "UserDetailsDaoBean [id=" + id + ", fname=" + fname + ", lname=" + lname + ", address=" + address
 				+ ", city=" + city + ", postalcode=" + postalcode + ", aboutme=" + aboutme + ", phonenumber="
-				+ phonenumber + ", userid=" + userid + "]";
+				+ phonenumber + ", userid=" + userid + ", dob=" + dob + "]";
 	}
 }

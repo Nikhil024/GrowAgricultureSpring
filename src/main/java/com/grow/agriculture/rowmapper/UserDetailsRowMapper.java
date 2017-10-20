@@ -22,6 +22,7 @@ public class UserDetailsRowMapper implements RowMapper<UserDetailsDaoBean>{
 		userdetails.setPhonenumber(resultSet.getLong("PHONENUMBER"));
 		userdetails.setPostalcode(resultSet.getLong("POSTALCODE"));
 		userdetails.setUserid(resultSet.getInt("USERS_ID"));
+		userdetails.setDob(resultSet.getString("DOB"));
 		return userdetails;
 	}
 

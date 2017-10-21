@@ -13,11 +13,14 @@ public class UsersHelper {
 	@Autowired
 	GrowAgricultureRequest request;
 
+	@Autowired
+	MD5PasswordEncryptionHelper MD5;
+	
 	public UsersDaoBean getUsersBean(RegisterFormBean registerFormbean){
 		UsersDaoBean usersBean = new UsersDaoBean();
 		
 		usersBean.setPhonenumber(Long.parseLong(registerFormbean.getPhoneNumber()));
-		usersBean.setPassword(registerFormbean.getPassword());
+		usersBean.setPassword(MD5.encryption(registerFormbean.getPassword()));
 		if (registerFormbean.getIsFarmer()) {
 			usersBean.setUserType(GrowAgricultureConstants.USER_TYPE.get(0));
 		} else {

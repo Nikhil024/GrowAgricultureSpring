@@ -2,6 +2,7 @@ package com.grow.agriculture.beans;
 
 
 public class LoginFormBean {
+
 	
 	private String phoneNumber;
 	private String password;

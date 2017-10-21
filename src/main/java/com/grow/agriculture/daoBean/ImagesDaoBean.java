@@ -4,7 +4,7 @@ public class ImagesDaoBean {
 	
 	private int id;
 	private String name;
-	private byte[] imageName;
+	private byte[] image;
 	private String imageType;
 	private int usersId;
 	private int imageSize;
@@ -21,11 +21,11 @@ public class ImagesDaoBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public byte[] getImageName() {
-		return imageName;
+	public byte[] getImage() {
+		return image;
 	}
-	public void setImageName(byte[] imageName) {
-		this.imageName = imageName;
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 	public String getImageType() {
 		return imageType;
@@ -39,7 +39,7 @@ public class ImagesDaoBean {
 	public void setUsersId(int usersId) {
 		this.usersId = usersId;
 	}
-	public int getImageSize() {
+	public long getImageSize() {
 		return imageSize;
 	}
 	public void setImageSize(int imageSize) {
@@ -48,7 +48,7 @@ public class ImagesDaoBean {
 	
 	@Override
 	public String toString() {
-		return "ImagesDao [id=" + id + ", name=" + name + ", imageName=" + imageName + ", imageType=" + imageType
+		return "ImagesDao [id=" + id + ", name=" + name + ", imageName=" + image + ", imageType=" + imageType
 				+ ", usersId=" + usersId + ", imageSize=" + imageSize + "]";
 	}
 }

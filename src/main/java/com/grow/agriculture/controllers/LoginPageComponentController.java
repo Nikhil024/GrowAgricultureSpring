@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.grow.agriculture.additional.GrowAgricultureConstants;
 import com.grow.agriculture.beans.LoginFormBean;
 import com.grow.agriculture.daoBean.UsersDaoBean;
+import com.grow.agriculture.helper.MD5PasswordEncryptionHelper;
 import com.grow.agriculture.service.ConfigurationService;
 import com.grow.agriculture.service.UsersService;
 
@@ -31,6 +32,9 @@ public class LoginPageComponentController {
 	
 	@Autowired
 	GrowAgricultureRequest request;
+	
+	@Autowired
+	MD5PasswordEncryptionHelper MD5;
 
 	private static final String VIEW_NAME = "loginPageComponent";
 	private static final String PROJECT_NAME = "project_name";
@@ -89,7 +93,7 @@ public class LoginPageComponentController {
 			if(usersService.check(Long.parseLong(formBean.getPhoneNumber())) != 0){
 				UsersDaoBean user = usersService.retrive(Long.parseLong(formBean.getPhoneNumber()));
 				if(user.getUserType().equals(GrowAgricultureConstants.USER_TYPE.get(1)) || user.getUserType().equals(GrowAgricultureConstants.USER_TYPE.get(2))){
-					if(user.getPassword().equals(formBean.getPassword())){
+					if(user.getPassword().equals(MD5.encryption(formBean.getPassword()))){
 						if(user.getOtpVerified() == 1){
 							redirectAttributes.addFlashAttribute(USERSDAO_FORM_BEAN_NAME, user);
 							return "redirect:/dashboard";
@@ -154,7 +158,7 @@ public class LoginPageComponentController {
 			if(usersService.check(Long.parseLong(formBean.getPhoneNumber())) != 0){
 				UsersDaoBean user = usersService.retrive(Long.parseLong(formBean.getPhoneNumber()));
 				if(user.getUserType().equals(GrowAgricultureConstants.USER_TYPE.get(0)) || user.getUserType().equals(GrowAgricultureConstants.USER_TYPE.get(2))){
-					if(user.getPassword().equals(formBean.getPassword())){
+					if(user.getPassword().equals(MD5.encryption(formBean.getPassword()))){
 						if(user.getOtpVerified() == 1){
 							redirectAttributes.addFlashAttribute(USERSDAO_FORM_BEAN_NAME, user);
 							request.setSessionAttr("phonenumber", user.getPhonenumber());

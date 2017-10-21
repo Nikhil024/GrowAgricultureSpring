@@ -692,6 +692,7 @@ demo = {
                 title: 'Input something',
                 html: '<form id="uploads" action="/agriculture/upload" method="post" enctype="multipart/form-data">' + '<div class="form-group">' +
                           '<input id="upload" name="file" type="file" class="form-control" />' +
+                          '<input type="hidden" name="imageType" value="other">'+
                       '</div> </form>',
                 showCancelButton: true,
                 confirmButtonClass: 'btn btn-success btn-fill',
@@ -703,7 +704,6 @@ demo = {
                     html: $('#uploads').submit(),
                     confirmButtonClass: 'btn btn-success btn-fill',
                     buttonsStyling: false
-
                 })
             }).catch(swal.noop)
         } 

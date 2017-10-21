@@ -21,6 +21,7 @@ import com.grow.agriculture.additional.GrowAgricultureConstants;
 import com.grow.agriculture.beans.OTPFormBean;
 import com.grow.agriculture.beans.RegisterFormBean;
 import com.grow.agriculture.daoBean.UsersDaoBean;
+import com.grow.agriculture.helper.MD5PasswordEncryptionHelper;
 import com.grow.agriculture.helper.OTPHelper;
 import com.grow.agriculture.helper.UsersHelper;
 import com.grow.agriculture.service.ConfigurationService;

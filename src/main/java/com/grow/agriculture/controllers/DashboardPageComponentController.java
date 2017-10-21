@@ -34,12 +34,12 @@ public class DashboardPageComponentController {
 	@RequestMapping("/dashboard")
 	public String getDashboardComponent(@ModelAttribute(USERSDAO_FORM_BEAN_NAME) UsersDaoBean users,Model model){
 			
-		if(userDetailsService.check(Long.valueOf(request.getSessionAttr("phonenumber").toString())) >= 1){
+		if(userDetailsService.check(Long.valueOf(request.getSessionAttr(PHONENUMBER).toString())) >= 1){
 			model.addAttribute(PROFILE_COMPLETION,50);
 		}else{
 			model.addAttribute(PROFILE_COMPLETION,20);
 		}
-		model.addAttribute(PHONENUMBER,request.getSessionAttr("phonenumber"));
+		model.addAttribute(PHONENUMBER,request.getSessionAttr(PHONENUMBER));
 		model.addAttribute(NAME,users.getUsername());
 		model.addAttribute(PROFILE_PICTURE,"");
 		model.addAttribute(DASHBOARD_ACTIVE,SHOW);

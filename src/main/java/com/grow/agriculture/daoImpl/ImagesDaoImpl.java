@@ -19,15 +19,17 @@ import org.springframework.stereotype.Repository;
 
 import com.grow.agriculture.dao.ImagesDao;
 import com.grow.agriculture.daoBean.ImagesDaoBean;
+import com.grow.agriculture.rowmapper.ImagesRowMapper;
 
 @Repository
 public class ImagesDaoImpl  implements ImagesDao{
 	private static final Logger LOG = Logger.getLogger(ImagesDaoImpl.class);
 	
-	private String save = "INSERT INTO IMAGES (ID,IMAGE,USERS_ID,IMAGE_NAME,IMAGE_SIZE,IMAGE_TYPE) VALUES (IMAGES_ID.NEXTVAL,:name,:users_id,:image_name,:image_size,:image_type)"; 
+	private String save = "INSERT INTO IMAGES (ID,IMAGE,USERS_ID,IMAGE_NAME,IMAGE_SIZE,IMAGE_TYPE) VALUES (IMAGES_ID.NEXTVAL,:image,:users_id,:image_name,:image_size,:image_type)"; 
 	private String retrive = "SELECT ID,IMAGE,USERS_ID,IMAGE_NAME,IMAGE_SIZE,IMAGE_TYPE FROM IMAGES WHERE USERS_ID=:users_id";
 	private String check = "SELECT COUNT(1) FROM IMAGES WHERE USERS_ID=:users_id";
-	private String update = "UPDATE IMAGES SET IMAGE=:image where USERS_ID=:users_id";
+	private String update = "UPDATE IMAGES SET IMAGE=:image,IMAGE_NAME=:image_name,IMAGE_SIZE=:image_size,IMAGE_TYPE=:image_type WHERE USERS_ID=:users_id";
+	private String delete = "DELETE FROM IMAGES WHERE USERS_ID=:users_id";
 	
 	@Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -36,36 +38,78 @@ public class ImagesDaoImpl  implements ImagesDao{
     DataSource dataSource;
 	
 	@Override
-	public void save(byte[] imageData) {
+	public void save(ImagesDaoBean images) {
 		String query = save;
 		 try {
-	            Map<String, Object> parameters = new HashMap<String, Object>();
+	           /* Map<String, Object> parameters = new HashMap<String, Object>();*/
 	            
-	            parameters.put("image", new SqlLobValue(new ByteArrayInputStream(imageData), 
-	                    imageData.length, new DefaultLobHandler()), Types.BLOB);
+	            MapSqlParameterSource namedParameters = new MapSqlParameterSource();
 	            
-	            SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
-	            
+	            namedParameters.addValue("users_id", images.getUsersId());
+	            namedParameters.addValue("image_name",images.getName());
+	            namedParameters.addValue("image_size",images.getImageSize());
+	            namedParameters.addValue("image_type",images.getImageType());
+	            namedParameters.addValue("image",  new SqlLobValue(new ByteArrayInputStream(images.getImage()), 
+	            		images.getImage().length, new DefaultLobHandler()), Types.BLOB);
 	            
 	            int count = namedParameterJdbcTemplate.update(query, namedParameters);
+	            
+	            if(count>=1) {
+	            	LOG.info("inserted image to db");
+	            }
+	            
 	        } catch (EmptyResultDataAccessException e) {
 	            LOG.info("No image found");
 	        }
 	}
 	@Override
 	public ImagesDaoBean retrive(int users_id) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = retrive;
+		 try {
+	           Map<String, Object> parameters = new HashMap<String, Object>();
+	           parameters.put("users_id", users_id);
+			 MapSqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
+			 
+			ImagesDaoBean images =  namedParameterJdbcTemplate.queryForObject(query, namedParameters,new ImagesRowMapper());
+			return images;
+			 
+		 } catch (EmptyResultDataAccessException e) {
+			 return null;
+		 }
+		
 	}
 	@Override
 	public int check(int users_id) {
-		// TODO Auto-generated method stub
-		return 0;
+		String query = check;
+	           Map<String, Object> parameters = new HashMap<String, Object>();
+	           parameters.put("users_id", users_id);
+			 MapSqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
+			 
+			 return namedParameterJdbcTemplate.queryForObject(query, namedParameters, Integer.class);
 	}
 	@Override
-	public int update(int users_id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(ImagesDaoBean images) {
+		String query = update;
+		
+		MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        
+        namedParameters.addValue("image_name",images.getName());
+        namedParameters.addValue("image_size",images.getImageSize());
+        namedParameters.addValue("image_type",images.getImageType());
+        namedParameters.addValue("image",  new SqlLobValue(new ByteArrayInputStream(images.getImage()), 
+        		images.getImage().length, new DefaultLobHandler()), Types.BLOB);
+        namedParameters.addValue("users_id", images.getUsersId());
+        return namedParameterJdbcTemplate.update(query, namedParameters);
+	}
+	
+	@Override
+	public int delete(int users_id) {
+		String query = delete;
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("users_id", users_id);
+		 MapSqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
+		 
+		 return namedParameterJdbcTemplate.update(query, namedParameters);
 	}
 
 

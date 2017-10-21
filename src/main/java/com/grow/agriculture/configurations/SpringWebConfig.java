@@ -27,9 +27,11 @@ import org.springframework.web.servlet.view.JstlView;
 import com.grow.agriculture.beans.RegisterFormBean;
 import com.grow.agriculture.beans.UserDetailsFormBean;
 import com.grow.agriculture.controllers.GrowAgricultureRequest;
+import com.grow.agriculture.dao.ImagesDao;
 import com.grow.agriculture.dao.OTPDao;
 import com.grow.agriculture.dao.UserDetailsDao;
 import com.grow.agriculture.dao.UsersDao;
+import com.grow.agriculture.daoImpl.ImagesDaoImpl;
 import com.grow.agriculture.daoImpl.OTPDaoImpl;
 import com.grow.agriculture.daoImpl.UserDetailsDaoImpl;
 import com.grow.agriculture.daoImpl.UsersDaoImpl;
@@ -41,11 +43,13 @@ import com.grow.agriculture.helper.OTPHelper;
 import com.grow.agriculture.helper.UserDetailsHelper;
 import com.grow.agriculture.helper.UsersHelper;
 import com.grow.agriculture.service.ConfigurationService;
+import com.grow.agriculture.service.ImagesService;
 import com.grow.agriculture.service.JsonReaderService;
 import com.grow.agriculture.service.OTPService;
 import com.grow.agriculture.service.UserDetailsService;
 import com.grow.agriculture.service.UsersService;
 import com.grow.agriculture.serviceImpl.ConfigurationServiceImpl;
+import com.grow.agriculture.serviceImpl.ImagesServiceImpl;
 import com.grow.agriculture.serviceImpl.JsonReaderServiceImpl;
 import com.grow.agriculture.serviceImpl.OTPServiceImpl;
 import com.grow.agriculture.serviceImpl.UserDetailsServiceImpl;
@@ -194,6 +198,12 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	 public UserDetailsDao userDetailsDao(){
 		 return new UserDetailsDaoImpl();
 	 }
+	 
+	 @Bean
+	 public ImagesDao imagesDao() {
+		 return new ImagesDaoImpl();
+	 }
+	 
 	 //Service
 	 @Bean
 	 public UsersService usersService() {
@@ -208,6 +218,11 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	 @Bean
 	 public UserDetailsService userDetailsService(){
 		 return new UserDetailsServiceImpl();
+	 }
+	 
+	 @Bean
+	 public ImagesService imagesService() {
+		 return new ImagesServiceImpl();
 	 }
 	 
 	 //Helper

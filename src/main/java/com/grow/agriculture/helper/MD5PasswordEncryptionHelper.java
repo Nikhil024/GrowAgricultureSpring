@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class MD5PasswordEncryptionHelper {
 	
-	public static String encryption(String input) {
+	public String encryption(String input) {
 		
 		String md5 = null;
 		

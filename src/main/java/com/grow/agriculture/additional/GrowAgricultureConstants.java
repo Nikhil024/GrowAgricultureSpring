@@ -1,5 +1,6 @@
 package com.grow.agriculture.additional;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -34,4 +35,9 @@ public class GrowAgricultureConstants {
 	public static final String OTP_2FACTOR_API_KEY = "growAgriculture.2factor.otp.api.key";
 	public static final String OTP_2FACTOR_MAIN_URL = "growAgriculture.2factor.otp.main.url";
 	public static final String OTP_2FACTOR_OTP_CHECK_URL = "growAgriculture.2factor.otp.check.url";
+	public static final String PROFILE_IMAGE_STORE_LOCATION = File.separator +"GAPics"+ File.separator +"profile";
+	public static final String OTHER_IMAGE_PROFILE_STORE_LOCATION = File.separator +"GAPics"+ File.separator +"other";
+	public static final List<String> IMAGES_TYPES = Collections.unmodifiableList(Arrays.asList("profile", "other"));
+	public static final String CATALINA_HOME_LOCATION = System.getProperty("catalina.home");
+	public static final String UPLOAD_IMAGE_FILE_EXTENSION = ".png";
 }

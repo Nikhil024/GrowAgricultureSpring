@@ -18,170 +18,124 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.grow.agriculture.additional.GrowAgricultureConstants;
+import com.grow.agriculture.daoBean.ImagesDaoBean;
+import com.grow.agriculture.daoBean.UsersDaoBean;
 import com.grow.agriculture.helper.MD5PasswordEncryptionHelper;
+import com.grow.agriculture.service.ImagesService;
+import com.grow.agriculture.service.UsersService;
 
 @Controller
 public class FileUploadPageComponentController {
 	private static final Logger LOG = Logger.getLogger(FileUploadPageComponentController.class);
 
 	@Autowired
-	MD5PasswordEncryptionHelper MD5;
-	
-	@Autowired
 	GrowAgricultureRequest request;
-	
-	private static final String CATALINA_HOME_LOCATION = System.getProperty("catalina.home");
+
+	@Autowired
+	ImagesService imagesService;
+
+	@Autowired
+	UsersService userService;
+
+
+
 	private static final String UPLOAD_ACTIVE = "uploadActive";
 	private static final String DASHBOARD_ACTIVE = "dashboardActive";
 	private static final String PROFILE_ACTIVE = "profileActive";
 	private static final String FARMERSLIST_ACTIVE = "farmersListActive";
 	private static final String ABOUTUS_ACTIVE = "aboutusActive";
-	private static final boolean SHOW = true;
+	private static final String PHONENUMBER = "phonenumber";
 	private static final String CURRENT_PAGE = "currentpage";
 	private String PAGE_NAME = null;
-	
+	private File IMAGES_STORE_LOCATION = null;
+	private static final boolean SHOW = true;
+	private static final String LOGIN = "login";
+
+
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public String getFileUploadComponent(Model model){
-		LOG.info("catalinahomelocation: "+CATALINA_HOME_LOCATION);
-		LOG.info("is linux : "+SystemUtils.IS_OS_LINUX);
+		if(request.getSessionAttr(CURRENT_PAGE) != null || request.getSessionAttr(PHONENUMBER) != null ) {
+			PAGE_NAME = request.getSessionAttr(CURRENT_PAGE).toString();
+			LOG.info("catalinahomelocation: "+GrowAgricultureConstants.CATALINA_HOME_LOCATION);
+			LOG.info("is linux : "+SystemUtils.IS_OS_LINUX);
 
-		model.addAttribute(DASHBOARD_ACTIVE,"");
-		model.addAttribute(PROFILE_ACTIVE,"");
-		model.addAttribute(FARMERSLIST_ACTIVE,"");
-		model.addAttribute(ABOUTUS_ACTIVE,"");
-		
-		model.addAttribute(UPLOAD_ACTIVE, SHOW);
-		
-		PAGE_NAME = request.getSessionAttr(CURRENT_PAGE).toString();
-		
-		
-		return "forward:/"+PAGE_NAME;
+			model.addAttribute(DASHBOARD_ACTIVE,"");
+			model.addAttribute(PROFILE_ACTIVE,"");
+			model.addAttribute(FARMERSLIST_ACTIVE,"");
+			model.addAttribute(ABOUTUS_ACTIVE,"");
+
+			model.addAttribute(UPLOAD_ACTIVE, SHOW);
+
+			return "forward:/"+PAGE_NAME;
+		}else {
+			return "redirect:/"+LOGIN;
+		}
 	}
-	
-	
+
+
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String postFileUploadComponent(Model model,@RequestParam("file") MultipartFile file) throws IOException{
-		
-		String filename = file.getOriginalFilename();
-		
-		
-		LOG.info("catalinahomelocation: "+CATALINA_HOME_LOCATION);
-		
-		imagestorelocation = new File(catalinahomelocation+windowsimagestorelocation);
-		
-		if (SystemUtils.IS_OS_LINUX) {
-			  imagestorelocation = new File(catalinahomelocation+uniximagesStoreLoacation);
-			  log.info("OS is Linux based, image Storage Location is set to : "+imagestorelocation);
-		    }
-		
-		if (!imagestorelocation.exists()) {
-			imagestorelocation.mkdirs();
-        }
-		
-		LOG.info("Location of catilana "+imagestorelocation+File.separator+filename);
-		if(filename.contains(".jpg")||filename.contains(".png")||filename.contains(".jpeg")){
-			
-	if (!file.isEmpty()) {
-		
-		ImagesBean img = new ImagesBean();
-		img.setId(users.getId());
-		img.setFruitsvegetablesname(filename);
-		img.setFruitvegetablespiclocation(imagestorelocation+File.separator+filename);
-		img.setUploaddate(CurrentDate.getCurrentDate());
-		ImagesDao.insertImagesData(img);
-		try{
-	 BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-	 
-	 File destination = new File(imagestorelocation+File.separator+filename); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
-	 ImageIO.write(src, "png", destination);
-	 //Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
-	 }
-		catch(FileNotFoundException fe){
-			LOG.info("FileNotFoundException : "+fe);
-			LOG.info("FileNotFoundException : in location : "+imagestorelocation);
-			model.addAttribute("warningmessage","Sorry our servers are facing problems. Please tray again later! ");
-			return "warning";
-		}
-		model.addAttribute("successmessage","Successfully Uploaded the picture.Please refresh this page to see your Uploads.");
-		return "uploadsuccess"; 
-		}
-}
-		model.addAttribute("warningmessage","Please Upload a Picture with .jpg,.gif or .png formats. ");
-		return "warning";
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		LOG.info("inside the post with finle name value:::: "+filename);
-		PAGE_NAME = request.getSessionAttr(CURRENT_PAGE).toString();
-		return "forward:/"+PAGE_NAME;
-		
-	}
-	
-	
-	/* private static final String CATALINA_HOME_LOCATION = System.getProperty("catalina.home");
-	
-	// @RequestMapping */
-	
-	/* public String getFileUploadComponent(){
-		return null;
-	}
-	
-	@RequestMapping
-	public String postFileUploadComponent(Model model,@RequestParam("file") MultipartFile file) throws IOException{
-			
-			LOG.info("catalinahomelocation: "+CATALINA_HOME_LOCATION);
-			
-			imagestorelocation = new File(catalinahomelocation+windowsimagestorelocation);
-			
-			if (SystemUtils.IS_OS_LINUX) {
-				  imagestorelocation = new File(catalinahomelocation+uniximagesStoreLoacation);
-				  log.info("OS is Linux based, image Storage Location is set to : "+imagestorelocation);
-			    }
-			
-			if (!imagestorelocation.exists()) {
-				imagestorelocation.mkdirs();
-	        }
-			
+	public String postFileUploadComponent(Model model,@RequestParam("file") MultipartFile file,@RequestParam("imageType") String imageType) throws IOException{
+
+		if(request.getSessionAttr(PHONENUMBER) != null) {
+
+			PAGE_NAME = request.getSessionAttr(CURRENT_PAGE).toString();
+
+			LOG.info("catalinahomelocation: "+GrowAgricultureConstants.CATALINA_HOME_LOCATION);
+
+			if(imageType.equals(GrowAgricultureConstants.IMAGES_TYPES.get(0))) {
+				IMAGES_STORE_LOCATION = new File(GrowAgricultureConstants.CATALINA_HOME_LOCATION+GrowAgricultureConstants.PROFILE_IMAGE_STORE_LOCATION);
+			}else if(imageType.equals(GrowAgricultureConstants.IMAGES_TYPES.get(1))) {
+				IMAGES_STORE_LOCATION = new File(GrowAgricultureConstants.CATALINA_HOME_LOCATION+GrowAgricultureConstants.OTHER_IMAGE_PROFILE_STORE_LOCATION);
+			}
+
+			if (!IMAGES_STORE_LOCATION.exists()) {
+				IMAGES_STORE_LOCATION.mkdirs();
+			}
+
 			String filename = file.getOriginalFilename();
-			log.info("Location of catilana "+imagestorelocation+File.separator+filename);
+
+			LOG.info("Location of catilana "+IMAGES_STORE_LOCATION+File.separator+filename);
 			if(filename.contains(".jpg")||filename.contains(".png")||filename.contains(".jpeg")){
-				
-		if (!file.isEmpty()) {
-			
-			ImagesBean img = new ImagesBean();
-			img.setId(users.getId());
-			img.setFruitsvegetablesname(filename);
-			img.setFruitvegetablespiclocation(imagestorelocation+File.separator+filename);
-			img.setUploaddate(CurrentDate.getCurrentDate());
-			ImagesDao.insertImagesData(img);
-			try{
-		 BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-		 
-		 File destination = new File(imagestorelocation+File.separator+filename); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
-		 ImageIO.write(src, "png", destination);
-		 //Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
-		 }
-			catch(FileNotFoundException fe){
-				log.info("FileNotFoundException : "+fe);
-				log.info("FileNotFoundException : in location : "+imagestorelocation);
-				model.addAttribute("warningmessage","Sorry our servers are facing problems. Please tray again later! ");
-				return "warning";
+
+				if (!file.isEmpty()) {
+
+					UsersDaoBean users = userService.retrive(Long.valueOf(request.getSessionAttr(PHONENUMBER).toString()));
+
+					ImagesDaoBean images = new ImagesDaoBean();
+					images.setImage(file.getBytes());
+					images.setImageSize((int)file.getSize());
+					images.setImageType(imageType);
+					images.setName(filename);
+					images.setUsersId(users.getId());
+
+					try{
+						BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
+
+						File destination = new File(IMAGES_STORE_LOCATION+File.separator+request.getSessionAttr(PHONENUMBER).toString()+GrowAgricultureConstants.UPLOAD_IMAGE_FILE_EXTENSION); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
+						ImageIO.write(src, "png", destination);
+
+						if(imagesService.check(users.getId()) >= 1) {
+							imagesService.update(images);
+						}else {						
+							imagesService.save(images);
+						}
+						//Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
+					}
+					catch(FileNotFoundException fe){
+						LOG.info("FileNotFoundException : "+fe);
+						LOG.info("FileNotFoundException : in location : "+IMAGES_STORE_LOCATION);
+						model.addAttribute("warningmessage","Sorry our servers are facing problems. Please tray again later! ");
+						return "forward:/"+PAGE_NAME;
+					}
+					model.addAttribute("successmessage","Successfully Uploaded the picture.Please refresh this page to see your Uploads.");
+					return "forward:/"+PAGE_NAME;
+				}
 			}
-			model.addAttribute("successmessage","Successfully Uploaded the picture.Please refresh this page to see your Uploads.");
-			return "uploadsuccess"; 
-			}
-	}
 			model.addAttribute("warningmessage","Please Upload a Picture with .jpg,.gif or .png formats. ");
-			return "warning";
-	}*/
-	
+			return "forward:/"+PAGE_NAME;
+		}else{
+			return null;
+		}
+	}
 }

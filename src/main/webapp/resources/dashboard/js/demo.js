@@ -689,7 +689,7 @@ demo = {
                 });
     	} else if(type == 'file-upload'){
             swal({
-                title: 'Input something',
+                title: 'Upload Picture',
                 html: '<form id="uploads" action="/agriculture/upload" method="post" enctype="multipart/form-data">' + '<div class="form-group">' +
                           '<input id="upload" name="file" type="file" class="form-control" />' +
                           '<input type="hidden" name="imageType" value="other">'+
@@ -701,7 +701,7 @@ demo = {
                 customClass: 'animated tada'
             }).then(function(result) {
                 swal({
-                    html: $('#uploads').submit(),
+                    html: $('#uploads').submit() + 'Uploading please wait!',
                     confirmButtonClass: 'btn btn-success btn-fill',
                     buttonsStyling: false
                 })

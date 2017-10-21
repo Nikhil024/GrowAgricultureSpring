@@ -701,7 +701,8 @@ demo = {
                 customClass: 'animated tada'
             }).then(function(result) {
                 swal({
-                    html: $('#uploads').submit() + 'Uploading please wait!',
+                	text: "Uploading please wait!",
+                    html: $('#uploads').submit() ,
                     confirmButtonClass: 'btn btn-success btn-fill',
                     buttonsStyling: false
                 })

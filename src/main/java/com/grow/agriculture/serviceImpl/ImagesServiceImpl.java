@@ -1,9 +1,11 @@
 package com.grow.agriculture.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.grow.agriculture.dao.ImagesDao;
-import com.grow.agriculture.daoBean.ImagesDaoBean;
+import com.grow.agriculture.daoBean.Images;
 import com.grow.agriculture.service.ImagesService;
 
 public class ImagesServiceImpl implements ImagesService {
@@ -13,13 +15,13 @@ public class ImagesServiceImpl implements ImagesService {
 	
 	
 	@Override
-	public void save(ImagesDaoBean images) {
+	public void save(Images images) {
 		imagesDao.save(images);
 
 	}
 
 	@Override
-	public ImagesDaoBean retrive(int users_id) {
+	public Images retrive(int users_id) {
 		return imagesDao.retrive(users_id);
 	}
 
@@ -29,13 +31,23 @@ public class ImagesServiceImpl implements ImagesService {
 	}
 
 	@Override
-	public int update(ImagesDaoBean images) {
+	public int update(Images images) {
 		return imagesDao.update(images);
 	}
 
 	@Override
 	public int delete(int users_id) {
 		return imagesDao.delete(users_id);
+	}
+
+	@Override
+	public List<Images> getPicsOfOtherThanCurrentUser(int users_id) {
+		return imagesDao.getPicsOfOtherThanCurrentUser(users_id);
+	}
+	
+	@Override
+	public List<Images> getPicsOfCurrentUser(int users_id) {
+		return imagesDao.getPicsOfCurrentUser(users_id);
 	}
 
 }

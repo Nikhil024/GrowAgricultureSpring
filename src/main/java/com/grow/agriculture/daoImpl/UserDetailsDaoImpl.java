@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.grow.agriculture.dao.UserDetailsDao;
-import com.grow.agriculture.daoBean.UserDetailsDaoBean;
+import com.grow.agriculture.daoBean.UserDetails;
 import com.grow.agriculture.daoBean.UsersDaoBean;
 import com.grow.agriculture.rowmapper.UserDetailsRowMapper;
 import com.grow.agriculture.rowmapper.UserRowMapper;
@@ -37,14 +37,14 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 	
 	
 	@Override
-	public UserDetailsDaoBean retrive(int userid) {
+	public UserDetails retrive(int userid) {
 		String query = retriveQuery;
 		 try {
 	            Map<String, Object> parameters = new HashMap<String, Object>();
 	            parameters.put("userid", userid);
 	            
 	            SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
-	            UserDetailsDaoBean userdetails = namedParameterJdbcTemplate.queryForObject(query, namedParameters,new UserDetailsRowMapper());
+	            UserDetails userdetails = namedParameterJdbcTemplate.queryForObject(query, namedParameters,new UserDetailsRowMapper());
 	            return userdetails;
 	        } catch (EmptyResultDataAccessException e) {
 	            return null;
@@ -52,14 +52,14 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 	}
 	
 	@Override
-	public UserDetailsDaoBean retrive(long phonenumber) {
+	public UserDetails retrive(long phonenumber) {
 		String query = retriveUsingPhoneQuery;
 		 try {
 	            Map<String, Object> parameters = new HashMap<String, Object>();
 	            parameters.put("phonenumber", phonenumber);
 	            
 	            SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
-	            UserDetailsDaoBean userdetails = namedParameterJdbcTemplate.queryForObject(query, namedParameters,new UserDetailsRowMapper());
+	            UserDetails userdetails = namedParameterJdbcTemplate.queryForObject(query, namedParameters,new UserDetailsRowMapper());
 	            return userdetails;
 	        } catch (EmptyResultDataAccessException e) {
 	            return null;
@@ -67,7 +67,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 	}
 
 	@Override
-	public int update(UserDetailsDaoBean userdetails) {
+	public int update(UserDetails userdetails) {
 		String query = updateQuery;
 		 Map<String, Object> parameters = new HashMap<String, Object>();
 
@@ -93,7 +93,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao{
 	}
 
 	@Override
-	public void save(UserDetailsDaoBean userdetails) {
+	public void save(UserDetails userdetails) {
 		String query = saveQuery;
 		 Map<String, Object> parameters = new HashMap<String, Object>();
 		 

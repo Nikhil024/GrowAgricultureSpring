@@ -1,12 +1,14 @@
 package com.grow.agriculture.configurations;
 
+import java.util.Properties;
+
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,8 +16,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -92,10 +95,12 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	@Value("${database.password}")
 	private String databasePassword;
 	*/
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
+	
 
 	@Bean
 	public InternalResourceViewResolver viewResolver() {
@@ -115,6 +120,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
         return source;
     }
 	
+	/* Hibernate Configuration */
 	
 	@Bean
 	public DataSource dataSource(){
@@ -127,10 +133,33 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	}
 	
 	@Bean
+	public SessionFactory getSessionFactory(DataSource dataSource){
+		LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource);
+		builder.addProperties(getHibernateProperties());
+		builder.scanPackages("com.learning.beans");
+		return builder.buildSessionFactory();
+	}
+
+	@Bean
+	public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory){
+		HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
+		return transactionManager;
+	}
+	
+	private Properties getHibernateProperties() {
+		Properties properties = new Properties();
+		properties.put("hibernate.dailect", environment.getProperty("database.dailect"));
+		properties.put("hibernate.show_sql", "true");
+		properties.put("hibernate.format_sql", "true");
+		/*properties.put("hibernate.hbm2ddl.auto", "update");*/
+		return properties;
+	}
+	
+	/*@Bean
 	public NamedParameterJdbcTemplate jdbcTemplate(){
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource());
 		return namedParameterJdbcTemplate;
-	}
+	}*/
 	
 	//FileUpload
 	@Bean

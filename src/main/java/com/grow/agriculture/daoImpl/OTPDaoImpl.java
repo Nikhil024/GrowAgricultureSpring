@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.grow.agriculture.dao.OTPDao;
-import com.grow.agriculture.daoBean.OTPDaoBean;
+import com.grow.agriculture.daoBean.OTP;
 import com.grow.agriculture.rowmapper.OTPRowMapper;
 
 public class OTPDaoImpl implements OTPDao{
@@ -31,7 +31,7 @@ public class OTPDaoImpl implements OTPDao{
 	private String selectOTPQuery = "SELECT ID,VALUE,PHONENUMBER,SESSION_ID,USER_ID FROM OTP WHERE PHONENUMBER=:phonenumber"; 
 	private String ifOTPExistsQuery = "SELECT count(1) FROM OTP WHERE PHONENUMBER=:phonenumber";
 	@Override
-	public void save(OTPDaoBean otpBean) {
+	public void save(OTP otpBean) {
 		String query = createOTPQuery;
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("value",otpBean.getOTP());
@@ -59,14 +59,14 @@ public class OTPDaoImpl implements OTPDao{
 	}
 
 	@Override
-	public OTPDaoBean retrive(long phoneNumber) {
+	public OTP retrive(long phoneNumber) {
 		String query = selectOTPQuery;
 		 try {
 	            Map<String, Object> parameters = new HashMap<String, Object>();
 	            parameters.put("phonenumber", phoneNumber);
 	            
 	            SqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
-	            OTPDaoBean otp = namedParameterJdbcTemplate.queryForObject(query, namedParameters,new OTPRowMapper());
+	            OTP otp = namedParameterJdbcTemplate.queryForObject(query, namedParameters,new OTPRowMapper());
 	            return otp;
 	        } catch (EmptyResultDataAccessException e) {
 	            return null;

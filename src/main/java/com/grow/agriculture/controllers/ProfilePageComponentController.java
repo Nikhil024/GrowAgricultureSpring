@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.grow.agriculture.beans.UserDetailsFormBean;
-import com.grow.agriculture.daoBean.UserDetailsDaoBean;
+import com.grow.agriculture.daoBean.UserDetails;
 import com.grow.agriculture.daoBean.UsersDaoBean;
 import com.grow.agriculture.helper.UserDetailsHelper;
 import com.grow.agriculture.service.UserDetailsService;
@@ -60,7 +60,7 @@ public class ProfilePageComponentController {
 	public String getProfilePageComponent(Model model){
 		if(request.getSessionAttr(PHONENUMBER) != null){
 		UsersDaoBean user =  userService.retrive(Long.valueOf(request.getSessionAttr("phonenumber").toString()));
-		UserDetailsDaoBean userdetails = userDetailsService.retrive(user.getId());
+		UserDetails userdetails = userDetailsService.retrive(user.getId());
 		
 		if(userdetails != null){
 			model.addAttribute(FNAME,userdetails.getFname());

@@ -1,12 +1,12 @@
 package com.grow.agriculture.helper;
 
 import com.grow.agriculture.beans.UserDetailsFormBean;
-import com.grow.agriculture.daoBean.UserDetailsDaoBean;
+import com.grow.agriculture.daoBean.UserDetails;
 
 public class UserDetailsHelper {
 	
-	public UserDetailsDaoBean getUserDetails(UserDetailsFormBean formBean){
-		UserDetailsDaoBean userdetails = new UserDetailsDaoBean();
+	public UserDetails getUserDetails(UserDetailsFormBean formBean){
+		UserDetails userdetails = new UserDetails();
 		userdetails.setAboutme(formBean.getAboutMe());
 		userdetails.setAddress(formBean.getAddress());
 		userdetails.setCity(formBean.getCity());

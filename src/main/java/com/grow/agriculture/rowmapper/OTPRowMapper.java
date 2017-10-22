@@ -5,13 +5,13 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.grow.agriculture.daoBean.OTPDaoBean;
+import com.grow.agriculture.daoBean.OTP;
 
-public class OTPRowMapper implements RowMapper<OTPDaoBean>{
+public class OTPRowMapper implements RowMapper<OTP>{
 
 	@Override
-	public OTPDaoBean mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
-		OTPDaoBean otpBean = new OTPDaoBean();
+	public OTP mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
+		OTP otpBean = new OTP();
 		otpBean.setId(resultSet.getInt("ID"));
 		otpBean.setOTP(resultSet.getLong("VALUE"));
 		otpBean.setPhoneNumber(resultSet.getString("PHONENUMBER"));

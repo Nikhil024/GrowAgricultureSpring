@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,7 +13,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title><spring:message code="dashboard.title.name"/></title>
+<style>
 
+.img__wrap:hover .img__description {
+  visibility: visible;
+  opacity: 1;
+}
+
+</style>
 
 <jsp:include page="dashboardHeader.jsp"></jsp:include>
 </head>
@@ -291,8 +301,41 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-lg-9 col-xs-4">
+						<div class="card">
+								<div class="card-header text-center">
+									<h5 class="card-title"><spring:message code="others.images.title.name"/></h5>
+									<hr>
+								</div>
+								<div class="card-content">
+									<div style="display: inline-flex;overflow-y: hidden;overflow-x: visible;">
+									   <c:forEach var="notCurrentUser" items="${notCurrentUser}">
+										 <img style="width: 43%;height: 223px;" class="img-thumbnail" src="<spring:url value="/images/"/>other/${notCurrentUser.name}" alt=""/>
+									</c:forEach>
+									</div>
+							</div>
+						</div>
 					</div>
-                </div>
+					</div>
+
+					<div class="col-md-12">
+						<div class="card">
+								<div class="card-header text-center">
+									<h5 class="card-title"><spring:message code="own.images.title.name"/></h5>
+									<hr>
+								</div>
+								<div class="card-content">
+									<div class="">
+									   <c:forEach var="currentUser" items="${currentUser}">
+										 <img style="width: 43%;height: 223px;" class="img-thumbnail" src="<spring:url value="/images/"/>other/${currentUser.name}" alt=""/>
+									</c:forEach>
+									</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
 	        </div>
 	    </div>
 	</div>

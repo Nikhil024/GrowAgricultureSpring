@@ -3,7 +3,7 @@ package com.grow.agriculture.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.grow.agriculture.dao.OTPDao;
-import com.grow.agriculture.daoBean.OTPDaoBean;
+import com.grow.agriculture.daoBean.OTP;
 import com.grow.agriculture.helper.OTPHelper;
 import com.grow.agriculture.service.OTPService;
 
@@ -17,13 +17,13 @@ OTPHelper helper;
 
 
 @Override
-public OTPDaoBean retrive(long phoneNumber) {
-	OTPDaoBean otpDaoBean = otpdao.retrive(phoneNumber);
+public OTP retrive(long phoneNumber) {
+	OTP otpDaoBean = otpdao.retrive(phoneNumber);
 	return otpDaoBean != null && !otpDaoBean.toString().isEmpty() ? otpDaoBean : null ;
 }
 
 @Override
-public void save(OTPDaoBean otpDaoBean) {
+public void save(OTP otpDaoBean) {
 	otpdao.save(otpDaoBean);
 }
 

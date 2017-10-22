@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.grow.agriculture.daoBean.OTPDaoBean;
-import com.grow.agriculture.daoBean.UserDetailsDaoBean;
+import com.grow.agriculture.daoBean.OTP;
+import com.grow.agriculture.daoBean.UserDetails;
 
-public class UserDetailsRowMapper implements RowMapper<UserDetailsDaoBean>{
+public class UserDetailsRowMapper implements RowMapper<UserDetails>{
 
 	@Override
-	public UserDetailsDaoBean mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-		UserDetailsDaoBean userdetails = new UserDetailsDaoBean();
+	public UserDetails mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+		UserDetails userdetails = new UserDetails();
 		userdetails.setAboutme(resultSet.getString("ABOUTME"));
 		userdetails.setAddress(resultSet.getString("ADDRESS"));
 		userdetails.setCity(resultSet.getString("CITY"));

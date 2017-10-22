@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.grow.agriculture.additional.GrowAgricultureConstants;
-import com.grow.agriculture.daoBean.ImagesDaoBean;
+import com.grow.agriculture.daoBean.Images;
 import com.grow.agriculture.daoBean.UsersDaoBean;
 import com.grow.agriculture.helper.MD5PasswordEncryptionHelper;
 import com.grow.agriculture.service.ImagesService;
@@ -51,7 +52,6 @@ public class FileUploadPageComponentController {
 	private File IMAGES_STORE_LOCATION = null;
 	private static final boolean SHOW = true;
 	private static final String LOGIN = "login";
-
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public String getFileUploadComponent(Model model){
@@ -94,6 +94,7 @@ public class FileUploadPageComponentController {
 			}
 
 			String filename = file.getOriginalFilename();
+			String GENERATEDSTRING = RandomStringUtils.randomAlphanumeric(10);
 
 			LOG.info("Location of catilana "+IMAGES_STORE_LOCATION+File.separator+filename);
 			if(filename.contains(".jpg")||filename.contains(".png")||filename.contains(".jpeg")){
@@ -102,22 +103,45 @@ public class FileUploadPageComponentController {
 
 					UsersDaoBean users = userService.retrive(Long.valueOf(request.getSessionAttr(PHONENUMBER).toString()));
 
-					ImagesDaoBean images = new ImagesDaoBean();
+					Images images = new Images();
 					images.setImage(file.getBytes());
 					images.setImageSize((int)file.getSize());
 					images.setImageType(imageType);
-					images.setName(filename);
+					
+					LOG.info("ALT TEXT :::::: "+GENERATEDSTRING);
+					
+					if(imageType.equals(GrowAgricultureConstants.IMAGES_TYPES.get(0))) {
+						images.setName(request.getSessionAttr(PHONENUMBER).toString()+GrowAgricultureConstants.UPLOAD_IMAGE_FILE_EXTENSION);
+					}else if(imageType.equals(GrowAgricultureConstants.IMAGES_TYPES.get(1))) {
+						images.setName(GENERATEDSTRING+GrowAgricultureConstants.UPLOAD_IMAGE_FILE_EXTENSION);
+					}
+					
 					images.setUsersId(users.getId());
 
 					try{
 						BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
 
-						File destination = new File(IMAGES_STORE_LOCATION+File.separator+request.getSessionAttr(PHONENUMBER).toString()+GrowAgricultureConstants.UPLOAD_IMAGE_FILE_EXTENSION); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
+						File destination = null;
+						
+						LOG.info("ALT TEXT :::::: "+GENERATEDSTRING);
+						
+						if(imageType.equals(GrowAgricultureConstants.IMAGES_TYPES.get(0))) {
+							destination = new File(IMAGES_STORE_LOCATION+File.separator+request.getSessionAttr(PHONENUMBER).toString()+GrowAgricultureConstants.UPLOAD_IMAGE_FILE_EXTENSION);
+						}else if(imageType.equals(GrowAgricultureConstants.IMAGES_TYPES.get(1))) {
+							destination = new File(IMAGES_STORE_LOCATION+File.separator+GENERATEDSTRING+GrowAgricultureConstants.UPLOAD_IMAGE_FILE_EXTENSION);
+						}
+						
+						
+						  // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
 						ImageIO.write(src, "png", destination);
 
-						if(imagesService.check(users.getId()) >= 1) {
-							imagesService.update(images);
-						}else {						
+						if(imageType.equals(GrowAgricultureConstants.IMAGES_TYPES.get(0))) {
+							if(imagesService.check(users.getId()) >= 1) {
+								imagesService.update(images);
+							}else {						
+								imagesService.save(images);
+							}
+						}else {
 							imagesService.save(images);
 						}
 						//Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.

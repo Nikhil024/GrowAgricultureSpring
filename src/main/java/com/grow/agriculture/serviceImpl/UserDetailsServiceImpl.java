@@ -3,7 +3,7 @@ package com.grow.agriculture.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.grow.agriculture.dao.UserDetailsDao;
-import com.grow.agriculture.daoBean.UserDetailsDaoBean;
+import com.grow.agriculture.daoBean.UserDetails;
 import com.grow.agriculture.service.UserDetailsService;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -13,19 +13,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	UserDetailsDao userDetailsDao;
 
 	@Override
-	public UserDetailsDaoBean retrive(int userid) {
-		UserDetailsDaoBean userDetails = userDetailsDao.retrive(userid);
+	public UserDetails retrive(int userid) {
+		UserDetails userDetails = userDetailsDao.retrive(userid);
 		return userDetails;
 	}
 	
 	@Override
-	public UserDetailsDaoBean retrive(long phonenumber) {
-		UserDetailsDaoBean userDetails = userDetailsDao.retrive(phonenumber);
+	public UserDetails retrive(long phonenumber) {
+		UserDetails userDetails = userDetailsDao.retrive(phonenumber);
 		return userDetails;
 	}
 
 	@Override
-	public int update(UserDetailsDaoBean userdetails) {
+	public int update(UserDetails userdetails) {
 		return userDetailsDao.update(userdetails);
 	}
 
@@ -35,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	@Override
-	public void save(UserDetailsDaoBean userdetails) {
+	public void save(UserDetails userdetails) {
 		 userDetailsDao.save(userdetails);
 	}
 

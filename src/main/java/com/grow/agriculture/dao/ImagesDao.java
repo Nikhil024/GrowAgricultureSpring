@@ -1,5 +1,7 @@
 package com.grow.agriculture.dao;
 
+import java.util.List;
+
 import com.grow.agriculture.daoBean.ImagesDaoBean;
 
 public interface ImagesDao {
@@ -8,4 +10,6 @@ public interface ImagesDao {
 	public int check(int users_id);
 	public int update(ImagesDaoBean images);
 	public int delete(int users_id);
+	public List<ImagesDaoBean> getPicsOfOtherThanCurrentUser(int users_id);
+	public List<ImagesDaoBean> getPicsOfCurrentUser(int users_id);
 }

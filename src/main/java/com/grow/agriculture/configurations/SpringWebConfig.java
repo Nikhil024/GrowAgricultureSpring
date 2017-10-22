@@ -92,10 +92,12 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	@Value("${database.password}")
 	private String databasePassword;
 	*/
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
+	
 
 	@Bean
 	public InternalResourceViewResolver viewResolver() {

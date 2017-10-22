@@ -13,10 +13,10 @@ public class ImagesRowMapper implements RowMapper<ImagesDaoBean> {
 	public ImagesDaoBean mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
 		ImagesDaoBean images = new ImagesDaoBean();
 		images.setId(resultSet.getInt("ID"));
-		images.setImage(resultSet.getBytes("IMAGE_NAME"));
+		images.setImage(resultSet.getBytes("IMAGE"));
 		images.setImageSize(resultSet.getInt("IMAGE_SIZE"));
 		images.setImageType(resultSet.getString("IMAGE_TYPE"));
-		images.setName(resultSet.getString("NAME"));
+		images.setName(resultSet.getString("IMAGE_NAME"));
 		images.setUsersId(resultSet.getInt("USERS_ID"));
 		return images;
 	}

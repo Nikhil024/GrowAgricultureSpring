@@ -1,5 +1,7 @@
 package com.grow.agriculture.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.grow.agriculture.dao.ImagesDao;
@@ -36,6 +38,16 @@ public class ImagesServiceImpl implements ImagesService {
 	@Override
 	public int delete(int users_id) {
 		return imagesDao.delete(users_id);
+	}
+
+	@Override
+	public List<ImagesDaoBean> getPicsOfOtherThanCurrentUser(int users_id) {
+		return imagesDao.getPicsOfOtherThanCurrentUser(users_id);
+	}
+	
+	@Override
+	public List<ImagesDaoBean> getPicsOfCurrentUser(int users_id) {
+		return imagesDao.getPicsOfCurrentUser(users_id);
 	}
 
 }

@@ -15,10 +15,6 @@
 	<title><spring:message code="dashboard.title.name"/></title>
 <style>
 
-.img__wrap:hover .img__description {
-  visibility: visible;
-  opacity: 1;
-}
 
 </style>
 
@@ -301,21 +297,28 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-9 col-xs-4">
-						<div class="card">
-								<div class="card-header text-center">
-									<h5 class="card-title"><spring:message code="others.images.title.name"/></h5>
-									<hr>
-								</div>
-								<div class="card-content">
-									<div style="display: inline-flex;overflow-y: hidden;overflow-x: visible;">
-									   <c:forEach var="notCurrentUser" items="${notCurrentUser}">
-										 <img style="width: 43%;height: 223px;" class="img-thumbnail" src="<spring:url value="/images/"/>other/${notCurrentUser.name}" alt=""/>
-									</c:forEach>
+						
+						 <c:if test="${not empty notCurrentUser}">
+							<div class="col-lg-9 col-xs-4">
+							<div class="card">
+									<div class="card-header text-center">
+										<h5 class="card-title"><spring:message code="others.images.title.name"/></h5>
+										<hr>
 									</div>
+									<div class="card-content">
+										<div style="display: inline-flex;overflow-y: hidden;overflow-x: visible;">
+										   <c:forEach var="notCurrentUser" items="${notCurrentUser}">
+											 <img style="width: 43%;height: 223px;" class="img-thumbnail" src="<spring:url value="/images/"/>other/${notCurrentUser.name}" alt=""/>
+										</c:forEach>
+										</div>
+								</div>
 							</div>
 						</div>
-					</div>
+						
+					</c:if>
+					
+					
+					
 					</div>
 
 					<div class="col-md-12">

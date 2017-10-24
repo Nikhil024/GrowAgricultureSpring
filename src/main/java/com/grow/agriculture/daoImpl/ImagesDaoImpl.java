@@ -33,6 +33,7 @@ public class ImagesDaoImpl  implements ImagesDao{
 	private String delete = "DELETE FROM IMAGES WHERE USERS_ID=:users_id";
 	private String getallpicswithoutCurrentUser = "SELECT ID,IMAGE,USERS_ID,IMAGE_NAME,IMAGE_SIZE,IMAGE_TYPE FROM IMAGES WHERE IMAGE_TYPE=:image_type AND USERS_ID !=:users_id";
 	private String getallpicsofcurrentuser = "SELECT ID,IMAGE,USERS_ID,IMAGE_NAME,IMAGE_SIZE,IMAGE_TYPE FROM IMAGES WHERE IMAGE_TYPE=:image_type AND USERS_ID =:users_id";
+	private String getallpics = "SELECT ID,IMAGE,USERS_ID,IMAGE_NAME,IMAGE_SIZE,IMAGE_TYPE FROM IMAGES WHERE IMAGE_TYPE=:image_type";
 	
 	@Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -131,6 +132,16 @@ public class ImagesDaoImpl  implements ImagesDao{
 		 Map<String, Object> parameters = new HashMap<String, Object>();
 	        parameters.put("image_type", "other");
 	        parameters.put("users_id", users_id);
+			 MapSqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
+		return namedParameterJdbcTemplate.query(query,namedParameters, new ImagesRowMapper());
+	}
+	
+	
+	@Override
+	public List<ImagesDaoBean> getAllPics() {
+		String query = getallpics;
+		 Map<String, Object> parameters = new HashMap<String, Object>();
+	        parameters.put("image_type", "other");
 			 MapSqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
 		return namedParameterJdbcTemplate.query(query,namedParameters, new ImagesRowMapper());
 	}

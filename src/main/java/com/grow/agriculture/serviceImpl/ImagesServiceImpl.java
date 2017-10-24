@@ -50,4 +50,11 @@ public class ImagesServiceImpl implements ImagesService {
 		return imagesDao.getPicsOfCurrentUser(users_id);
 	}
 
+	@Override
+	public List<ImagesDaoBean> getAllPics() {
+		return imagesDao.getAllPics();
+	}
+	
+	
+
 }

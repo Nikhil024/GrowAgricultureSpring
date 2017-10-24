@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.grow.agriculture.dao.UsersDao;
 import com.grow.agriculture.daoBean.UsersDaoBean;
+import com.grow.agriculture.rowmapper.ImagesRowMapper;
 import com.grow.agriculture.rowmapper.UserRowMapper;
 
 @Repository
@@ -36,6 +37,9 @@ public class UsersDaoImpl implements UsersDao {
 	private String UpdateUserQuery = "UPDATE USERS SET OTP_VERIFIED=:valuename where PHONENUMBER=:phonenumber";
 	private String selectIfFarmer = "SELECT count(1) FROM USERS where PHONENUMBER=:phonenumber AND USER_TYPE=";
 	private String selectIfBuyer = "SELECT count(1) FROM USERS where PHONENUMBER=:phonenumber";
+	private String selectAllFarmers="SELECT ID,NAME,PHONENUMBER,PASSWORD,EMAIL,USER_TYPE,OTP_VERIFIED,CREATED_DATE,LAST_UPDATE FROM USERS WHERE USER_TYPE=:userType";
+	
+	
 	
 	@Override
 	public UsersDaoBean getUser(long phonenumber) {
@@ -119,5 +123,13 @@ public class UsersDaoImpl implements UsersDao {
 		 namedParameterJdbcTemplate.update(deleteUserQuery, parameters);
 	}
 	
+	@Override
+	public List<UsersDaoBean> getAllUsers(){
+	String query = selectAllFarmers;
+	 Map<String, Object> parameters = new HashMap<String, Object>();
+     parameters.put("userType", "farmer");
+		 MapSqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
+	return namedParameterJdbcTemplate.query(query,namedParameters, new UserRowMapper());
+	}
 
 }

@@ -1,6 +1,8 @@
 package com.grow.agriculture.service;
 
 
+import java.util.List;
+
 import com.grow.agriculture.daoBean.UsersDaoBean;
 
 public interface UsersService {
@@ -11,4 +13,5 @@ public interface UsersService {
 	public void update(String columnname, String valuename, String phonenumber);
 	public void update(String columnname, int valuename, String phonenumber);
 	public void delete(int phonenumber);
+	public List<UsersDaoBean> getAllUsers();
 }

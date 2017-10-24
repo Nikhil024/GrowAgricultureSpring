@@ -60,16 +60,12 @@ public class FileUploadPageComponentController {
 			LOG.info("catalinahomelocation: "+GrowAgricultureConstants.CATALINA_HOME_LOCATION);
 			LOG.info("is linux : "+SystemUtils.IS_OS_LINUX);
 
-			model.addAttribute(DASHBOARD_ACTIVE,"");
-			model.addAttribute(PROFILE_ACTIVE,"");
-			model.addAttribute(FARMERSLIST_ACTIVE,"");
-			model.addAttribute(ABOUTUS_ACTIVE,"");
 
 			model.addAttribute(UPLOAD_ACTIVE, SHOW);
 
 			return "forward:/"+PAGE_NAME;
 		}else {
-			return "redirect:/"+LOGIN;
+			return "redirect:/login";
 		}
 	}
 
@@ -145,6 +141,7 @@ public class FileUploadPageComponentController {
 							imagesService.save(images);
 						}
 						//Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
+						return "redirect:/"+PAGE_NAME;
 					}
 					catch(FileNotFoundException fe){
 						LOG.info("FileNotFoundException : "+fe);
@@ -152,8 +149,7 @@ public class FileUploadPageComponentController {
 						model.addAttribute("warningmessage","Sorry our servers are facing problems. Please tray again later! ");
 						return "forward:/"+PAGE_NAME;
 					}
-					model.addAttribute("successmessage","Successfully Uploaded the picture.Please refresh this page to see your Uploads.");
-					return "forward:/"+PAGE_NAME;
+					//return "forward:/"+PAGE_NAME;
 				}
 			}
 			model.addAttribute("warningmessage","Please Upload a Picture with .jpg,.gif or .png formats. ");

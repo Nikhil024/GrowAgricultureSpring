@@ -12,4 +12,5 @@ public interface ImagesDao {
 	public int delete(int users_id);
 	public List<ImagesDaoBean> getPicsOfOtherThanCurrentUser(int users_id);
 	public List<ImagesDaoBean> getPicsOfCurrentUser(int users_id);
+	public List<ImagesDaoBean> getAllPics();
 }

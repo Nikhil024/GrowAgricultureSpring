@@ -1,6 +1,5 @@
 package com.grow.agriculture.controllers;
 
-import java.io.File;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -35,7 +34,8 @@ public class DashboardPageComponentController {
 	@Autowired
 	UsersService usersService;
 
-	private static final String DASHBOARD_VIEW_NAME = "dashboard";	
+	private static final String DASHBOARD_VIEW_NAME = "dashboardComponent";	
+	private static final String REDIRECT_VIEW_NAME = "dashboard";	
 	private static final String USERSDAO_FORM_BEAN_NAME = "usersDaoBean";
 	private static final String PHONENUMBER = "phonenumber";
 	private static final String FNAME = "fname";
@@ -67,7 +67,7 @@ public class DashboardPageComponentController {
 		model.addAttribute(NAME,users.getUsername());
 		model.addAttribute(PROFILE_PICTURE,"");
 		model.addAttribute(DASHBOARD_ACTIVE,SHOW);
-		request.setSessionAttr(CURRENT_PAGE, DASHBOARD_VIEW_NAME);
+		request.setSessionAttr(CURRENT_PAGE, REDIRECT_VIEW_NAME);
 
 		/*UsersDaoBean usr  = usersService.retrive(Long.valueOf(request.getSessionAttr(PHONENUMBER).toString()));*/
 
@@ -82,13 +82,21 @@ public class DashboardPageComponentController {
 			}
 		}
 
-		List<ImagesDaoBean> currentUser = imagesService.getPicsOfCurrentUser(usr.getId());
-		List<ImagesDaoBean> notCurrentUser = imagesService.getPicsOfOtherThanCurrentUser(usr.getId());
+		if(usr.getUserType().equals(GrowAgricultureConstants.USER_TYPE.get(0))){
+			List<ImagesDaoBean> currentUser = imagesService.getPicsOfCurrentUser(usr.getId());
+			List<ImagesDaoBean> notCurrentUser = imagesService.getPicsOfOtherThanCurrentUser(usr.getId());
+			
+			modelandview.addObject("currentUser",currentUser);
+			modelandview.addObject("notCurrentUser",notCurrentUser);
+		}
+		
+		if(usr.getUserType().equals(GrowAgricultureConstants.USER_TYPE.get(1))){
+			List<ImagesDaoBean> currentUser = imagesService.getAllPics();
+			modelandview.addObject("currentUser",currentUser);
+			
+		}
+		
 
-		modelandview.addObject("currentUser",currentUser);
-		modelandview.addObject("notCurrentUser",notCurrentUser);
-
-		modelandview.addObject("location",GrowAgricultureConstants.CATALINA_HOME_LOCATION+GrowAgricultureConstants.OTHER_IMAGE_PROFILE_STORE_LOCATION+File.separator);
 		modelandview.setViewName(DASHBOARD_VIEW_NAME);
 
 

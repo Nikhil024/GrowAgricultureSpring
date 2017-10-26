@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -196,10 +199,9 @@
 			<div class="container">
 				<div class="content-center brand">
 					<img class="n-logo"
-						src="<spring:url value="/resources/img/${landing_page_logo_image_name}"/>"
-						alt="">
-					<h1 class="animated pulse infinite h1-seo">${project_name}</h1>
-					<h3>${landing_page_description}</h3>
+						src="<spring:url value="/resources/img/${landing_page_logo_image_name}"/>"		alt="">
+					<h1 class="animated rubberBand h1-seo"><spring:message code="project.name"/></h1>
+					<h3><spring:message code="project.title"/></h3>
 				</div>
 				<%-- <h6 class="category category-absolute">Designed by
                     <a href="http://invisionapp.com/" target="_blank">

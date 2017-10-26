@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.grow.agriculture.additional.GrowAgricultureConstants;
@@ -45,6 +47,12 @@ public class DashboardPageComponentController {
 	private static final String PROFILE_COMPLETION = "profile_completion";
 	private static final String DASHBOARD_ACTIVE = "dashboardActive";
 	private static final String CURRENT_PAGE = "currentpage";
+	private static final String IS_FARMER = "isFarmer";
+	private static final String IS_BUYER = "isBuyer";
+	private static final String IS_VIEWMORE = "viewMore";
+	private static final String CURRENT_USER = "currentUser";
+	private static final String FARMER_NAME = "farmerName";
+
 	private static final boolean SHOW = true;
 	private static final boolean HIDE = false;
 
@@ -67,6 +75,13 @@ public class DashboardPageComponentController {
 		model.addAttribute(NAME,users.getUsername());
 		model.addAttribute(PROFILE_PICTURE,"");
 		model.addAttribute(DASHBOARD_ACTIVE,SHOW);
+
+		if(usr.getUserType().equals(GrowAgricultureConstants.USER_TYPE.get(1))){
+			model.addAttribute(IS_BUYER,SHOW);
+		}else if(usr.getUserType().equals(GrowAgricultureConstants.USER_TYPE.get(0))){
+			model.addAttribute(IS_FARMER,SHOW);
+		}
+
 		request.setSessionAttr(CURRENT_PAGE, REDIRECT_VIEW_NAME);
 
 		/*UsersDaoBean usr  = usersService.retrive(Long.valueOf(request.getSessionAttr(PHONENUMBER).toString()));*/
@@ -85,22 +100,48 @@ public class DashboardPageComponentController {
 		if(usr.getUserType().equals(GrowAgricultureConstants.USER_TYPE.get(0))){
 			List<ImagesDaoBean> currentUser = imagesService.getPicsOfCurrentUser(usr.getId());
 			List<ImagesDaoBean> notCurrentUser = imagesService.getPicsOfOtherThanCurrentUser(usr.getId());
-			
-			modelandview.addObject("currentUser",currentUser);
+
+			modelandview.addObject(CURRENT_USER,currentUser);
 			modelandview.addObject("notCurrentUser",notCurrentUser);
 		}
-		
+
 		if(usr.getUserType().equals(GrowAgricultureConstants.USER_TYPE.get(1))){
-			List<ImagesDaoBean> currentUser = imagesService.getAllPics();
-			modelandview.addObject("currentUser",currentUser);
-			
+			List<ImagesDaoBean> allPics = imagesService.getAllPics();
+			modelandview.addObject("allPics",allPics);
+
 		}
-		
+
 
 		modelandview.setViewName(DASHBOARD_VIEW_NAME);
 
 
 		return modelandview;
 	}
+
+
+	@RequestMapping(value="/dashboard/viewMore", method=RequestMethod.POST)
+	public ModelAndView demo(@RequestParam("usersId") int users_id,Model model){
+		ModelAndView modelandview  = new ModelAndView();
+
+		UserDetailsDaoBean userDetails = userDetailsService.retrive(users_id);
+
+		LOG.info("in dash board view more ::::: "+users_id);
+		modelandview.addObject(IS_VIEWMORE,SHOW);
+		List<ImagesDaoBean> currentUser = imagesService.getPicsOfCurrentUser(users_id);
+		modelandview.addObject(CURRENT_USER,currentUser);
+
+		if(userDetails != null){
+			if(userDetails.getFname() != null || userDetails.getLname() != null){
+				modelandview.addObject(FARMER_NAME,userDetails.getFname()+" "+userDetails.getLname());
+			}
+		}
+		modelandview.setViewName(DASHBOARD_VIEW_NAME);
+
+		return modelandview;
+	}
+
+
+
+
 
 }

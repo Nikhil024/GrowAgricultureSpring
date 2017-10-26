@@ -37,6 +37,8 @@ public class FarmersListPageComponentController {
 		List<UsersDaoBean> users = usersService.getAllUsers();
 		mav.addObject("users",users);
 		request.setSessionAttr(CURRENT_PAGE, REDIRECT_VIEWNAME);
+		mav.addObject("farmersListActive",true);
+		mav.addObject("isBuyer",true);
 		return mav;
 	}
 	

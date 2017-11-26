@@ -21,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.grow.agriculture.additional.GrowAgricultureConstants;
 import com.grow.agriculture.daoBean.Images;
-import com.grow.agriculture.daoBean.UsersDaoBean;
-import com.grow.agriculture.helper.MD5PasswordEncryptionHelper;
 import com.grow.agriculture.service.ImagesService;
 import com.grow.agriculture.service.UsersService;
 
@@ -101,7 +99,7 @@ public class FileUploadPageComponentController {
 
 				if (!file.isEmpty()) {
 
-					UsersDaoBean users = userService.retrive(Long.valueOf(request.getSessionAttr(PHONENUMBER).toString()));
+					Users users = userDao.get(Long.valueOf(request.getSessionAttr(PHONENUMBER).toString()));
 
 					Images images = new Images();
 					images.setImage(file.getBytes());

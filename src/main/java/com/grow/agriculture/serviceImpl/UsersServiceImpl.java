@@ -1,5 +1,7 @@
 package com.grow.agriculture.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.grow.agriculture.dao.UsersDao;
@@ -46,4 +48,11 @@ public class UsersServiceImpl implements UsersService {
 		int count = usersDao.getIfUserExists(phonenumber);
 		return count;
 	}
+
+	@Override
+	public List<UsersDaoBean> getAllUsers() {
+		return usersDao.getAllUsers();
+	}
+	
+	
 }

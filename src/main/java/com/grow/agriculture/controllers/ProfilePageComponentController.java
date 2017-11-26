@@ -40,7 +40,8 @@ public class ProfilePageComponentController {
 	@Autowired
 	UserDetailsHelper helper;
 	
-	private static final String VIEW_NAME = "profile";
+	private static final String VIEW_NAME = "profileComponent";
+	private static final String REDIRECT_VIEW_NAME = "profile";
 	private static final String PROFILE_ACTIVE = "profileActive";
 	private static final boolean SHOW = true;
 	private static final String USER_DETAILS_FORM_BEAN_NAME = "userDetailsFormBean";
@@ -76,7 +77,7 @@ public class ProfilePageComponentController {
 		model.addAttribute(USER_ID,user.getId());
 		model.addAttribute(USER_DETAILS_FORM_BEAN_NAME, new UserDetailsFormBean());
 		model.addAttribute(PHONENUMBER ,request.getSessionAttr(PHONENUMBER));
-		request.setSessionAttr(CURRENT_PAGE, VIEW_NAME);
+		request.setSessionAttr(CURRENT_PAGE, REDIRECT_VIEW_NAME);
 		
 		return VIEW_NAME;
 		}

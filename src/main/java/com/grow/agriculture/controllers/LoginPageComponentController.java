@@ -96,6 +96,7 @@ public class LoginPageComponentController {
 					if(user.getPassword().equals(MD5.encryption(formBean.getPassword()))){
 						if(user.getOtpVerified() == 1){
 							redirectAttributes.addFlashAttribute(USERSDAO_FORM_BEAN_NAME, user);
+							request.setSessionAttr("phonenumber", user.getPhonenumber());
 							return "redirect:/dashboard";
 						}else{
 							LOG.info("otp not verified for : "+formBean.getPhoneNumber());

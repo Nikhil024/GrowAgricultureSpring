@@ -190,7 +190,7 @@ $(document).ready(function() {
 								<div class="alert-icon">
 									<i class="icons-style now-ui-icons ui-2_like"></i>
 								</div>
-								<spring:message code="register.success"/>
+								<spring:message code="register.success" arguments="${userType}" htmlEscape="false"/>
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
 									<span aria-hidden="true"> <i

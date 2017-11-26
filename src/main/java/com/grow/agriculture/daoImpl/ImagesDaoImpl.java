@@ -33,6 +33,10 @@ public class ImagesDaoImpl  implements ImagesDao{
 	private String delete = "DELETE FROM IMAGES WHERE USERS_ID=:users_id";
 	private String getallpicswithoutCurrentUser = "SELECT ID,IMAGE,USERS_ID,IMAGE_NAME,IMAGE_SIZE,IMAGE_TYPE FROM IMAGES WHERE IMAGE_TYPE=:image_type AND USERS_ID !=:users_id";
 	private String getallpicsofcurrentuser = "SELECT ID,IMAGE,USERS_ID,IMAGE_NAME,IMAGE_SIZE,IMAGE_TYPE FROM IMAGES WHERE IMAGE_TYPE=:image_type AND USERS_ID =:users_id";
+<<<<<<< HEAD
+=======
+	private String getallpics = "SELECT ID,IMAGE,USERS_ID,IMAGE_NAME,IMAGE_SIZE,IMAGE_TYPE FROM IMAGES WHERE IMAGE_TYPE=:image_type";
+>>>>>>> d346bddbf80137e46bed0978a42d22d486f51d5d
 	
 	@Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -41,7 +45,11 @@ public class ImagesDaoImpl  implements ImagesDao{
     DataSource dataSource;
 	
 	@Override
+<<<<<<< HEAD
 	public void save(Images images) { 
+=======
+	public void save(ImagesDaoBean images) { 
+>>>>>>> d346bddbf80137e46bed0978a42d22d486f51d5d
 		String query = save;
 		 try {
 	           /* Map<String, Object> parameters = new HashMap<String, Object>();*/
@@ -116,7 +124,11 @@ public class ImagesDaoImpl  implements ImagesDao{
 	}
 	
 	@Override
+<<<<<<< HEAD
 	public List<Images> getPicsOfOtherThanCurrentUser(int users_id) {
+=======
+	public List<ImagesDaoBean> getPicsOfOtherThanCurrentUser(int users_id) {
+>>>>>>> d346bddbf80137e46bed0978a42d22d486f51d5d
 		String query = getallpicswithoutCurrentUser;
 		 Map<String, Object> parameters = new HashMap<String, Object>();
 	        parameters.put("image_type", "other");
@@ -126,7 +138,11 @@ public class ImagesDaoImpl  implements ImagesDao{
 	}
 	
 	@Override
+<<<<<<< HEAD
 	public List<Images> getPicsOfCurrentUser(int users_id) {
+=======
+	public List<ImagesDaoBean> getPicsOfCurrentUser(int users_id) {
+>>>>>>> d346bddbf80137e46bed0978a42d22d486f51d5d
 		String query = getallpicsofcurrentuser;
 		 Map<String, Object> parameters = new HashMap<String, Object>();
 	        parameters.put("image_type", "other");
@@ -134,6 +150,19 @@ public class ImagesDaoImpl  implements ImagesDao{
 			 MapSqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
 		return namedParameterJdbcTemplate.query(query,namedParameters, new ImagesRowMapper());
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	@Override
+	public List<ImagesDaoBean> getAllPics() {
+		String query = getallpics;
+		 Map<String, Object> parameters = new HashMap<String, Object>();
+	        parameters.put("image_type", "other");
+			 MapSqlParameterSource namedParameters = new MapSqlParameterSource(parameters);
+		return namedParameterJdbcTemplate.query(query,namedParameters, new ImagesRowMapper());
+	}
+>>>>>>> d346bddbf80137e46bed0978a42d22d486f51d5d
 
 
 }

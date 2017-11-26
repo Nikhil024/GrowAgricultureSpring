@@ -24,7 +24,6 @@ public class LandingPageComponentController {
 	ConfigurationService configurationService;
 	
 	public static final String VIEW_NAME =  "landingPageComponent";
-	public static final String PROJECT_NAME = "project_name";
 	public static final String LANDING_PAGE_LOGO_IMAGE_NAME = "landing_page_logo_image_name";
 	public static final String LANDING_PAGE_BACKGROUND_IMAGE_NAME = "landing_page_background_image_name";
 	public static final String LANDING_PAGE_DESCRIPTION = "landing_page_description";
@@ -36,7 +35,6 @@ public class LandingPageComponentController {
 	
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String landingPageMethod(Model model) throws ConfigurationException{
-		model.addAttribute(PROJECT_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.PROJECT_NAME));
 		model.addAttribute(LANDING_PAGE_LOGO_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LANDING_PAGE_LOGO_IMAGE_NAME));
 		model.addAttribute(LANDING_PAGE_BACKGROUND_IMAGE_NAME,configurationService.getConfiguration().getString(GrowAgricultureConstants.LANDING_PAGE_BACKGROUND_IMAGE_NAME));
 		model.addAttribute(LANDING_PAGE_DESCRIPTION,configurationService.getConfiguration().getString(GrowAgricultureConstants.LANDING_PAGE_DESCRIPTION));

@@ -15,11 +15,143 @@
 	<title><spring:message code="dashboard.title.name"/></title>
 <style>
 
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/dashboard.jsp
 .img__wrap:hover .img__description {
   visibility: visible;
   opacity: 1;
 }
 
+=======
+	@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+*, *:before, *:after{
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:border-box;
+  box-sizing: border-box;
+}
+
+body{
+  background: #f9f9f9;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.main-title{
+  color: #2d2d2d;
+  text-align: center;
+  text-transform: capitalize;
+  padding: 0.7em 0;
+}
+
+.container-hover{
+  padding: 1em 0;
+  float: left;
+  width: 50%;
+}
+@media screen and (max-width: 640px){
+  .container-hover{
+    display: block;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 900px){
+  .container-hover{
+    width: 33.33333%;
+  }
+}
+
+.container-hover .title{
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.content-hover {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+}
+
+.content-hover .content-overlay {
+  background: rgba(0,0,0,0.7);
+  position: absolute;
+  height: 1223%;
+  width: 100%;
+  left: 0;
+  top: -100px;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.content-hover:hover .content-overlay{
+  opacity: 1;
+}
+
+.content-image{
+  width: 100%;
+}
+
+.content-details {
+  position: absolute;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.content-hover:hover .content-details{
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+}
+
+.content-details h3{
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+}
+
+.content-details p{
+  color: #fff;
+  font-size: 0.8em;
+}
+
+.fadeIn-bottom{
+  top: 80%;
+}
+
+.fadeIn-top{
+  top: 20%;
+}
+
+.fadeIn-left{
+  left: 20%;
+}
+
+.fadeIn-right{
+  left: 80%;
+}
+	
+>>>>>>> d346bddbf80137e46bed0978a42d22d486f51d5d:src/main/webapp/WEB-INF/views/dashboardComponent.jsp
 </style>
 
 <jsp:include page="dashboardHeader.jsp"></jsp:include>
@@ -289,6 +421,7 @@
 							</div>
 						</div>
 					</div> -->
+					<c:if test="${not empty isFarmer}">
 					<div class="row">
 						<div class="col-lg-3 col-sm-6">
 							<div class="card card-circle-chart" data-background-color="blue">
@@ -301,6 +434,7 @@
 								</div>
 							</div>
 						</div>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/dashboard.jsp
 						<div class="col-lg-9 col-xs-4">
 						<div class="card">
 								<div class="card-header text-center">
@@ -335,6 +469,128 @@
 					</div>
 
 
+=======
+						
+						  <c:if test="${not empty notCurrentUser}">
+							<div class="col-lg-9 col-xs-4">
+							<div class="card">
+									<div class="card-header text-center">
+										<h5 class="card-title"><spring:message code="others.images.title.name"/></h5>
+										<hr>
+									</div>
+									<div class="card-content">
+										<div style="display: inline-flex;overflow-y: hidden;overflow-x: visible;">
+										<c:set var="count" value="0"/>
+										   <c:forEach var="notCurrentUser" items="${notCurrentUser}">
+											 <img id="${count}" style="width: 43%;height: 223px;" onmouseover="bigImg(this.id)" onmouseout="normalImg(this)" class="img-thumbnail" src="<spring:url value="/images/"/>other/${notCurrentUser.name}" alt=""/>
+										<c:set var="count" value="${count + 1}"/>
+										</c:forEach>
+										</div>
+								</div>
+							</div>
+						</div>
+						
+					</c:if>
+					</div>
+
+
+					
+					<div class="col-md-12">
+						<div class="card">
+								<div class="card-header text-center">
+									<h5 class="card-title"><spring:message code="own.images.title.name"/></h5>
+									<hr>
+								</div>
+								<div class="card-content">
+									<div class="">
+									   <c:forEach var="currentUser" items="${currentUser}">
+										 <img style="width: 43%;height: 223px;" class="img-thumbnail" src="<spring:url value="/images/"/>other/${currentUser.name}" alt=""/>
+									</c:forEach>
+									</div>
+							</div>
+						</div>
+					</div>
+</c:if>
+
+
+				<c:if test="${not empty isBuyer}">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header text-center">
+								<h5 class="card-title">
+									<spring:message code="others.images.title.name" />
+								</h5>
+								<hr>
+							</div>
+							<div class="card-content"
+								style="overflow-x: visible; overflow-y: hidden; width: 99%;">
+								<div>
+									<c:set var="count" value="0" />
+									<c:forEach var="allPics" items="${allPics}">
+										<div class="container-hover">
+											<div class="content-hover">
+												<a onclick="document.forms['image${count}'].submit();return false;">
+													<div class="content-overlay"></div> <img id="${count}"
+													style="height: 223px;width: 530px;max-width: 348px;"
+													class="img-thumbnail"
+													src="<spring:url value="/images/"/>other/${allPics.name}"
+													alt="" />
+													<br/>
+													<div class="content-details fadeIn-top">
+														<h3>
+															<spring:message code="farmers.images.seemore" />
+														</h3>
+														<p>
+														  <spring:message code="farmers.images.clickhere" />
+														</p>
+													</div>
+													<form name="image${count}" action="/agriculture/dashboard/viewMore" method="post">
+													<input type="hidden" name="usersId" value="${allPics.usersId}">
+													</form>
+													</a>
+											</div>
+										</div>
+										<c:set var="count" value="${count + 1}" />
+									</c:forEach>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+	</c:if>
+
+
+
+	<c:if test="${not empty viewMore}">
+	
+	<div class="col-md-12">
+						<div class="card">
+								<div class="card-header text-center">
+									<h5 class="card-title">
+									<spring:message code="farmer.name.images.title.name" arguments="${farmerName}" htmlEscape="false"/>
+									</h5>
+									<hr>
+								</div>
+								<div class="card-content">
+									<div class="">
+									   <c:forEach var="currentUser" items="${currentUser}">
+										 <img style="width: 43%;height: 223px;" class="img-thumbnail" src="<spring:url value="/images/"/>other/${currentUser.name}" alt=""/>
+									</c:forEach>
+									</div>
+							</div>
+						</div>
+					</div>
+	
+	</c:if>
+
+
+
+
+
+
+
+
+>>>>>>> d346bddbf80137e46bed0978a42d22d486f51d5d:src/main/webapp/WEB-INF/views/dashboardComponent.jsp
 				</div>
 	        </div>
 	    </div>
@@ -352,6 +608,16 @@
 			demo.initCirclePercentage();
 
     	});
+    	
+    	function bigImg(x) {
+    	    var class1 = $('#'+x).attr('class');
+    	   console.log($('#'+x).addClass('view view-tenth mask'));
+    	}
+
+    	function normalImg(x) {
+    	    x.style.height = "223px";
+    	    x.style.width = "43%";
+    	}
 	</script>
 
 </html>

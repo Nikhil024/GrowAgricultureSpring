@@ -19,3 +19,5 @@
     <link href="<spring:url value="/resources/dashboard/css/themify-icons.css"/>" rel="stylesheet">
     <link href="<spring:url value="/resources/css/styles.css"/>" rel="stylesheet" />
     <link href="<spring:url value="/resources/css/animate.css"/>" rel="stylesheet" />
+    <link href="<spring:url value="/resources/css/hover.css"/>" rel="stylesheet" />
+
